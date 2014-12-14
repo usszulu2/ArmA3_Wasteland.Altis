@@ -1,0 +1,1 @@
+cctv_max_distance = -1; // -1 unlimited

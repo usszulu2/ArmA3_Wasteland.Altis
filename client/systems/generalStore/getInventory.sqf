@@ -131,6 +131,21 @@ for [{_x=1},{_x<=_amount},{_x=_x+1}] do
 };
 
 
+_amount = MF_ITEMS_CCTV_CAMERA call mf_inventory_count;
+for [{_x=1},{_x<=_amount},{_x=_x+1}] do
+{
+	playerInventory set [_index, MF_ITEMS_CCTV_CAMERA];
+	_index = _index + 1;
+};
+
+_amount = MF_ITEMS_CCTV_BASE call mf_inventory_count;
+for [{_x=1},{_x<=_amount},{_x=_x+1}] do
+{
+	playerInventory set [_index, MF_ITEMS_CCTV_BASE];
+	_index = _index + 1;
+};
+
+
 {
 	_class = _x;
 
