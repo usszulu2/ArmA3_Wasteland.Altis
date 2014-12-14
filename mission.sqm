@@ -92,7 +92,7 @@ class Mission
 	randomSeed=14957468;
 	class Intel
 	{
-		briefingName="A3Wasteland Altis v1.0b";
+		briefingName="A3Wasteland Altis v1.0c";
 		overviewText="Wasteland survival sandbox by Team Wasteland - visit A3Wasteland.com for more details";
 		resistanceWest=0;
 		startWeather=0.10000001;
@@ -2667,7 +2667,7 @@ class Mission
 		};
 		class Item36
 		{
-			position[]={12571.198,33.202263,16321.856};
+			position[]={12574.066,33.292294,16320.846};
 			name="Mission_3";
 			type="Empty";
 			colorName="ColorOrange";
@@ -2688,7 +2688,7 @@ class Mission
 		};
 		class Item39
 		{
-			position[]={19892.092,64.21077,17829.006};
+			position[]={19886.855,65.16983,17849.635};
 			name="Mission_7";
 			type="Empty";
 			colorName="ColorOrange";
@@ -2730,7 +2730,7 @@ class Mission
 		};
 		class Item45
 		{
-			position[]={3067.5686,30.175802,18451.545};
+			position[]={2998.4082,32.631886,18508.988};
 			name="Mission_13";
 			type="Empty";
 			colorName="ColorOrange";
@@ -2751,14 +2751,14 @@ class Mission
 		};
 		class Item48
 		{
-			position[]={20120.457,15.311475,19884.57};
+			position[]={20150.699,15.581096,19873.928};
 			name="Mission_16";
 			type="Empty";
 			colorName="ColorOrange";
 		};
 		class Item49
 		{
-			position[]={21215.496,1.9212902,10656.045};
+			position[]={21236.416,2.4247937,10639.023};
 			name="Mission_17";
 			type="Empty";
 			colorName="ColorOrange";
@@ -2779,7 +2779,7 @@ class Mission
 		};
 		class Item52
 		{
-			position[]={6170.2021,44.518726,16368.712};
+			position[]={6171.6982,44.522717,16368.712};
 			name="Mission_20";
 			type="Empty";
 			colorName="ColorOrange";
