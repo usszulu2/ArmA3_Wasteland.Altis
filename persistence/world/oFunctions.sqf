@@ -58,6 +58,11 @@ o_isSaveable = {
     (cfg_staticWeaponSaving_on)
   };
 
+  if ([_obj] call sh_isCamera) exitWith {
+    (cfg_cctvCameraSaving_on)
+  };
+
+
   def(_locked);
   _locked = _obj getVariable ["objectLocked", false];
 
@@ -204,6 +209,12 @@ o_restoreObject = {_this spawn {
     pvar_spawn_beacons pushBack _obj;
     publicVariable "pvar_spawn_beacons";
   };
+
+  cctv_cameras = OR(cctv_cameras,[]);
+  if ([_obj] call sh_isCamera) then {
+    cctv_cameras pushBack _obj;
+    publicVariable "cctv_cameras";
+  };
   
   //restore the stuff inside the object  
   clearWeaponCargoGlobal _obj;
@@ -322,6 +333,13 @@ o_fillVariables = {
     _variables pushBack ["packing", false];
     _variables pushBack ["groupOnly", _obj getVariable ["groupOnly", false]];
     _variables pushBack ["ownerName", _obj getVariable ["ownerName", "[Beacon]"]];
+  };
+
+  if ([_obj] call sh_isCamera) then {
+    _variables pushBack ["a3w_cctv_camera", (_obj getVariable ["a3w_cctv_camera", nil])];
+    _variables pushBack ["camera_name", (_obj getVariable ["camera_name", nil])];
+    _variables pushBack ["camera_owner_type", (_obj getVariable ["camera_owner_type", nil])];
+    _variables pushBack ["camera_owner_value", (_obj getVariable ["camera_owner_value", nil])];
   };
 
   def(_r3fSide);

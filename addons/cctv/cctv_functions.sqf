@@ -238,10 +238,11 @@ cctv_camera_use = {
 
   if (isNil "_camera" || {typeName _camera != typeName objNull || {isNull _camera}}) exitWith {false};
 
+  _camera setVariable ["a3w_cctv_camera", true, true];
   _camera setVariable ["camera_name", _camera_name, true];
   _camera setVariable ["camera_owner_type", _owner_type, true];
   _camera setVariable ["camera_owner_value", _owner_value, true];
-  _camera setVariable ["camera_on", true, true];
+
 
   if (isNil "cctv_cameras") then {
     cctv_cameras = [];
