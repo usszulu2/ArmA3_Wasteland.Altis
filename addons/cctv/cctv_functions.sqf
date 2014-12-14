@@ -32,9 +32,12 @@ cctv_camera_view_next = {
   _source = [_camera_index,_cameras] call cctv_camera_data_get;
   if (!isOBJECT(_source) || {isNull _source}) exitWith {};
 
-  private["_camera_name"];
+  private["_camera_name", "_camera_owner_type"];
   _camera_name = _source getVariable ["camera_name", nil];
   if (!isSTRING(_camera_name) || {_camera_name == ""}) exitWith {};
+
+   _camera_owner_type = _source getVariable ["camera_owner_type", nil];
+   if (!isSTRING(_camera_owner_type) || {_camera_owner_type == ""}) exitWith {};
 
 
   if (not(isNull cctv_camera_view_last)) then {
@@ -69,7 +72,7 @@ cctv_camera_view_next = {
   _screen ctrlcommit 0;
 
   //set the camera name on the screen
-  [_camera_name] call laptop_flat_menu_update_text_tl;
+  [format["%1: %2", (toUpper _camera_owner_type), _camera_name]] call laptop_flat_menu_update_text_tl;
 
   //update the next cell index
   if (_camera_index >= (count(_cameras) -1)) then {
@@ -118,16 +121,11 @@ cctv_security_laptop_event_handler = {
 
 cctv_cameras = OR(cctv_cameras,[]);
 
-cctv_get_accessible_cameras = {
-  ARGVX3(0,_player,objNull);
-  if (!isARRAY(cctv_cameras) || {count(cctv_cameras) == 0}) then {[]};
+cctv_get_group_uids = {
+  ARGVX4(0,_player,objNull,[]);
 
-  private["_uid", "_side", "_group_uids"];
-  _uid = getPlayerUID _player;
-  _side = str(side _player);
-  _group_uids = [_uid];
-
-  //make a list with the UIDs for the group members
+  private["_group_uids"];
+  _group_uids = [getPlayerUID _player];
   {if (true) then {
     private["_member"];
     _member = _x;
@@ -139,6 +137,21 @@ cctv_get_accessible_cameras = {
 
     _group_uids pushBack _member_uid;
   };} forEach (units (group _player));
+
+  (_group_uids)
+};
+
+cctv_get_accessible_cameras = {
+  ARGVX3(0,_player,objNull);
+  if (!isARRAY(cctv_cameras) || {count(cctv_cameras) == 0}) then {[]};
+
+  private["_uid", "_side", "_group_uids"];
+  _uid = getPlayerUID _player;
+  _side = str(side _player);
+  _group_uids = [_player] call cctv_get_group_uids;
+
+  //make a list with the UIDs for the group members
+
 
   //player groupChat format["_uid = %1, _side = %2, _group_uids = %3", _uid, _side, _group_uids];
 
@@ -162,11 +175,11 @@ cctv_get_accessible_cameras = {
     _owner_value = _camera getVariable ["camera_owner_value", nil];
     if (!isSTRING(_owner_value) || {_owner_value == ""}) exitWith {};
 
-	//player groupChat format["_owner_type = %1, _owner_value = %2", _owner_type, _owner_value];
+	  //player groupChat format["_owner_type = %1, _owner_value = %2", _owner_type, _owner_value];
 
-    if (not((_owner_type == "player" && {_owner_value == _uid}) ||{
-        (_owner_type == "side" && {_owner_value == _side}) ||{
-        (_owner_type == "group" && {_owner_value in _group_uids})}})) exitWith {};
+    if (!((_owner_type == "player" && {_owner_value == _uid}) ||{
+          (_owner_type == "side" && {_owner_value == _side}) ||{
+          (_owner_type == "group" && {_owner_value in _group_uids})}})) exitWith {};
 
     _cameras pushBack _camera;
   };} forEach cctv_cameras;
@@ -184,7 +197,7 @@ cctv_security_laptop_menu = {
   //player groupChat format["_cameras = %1", _cameras];
 
   if (count(_cameras) == 0) exitWith {
-    player groupChat format["There are no CCTV cameras currently accessible"];
+    player groupChat format["There are no CCTV cameras currently accessible."];
   };
 
   private["_handler"];
@@ -195,6 +208,71 @@ cctv_security_laptop_menu = {
 
 
 #define MUTEX_UNLOCK mutexScriptInProgress = false; doCancelAction = false
+
+cctv_get_cameras_by_type = {
+  ARGVX4(0,_player,objNull,[]);
+  ARGVX4(1,_type,"",[]);
+
+  private["_uid", "_side", "_group_uids"];
+  _uid = getPlayerUID _player;
+  _side = str(side _player);
+  _group_uids = [_player] call cctv_get_group_uids;
+
+  cctv_cameras = OR(cctv_cameras,[]);
+
+  private["_result"];
+  _result = [];
+  {if (true) then {
+    private["_camera"];
+    _camera = _x;
+    if (!isOBJECT(_camera) || {isNull _camera}) exitWith {};
+
+    private["_ctype", "_cvalue"];
+    _ctype = _camera getVariable "camera_owner_type";
+    _cvalue = _camera getVariable "camera_owner_value";
+    if (!isSTRING(_ctype) || {_ctype == ""}) exitWith {};
+    if (!isSTRING(_cvalue) || {_cvalue == ""}) exitWith {};
+    if (_type != _ctype) exitWith {};
+
+    if ((_type == "group" && {_cvalue in _group_uids}) || {
+        (_type == "side" && {_cvalue == _side}) || {
+        (_type == "player" && {_cvalue == _uid})}}) exitWith {
+      _result pushBack _camera;
+    };
+  };} forEach cctv_cameras;
+
+  (_result)
+};
+
+cctv_enforce_limits = {
+  ARGVX3(0,_player,objNull);
+  ARGVX3(1,_owner_type,"");
+
+  cctv_cameras = OR(cctv_cameras,[]);
+
+  private["_old_cameras", "_count"];
+  _old_cameras = [_player,_owner_type] call cctv_get_cameras_by_type;
+  _count = count(_old_cameras);
+
+  if(!((_owner_type == "player" && {_count >= cctv_max_deployed_player_cameras}) || {
+       (_owner_type == "group" && {_count >= cctv_max_deployed_group_cameras}) || {
+       (_owner_type == "side" && {_count >= cctv_max_deployed_side_cameras})}})) exitWith {};
+
+
+  if (_owner_type == "player") then {
+    player groupChat format["You already have %1 personal CCTV camera(s) deployed.", _count];
+  }
+  else {
+    player groupChat format["There are already %1 %2 CCTV camera(s) deployed.", _count, toUpper _owner_type];
+  };
+
+  private["_camera_to_delete"];
+  _camera_to_delete = _old_cameras select 0;
+  player groupChat format["Camera ""%1"" was deleted.", (_camera_to_delete getVariable "camera_name")];
+  deleteVehicle _camera_to_delete;
+  cctv_cameras = cctv_cameras - [objNull];
+};
+
 
 cctv_camera_use = {
   //this is needed in order for the mf_inventory_drop call to work (since it's nested inside USE)
@@ -243,11 +321,7 @@ cctv_camera_use = {
   _camera setVariable ["camera_owner_type", _owner_type, true];
   _camera setVariable ["camera_owner_value", _owner_value, true];
 
-
-  if (isNil "cctv_cameras") then {
-    cctv_cameras = [];
-  };
-
+  [_player, _owner_type] call cctv_enforce_limits;
   cctv_cameras pushBack _camera;
   publicVariable "cctv_cameras";
 

@@ -145,7 +145,7 @@ laptop_flat_menu_setup = {_this spawn {
 
 
   private["_lstx","_lsty","_lstw","_lsth"];
-  _lstw = _bspw * 3;
+  _lstw = _bspw * 3.5;
   _lsth = _bsph * 1.5;
   _lstx = _bspx - _bspw * 0.97;
   _lsty = _bspy - _bsph * 27.9;
