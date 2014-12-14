@@ -142,8 +142,8 @@ weighted_list =
 [
   [1, sniper_loadout],
   [1.1, aa_loadout],
-  [1, at_loadout],
-  [1.2, support_loadout],
+  [0.8, at_loadout],
+  [1.1, support_loadout],
   [1, rifleman_loadout],
   [1, grenadier_loadout]
 ];
