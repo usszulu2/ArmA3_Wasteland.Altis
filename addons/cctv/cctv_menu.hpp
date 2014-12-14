@@ -45,7 +45,7 @@ class cctv_menu {
 		text = "";
 	};
 
-	class cctv_menu_camera_name_field: cctv_ui_RscText {
+	class cctv_menu_camera_name_field: cctv_ui_RscEdit {
 		idc = cctv_menu_camera_name_field_idc;
 		x = 0.49-10; y = 0.47-10;
 		w = 0.18; h = 0.04;

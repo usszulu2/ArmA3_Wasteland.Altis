@@ -54,16 +54,19 @@ cctv_camera_view_next = {
   _camera camPrepareFocus [-1,-1];
   _camera camCommitPrepared 0;
   _camera cameraeffect ["internal","back",_rendertarget];
+
   cctv_camera_view_last = _camera;
 
   //update the screen with the camera view
+
   private["_screen"];
   _screen = call laptop_flat_menu_screen_control;
+  if (not(sunOrMoon > 0)) then {
+    _rendertarget setPiPEffect [1];
+  };
   _screen ctrlsettext format ["#(argb,512,512,1)r2t(%1,1.0)",_rendertarget];
   _screen ctrlsettextcolor [1,1,1,1];
   _screen ctrlcommit 0;
-
-  _rendertarget setPiPEffect [0];
 
   //set the camera name on the screen
   [_camera_name] call laptop_flat_menu_update_text_tl;
@@ -254,6 +257,7 @@ cctv_base_use = {
   [player] call cctv_security_laptop_menu;
   false
 };
+
 
 
 cctv_functions_defined = true;

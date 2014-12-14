@@ -3,6 +3,7 @@
 #include "dikcodes.h"
 
 if (not(undefined(laptop_flat_menu_functions))) exitWith {};
+
 diag_log format["Loading laptop flat menu functions ..."];
 
 laptop_flat_event_type = 0;
@@ -144,7 +145,7 @@ laptop_flat_menu_setup = {_this spawn {
 
 
   private["_lstx","_lsty","_lstw","_lsth"];
-  _lstw = _bspw * 2;
+  _lstw = _bspw * 3;
   _lsth = _bsph * 1.5;
   _lstx = _bspx - _bspw * 0.97;
   _lsty = _bspy - _bsph * 27.9;
@@ -162,6 +163,7 @@ laptop_flat_menu_setup = {_this spawn {
   waitUntil {not(ctrlShown _laptop_flat_menu_background)};
   [[LAPTOP_EVENT_OFF],laptop_flat_off_event_cb] call laptop_flat_invoke_event_callback;
 };};
+
 
 laptop_flat_menu_functions = true;
 

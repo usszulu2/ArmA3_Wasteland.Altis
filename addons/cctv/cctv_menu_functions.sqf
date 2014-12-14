@@ -11,6 +11,48 @@ cctv_menu_result_ac = 1;
 cctv_menu_result_ac_type = 0;
 cctv_menu_result_ac_value = 1;
 
+strlen = {
+	private["_text"];
+	_text = _this select 0;
+	if (undefined(_text)) exitWith {0};
+	if (typeName _text != "STRING") exitWith {null};
+	(count (toArray _text))
+};
+
+substr = {
+	private["_string", "_start", "_length"];
+	_string = _this select 0;
+	_start = _this select 1;
+	_length = _this select 2;
+
+	if (undefined(_string)) exitWith {""};
+	if (undefined(_start)) exitWith {""};
+
+	if (typeName _string != "STRING") exitWith {""};
+	if (typeName _start != "SCALAR") exitWith {""};
+
+
+	private["_string_data", "_string_out_data"];
+	_string_data = toArray _string;
+	_string_out_data = [];
+
+	if (undefined(_length)) then {
+		_length = count(_string_data) - _start;
+	};
+
+	private["_i", "_count"];
+	_i = _start;
+	_count = 0;
+	while {(_i < (count _string_data)) && (_count < _length)} do {
+		_string_out_data set [_count, (_string_data select _i)];
+		_count = _count + 1;
+		_i = _i + 1;
+	};
+
+	(toString _string_out_data)
+};
+
+
 cctv_menu_dialog = { _this spawn {
   disableSerialization;
 
@@ -46,21 +88,87 @@ cctv_menu_dialog = { _this spawn {
   ];
 
   _list lbSetCurSel 0;
-  cctv_menu_result = nil;
 
   //Ok button
   buttonSetAction [
   cctv_menu_button_ok_idc,
   (
-    '  private["_access_control", "_name"];' +
+    '  cctv_menu_result = nil; ' +
+	'  private["_access_control", "_name"];' +
     '  _name  = ctrlText cctv_menu_camera_name_field_idc;' +
     '  _access_control  = call compile (lbData [cctv_menu_access_control_field_idc,lbCurSel cctv_menu_access_control_field_idc]);' +
-    '  cctv_menu_result = [_name,_access_control];' +
-    'closedialog 0;'
+    '  if ([_name] call cctv_camera_name_valid) then {' +
+    '    cctv_menu_result = [_name,_access_control];' +
+    '    closedialog 0;' +
+    '  };'
   )];
 
 };};
 
+cctv_camera_name_valid = {
+  ARGV3(0,_name,"");
+
+
+  if (isNil "_name") exitWith {
+    player groupChat format["The specified camera name is not valid", _min_length];
+    false
+  };
+
+  def(_len);
+  _len = [_name] call strlen;
+
+  def(_min_length);
+  _min_length = 5;
+  if (_len < _min_length) exitWith {
+    player groupChat format["The camera name must be at least %1 characters(s) long", _min_length];
+    false
+  };
+
+  def(_max_length);
+  _max_length = 30;
+  if (_len > 30) exitWith {
+    player groupChat format["The camera name length %1 exceeds the maximum of %2 characters(s)", _len, _max_length];
+    false
+  };
+
+  private["_other_camera"];
+  _other_camera = [_name] call cctv_get_camera_by_name;
+
+  if (!(isNil "_other_camera")) exitWith {
+    player groupChat format["The camera name %1, is already in use", _name];
+    false
+  };
+
+  true
+};
+
+cctv_get_camera_by_name = {
+  ARGVX3(0,_name, "");
+
+  if (isNil "cctv_cameras") exitWith {};
+
+  private["_result"];
+
+  {if (true) then {
+    private["_camera"];
+    _camera = _x;
+    if (!isOBJECT(_camera) || {isNull _camera}) exitWith {};
+
+    private["_cname"];
+    _cname = _camera getVariable "camera_name";
+    if (!isSTRING(_cname) || {_cname == ""}) exitWith {};
+
+    if (_cname == _name) exitWith {
+      _result = _camera;
+    };
+  };
+
+  if (!isNil "_result") exitWith {};
+  } forEach cctv_cameras;
+
+  (OR(_result,nil))
+
+};
 
 cctv_menu_combo_focus = {
   ARGVX3(0,_control,controlNull);
@@ -154,13 +262,11 @@ cctv_menu_setup = {
   _cctv_menu_background ctrlCommit 0;
 
 
-
-
   //cctv camera name label
   private["_cnlx","_cnly","_cnlw","_cnlh"];
   _cnlx = _cbx + _sep * 2;
   _cnly = _cby + _sep * 2;
-  _cnlw = (_cbw - _sep *6) / 2;
+  _cnlw = (_cbw - _sep *6) / 2 - (_sep * 3);
   _cnlh = 0.04;
 
   _cctv_menu_camera_name_label ctrlSetText "Camera name: ";
@@ -168,11 +274,12 @@ cctv_menu_setup = {
   _cctv_menu_camera_name_label ctrlSetFontHeight _button_font_height - 0.003;
   _cctv_menu_camera_name_label ctrlCommit 0;
 
+
   //cctv camera name field
   private["_cnfx","_cnfy","_cnfw","_cnfh"];
   _cnfx = _cnlx + _cnlw + _sep * 2 ;
   _cnfy = _cnly;
-  _cnfw = _cnlw;
+  _cnfw = _cnlw + (_sep * 5);
   _cnfh = _cnlh;
 
   _cctv_menu_camera_name_field ctrlSetText _camera_name;
@@ -199,7 +306,7 @@ cctv_menu_setup = {
   private["_cafx","_cafy","_cafw","_cafh"];
   _cafx = _calx + _calw + _sep * 2 ;
   _cafy = _caly;
-  _cafw = _calw;
+  _cafw = _calw + (_sep * 5);
   _cafh = _calh;
 
   _cctv_menu_access_control_field ctrlSetFontHeight _button_font_height - 0.003;;
