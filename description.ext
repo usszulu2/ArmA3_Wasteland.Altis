@@ -57,6 +57,10 @@ loadScreen = "mapConfig\Loading.jpg";
 #include "addons\gui\gui.hpp"
 #include "addons\parking\list_simple_menu.hpp"
 
+#include "addons\cctv\laptop_flat_menu.hpp"
+#include "addons\cctv\cctv_menu.hpp"
+
+
 
 class RscTitles
 {
