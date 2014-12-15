@@ -340,6 +340,7 @@ o_fillVariables = {
     _variables pushBack ["camera_name", (_obj getVariable ["camera_name", nil])];
     _variables pushBack ["camera_owner_type", (_obj getVariable ["camera_owner_type", nil])];
     _variables pushBack ["camera_owner_value", (_obj getVariable ["camera_owner_value", nil])];
+    _variables pushBack ["mf_item_id", (_obj getVariable ["mf_item_id", nil])];
   };
 
   def(_r3fSide);
