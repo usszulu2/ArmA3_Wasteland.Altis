@@ -531,7 +531,7 @@ o_saveAllObjects = {
       diag_log format["o_saveLoop: %1 objects saved in %2 ticks, save call took %3 ticks", (_bulk_size), (diag_tickTime - _start_time), (_save_end - _save_start)];
       _last_save = _save_end;
     };
-  } forEach (tracked_objects_list);
+  } forEach (_all_objects);
   
   if (count(_request) > 1) then {
     init(_save_start, diag_tickTime);
