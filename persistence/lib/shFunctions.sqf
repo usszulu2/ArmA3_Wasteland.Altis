@@ -86,6 +86,12 @@ sh_isWarchest = {
   )
 };
 
+sh_isMine = {
+  ARGVX4(0,_obj,objNull,false);
+  init(_class,typeOf _obj);
+  (_class isKindOf "MineBase")
+};
+
 sh_isAMissionVehicle = {
   ARGVX4(0,_obj,objNull,false);
   def(_mission);

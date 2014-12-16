@@ -204,3 +204,15 @@ vehicleAddition2 =
 	"Chemlight_yellow",
 	"Chemlight_red"
 ];
+
+minesList = 
+[
+	"DemoCharge_Remote_Mag",
+	"SatchelCharge_Remote_Mag",
+	"ATMine_Range_Mag",
+	"ClaymoreDirectionalMine_Remote_Mag",
+	"APERSMine_Range_Mag",
+	"APERSBoundingMine_Range_Mag",
+	"SLAMDirectionalMine_Wire_Mag",
+	"APERSTripMine_Wire_Mag"
+]

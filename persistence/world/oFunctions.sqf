@@ -57,6 +57,10 @@ o_isSaveable = {
   if ([_obj] call sh_isStaticWeapon) exitWith {
     (cfg_staticWeaponSaving_on)
   };
+  
+  if ([_obj] call sh_isMine) exitWith {
+    (cfg_MineSaving_on)
+  };
 
   def(_locked);
   _locked = _obj getVariable ["objectLocked", false];
@@ -273,7 +277,7 @@ o_saveList = [];
   if ((o_saveList find _obj) >= 0) exitWith {};
   
   o_saveList pushBack _obj;
-};} forEach [objectList, call genObjectsArray];
+};} forEach [objectList, call genObjectsArray, minesList];
 
 
 o_isInSaveList = {

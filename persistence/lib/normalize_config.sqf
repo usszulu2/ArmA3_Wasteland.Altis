@@ -12,10 +12,12 @@ cfg_boxSaving_on = ON_SCALAR(A3W_boxSaving);
 cfg_warchestSaving_on = ON_SCALAR(A3W_warchestSaving);
 cfg_warchestMoneySaving_on = ON_SCALAR(A3W_warchestMoneySaving);
 cfg_baseSaving_on = ON_SCALAR(A3W_baseSaving);
+cfg_MineSaving_on = ON_SCALAR(A3W_mineSaving);
 
 
 A3W_saveable_vehicles_list = OR_ARRAY(A3W_saveable_vehicles_list,[]);
 A3W_objectLifetime = OR_SCALAR(A3W_objectLifetime,0);
+A3W_mineLifetime = OR_SCALAR(A3W_mineLifetime,0);
 A3W_object_saveInterval = OR_POSITIVE(A3W_object_saveInterval,60);
 A3W_player_saveInterval = OR_POSITIVE(A3W_player_saveInterval,60);
 A3W_playersList_saveInterval = OR_POSITIVE(A3W_playersList_saveInterval,60);
@@ -45,9 +47,11 @@ diag_log format["[INFO] config: A3W_boxSaving = %1", cfg_boxSaving_on];
 diag_log format["[INFO] config: A3W_warchestSaving = %1", cfg_warchestSaving_on];
 diag_log format["[INFO] config: A3W_warchestMoneySaving = %1", cfg_warchestMoneySaving_on];
 diag_log format["[INFO] config: A3W_baseSaving = %1", cfg_baseSaving_on];
+diag_log format["[INFO] config: A3W_mineSaving = %1", cfg_MineSaving_on];
 
 
 diag_log format["[INFO] config: A3W_objectLifetime = %1", A3W_objectLifetime];
+diag_log format["[INFO] config: A3W_mineLifetime = %1", A3W_mineLifetime];
 diag_log format["[INFO] config: A3W_object_saveInterval = %1", A3W_object_saveInterval];
 diag_log format["[INFO] config: A3W_player_saveInterval = %1", A3W_player_saveInterval];
 diag_log format["[INFO] config: A3W_playersList_saveInterval = %1", A3W_playersList_saveInterval];
