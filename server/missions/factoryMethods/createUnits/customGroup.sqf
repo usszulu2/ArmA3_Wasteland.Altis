@@ -142,8 +142,8 @@ weighted_list =
 [
   [1, sniper_loadout],
   [1.1, aa_loadout],
-  [1, at_loadout],
-  [1.2, support_loadout],
+  [0.8, at_loadout],
+  [1.1, support_loadout],
   [1, rifleman_loadout],
   [1, grenadier_loadout]
 ];
@@ -204,7 +204,10 @@ for "_i" from 1 to _nbUnits do
     _loadout = call get_weighted_loadout;
     _unit call _loadout;
   };
-
+  
+	_unit addPrimaryWeaponItem "acc_flashlight";
+	_unit enablegunlights "forceOn";
+	
   _unit addRating 1e11;
   _unit spawn addMilCap;
   _unit spawn refillPrimaryAmmo;

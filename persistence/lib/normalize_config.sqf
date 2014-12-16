@@ -1,13 +1,14 @@
 #include "macro.h"
 
-#define ON_SCALAR(v) (isSCALAR(v) && {v == 1})
-
+#define ON_SCALAR(v) (if(isCODE(v)) then { private["_val"]; _val = call v; (isSCALAR(_val) && {_val == 1})} else {(isSCALAR(v) && {v == 1})})
 
 cfg_missionVehicleSaving_on = ON_SCALAR(A3W_missionVehicleSaving);
 cfg_purchasedVehicleSaving_on = ON_SCALAR(A3W_purchasedVehicleSaving);
 cfg_townVehicleSaving_on = ON_SCALAR(A3W_townVehicleSaving);
 cfg_staticWeaponSaving_on = ON_SCALAR(A3W_staticWeaponSaving);
 cfg_spawnBeaconSaving_on = ON_SCALAR(A3W_spawnBeaconSaving);
+cfg_cctvCameraSaving_on = ON_SCALAR(A3W_cctvCameraSaving);
+
 cfg_boxSaving_on = ON_SCALAR(A3W_boxSaving);
 cfg_warchestSaving_on = ON_SCALAR(A3W_warchestSaving);
 cfg_warchestMoneySaving_on = ON_SCALAR(A3W_warchestMoneySaving);
@@ -43,6 +44,7 @@ diag_log format["[INFO] config: A3W_missionVehicleSaving = %1", cfg_missionVehic
 diag_log format["[INFO] config: A3W_townVehicleSaving = %1", cfg_townVehicleSaving_on];
 diag_log format["[INFO] config: A3W_staticWeaponSaving = %1", cfg_staticWeaponSaving_on];
 diag_log format["[INFO] config: A3W_spawnBeaconSaving = %1", cfg_spawnBeaconSaving_on];
+diag_log format["[INFO] config: A3W_cctvCameraSaving = %1", cfg_cctvCameraSaving_on];
 diag_log format["[INFO] config: A3W_boxSaving = %1", cfg_boxSaving_on];
 diag_log format["[INFO] config: A3W_warchestSaving = %1", cfg_warchestSaving_on];
 diag_log format["[INFO] config: A3W_warchestMoneySaving = %1", cfg_warchestMoneySaving_on];

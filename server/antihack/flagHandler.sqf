@@ -20,10 +20,6 @@ if (typeName _this == "ARRAY" && {count _this > 4}) then
 		_hackType = _this select 2;
 		_hackValue = _this select 3;
 
-		// Bug #8396 - serverCommand doesn't work for ARMA 3 as of 2013-05-16
-		// serverCommand format ["#exec ban %1", _playerID];
-		// serverCommand format ["#kick %1", _playerID];
-
 		sleep 0.5;
 
 		[[format ["[ANTI-HACK] %1 is using cheating scripts. (%2)", _playerName, _hackType], _playerID, _flagChecksum], "A3W_fnc_chatBroadcast", true, false] call A3W_fnc_MP;

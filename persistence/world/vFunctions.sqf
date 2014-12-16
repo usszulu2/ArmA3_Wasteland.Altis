@@ -233,6 +233,22 @@ v_untrackVehicle = {
   tracked_vehicles_list deleteAt _index;
 };
 
+fn_manualVehicleSave = {
+  ARGVX2(0,_object);
+
+  if (isSTRING(_object)) then {
+    _object = objectFromNetId _object;
+  };
+
+  if (!isOBJECT(_object)) exitWith {};
+  if (diag_tickTime - (_object getVariable ["vehSaving_lastSave", 0]) <= MANUAL_VEH_SAVE_COOLDOWN) exitWith {};
+
+  _object setVariable ["vehSaving_lastUse", diag_tickTime];
+  _object setVariable ["vehSaving_lastSave", diag_tickTime];
+  [_object] call v_trackVehicle;
+};
+
+
 v_trackedVehiclesListCleanup = {
   //post cleanup the array
   init(_cleanup_start, diag_tickTime);
@@ -613,15 +629,21 @@ v_loadVehicles = {
   def(_vehicles);
   _vehicles = [_scope] call stats_get;
 
+  init(_vIds,[]);
+
+
   //nothing to load
   if (!isARRAY(_vehicles)) exitWith {};
 
   diag_log format["A3Wasteland - will restore %1 vehicles", count(_vehicles)];
   {
+    _vIds pushBack (_x select 0);
     [_x] call v_restoreVehicle;
   } forEach _vehicles;
 
   v_loadVehicles_complete = true;
+
+  (_vIds)
 };
 
 diag_log "vFunctions.sqf loading complete";

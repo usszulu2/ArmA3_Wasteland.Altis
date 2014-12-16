@@ -48,6 +48,8 @@ if (_success) then {
   publicVariableServer "untrackObject";
 
 	publicVariable "pvar_spawn_beacons";
+	pvar_manualObjectDelete = [netId _beacon, _beacon getVariable "A3W_objectID"];
+	publicVariableServer "pvar_manualObjectDelete";
 	deleteVehicle _beacon;
 	[MF_ITEMS_SPAWN_BEACON, 1] call mf_inventory_add;
 	["You successfully packed the Spawn Beacon", 5] call mf_notify_client;

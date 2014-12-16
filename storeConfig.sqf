@@ -125,9 +125,9 @@ staticGunsArray = compileFinal str
 	["Mk32 GMG 20mm High tripod (NATO)", "B_GMG_01_high_F", 6000],
 	["Mk32 GMG 20mm High tripod (CSAT)", "O_GMG_01_high_F", 6000],
 	["Mk32 GMG 20mm High tripod (AAF)", "I_GMG_01_high_F", 6000],
-	["Mk6 Mortar (NATO)", "B_Mortar_01_F", 12500],
-	["Mk6 Mortar (CSAT)", "O_Mortar_01_F", 12500],
-	["Mk6 Mortar (AAF)", "I_Mortar_01_F", 12500]
+	["Mk6 Mortar (NATO)", "B_Mortar_01_F", 15000],
+	["Mk6 Mortar (CSAT)", "O_Mortar_01_F", 15000],
+	["Mk6 Mortar (AAF)", "I_Mortar_01_F", 15000]
 ];
 
 throwputArray = compileFinal str
@@ -416,8 +416,8 @@ uniformArray = compileFinal str
 	["Polo (Burgundy)", "U_C_Poloshirt_burgundy", 25, "uni"],
 	["Polo (Blue/green)", "U_C_Poloshirt_stripped", 25, "uni"],*/
 	["Polo (Competitor)", "U_Competitor", 25, "uni"],
-	["Polo (Rangemaster)", "U_Rangemaster", 25, "uni"]/*,
-	["Racing Suit (Black)", "U_C_Driver_1_black", 25, "uni"], // can only be worn by civilian units
+	["Polo (Rangemaster)", "U_Rangemaster", 25, "uni"],
+	/*["Racing Suit (Black)", "U_C_Driver_1_black", 25, "uni"], // can only be worn by civilian units
 	["Racing Suit (Blue)", "U_C_Driver_1_blue", 25, "uni"],
 	["Racing Suit (Green)", "U_C_Driver_1_green", 25, "uni"],
 	["Racing Suit (Yellow)", "U_C_Driver_1_yellow", 25, "uni"],
@@ -427,7 +427,10 @@ uniformArray = compileFinal str
 	["Racing Suit (Fuel)", "U_C_Driver_1", 25, "uni"],
 	["Racing Suit (Bluking)", "U_C_Driver_2", 25, "uni"],
 	["Racing Suit (Redstone)", "U_C_Driver_3", 25, "uni"],
-	["Racing Suit (Vrana)", "U_C_Driver_4", 25, "uni"]*/
+	["Racing Suit (Vrana)", "U_C_Driver_4", 25, "uni"],*/
+	["Tron Light Suit (Blue)", "U_B_Protagonist_VR", 5000, "uni"],
+	["Tron Light Suit (Red)", "U_O_Protagonist_VR", 5000, "uni"],
+	["Tron Light Suit (Green)", "U_I_Protagonist_VR", 5000, "uni"]
 ];
 
 vestArray = compileFinal str
@@ -680,7 +683,7 @@ helicoptersArray = compileFinal str
 	["UH-80 Ghost Hawk (Green)", "B_Heli_Transport_01_camo_F", 25000, "vehicle"], // UH-60 Stealth with 2 side miniguns (green camo)
 	["CH-67 Huron (Armed) [DLC]", "B_Heli_Transport_03_F", 30000, "vehicle"], // CH-47 with 2 side miniguns
 	["AH-9 Pawnee", "B_Heli_Light_01_armed_F", 30000, "vehicle"], // Armed AH-6
-	["PO-30 Orca (Armed, Black)", "O_Heli_Light_02_v2_F", 30000, "vehicle"], // Armed Ka-60 with orca paintjob
+	["PO-30 Orca (Armed, Black)", "O_Heli_Light_02_v2_F", 35000, "vehicle"], // Armed Ka-60 with orca paintjob
 	["PO-30 Orca (Armed, Hex)", "O_Heli_Light_02_F", 35000, "vehicle"], // Armed Ka-60
 	["WY-55 Hellcat (Armed)", "I_Heli_light_03_F", 40000, "vehicle"], // Armed AW159
 	["AH-99 Blackfoot", "B_Heli_Attack_01_F", 50000, "vehicle"], // RAH-66 with gunner
@@ -809,7 +812,10 @@ customPlayerItems = compileFinal str
 	["LSD", "lsd", localize "STR_WL_ShopDescriptions_LSD", "client\icons\lsd.paa", 3500, 3000],
 	["Marijuana", "marijuana", localize "STR_WL_ShopDescriptions_Marijuana", "client\icons\marijuana.paa", 3500, 3000],
 	["Cocaine", "cocaine", localize "STR_WL_ShopDescriptions_Cocaine", "client\icons\cocaine.paa", 3500, 3000],
-	["Heroin", "heroin", localize "STR_WL_ShopDescriptions_Heroin", "client\icons\heroin.paa", 3500, 3000]
+	["Heroin", "heroin", localize "STR_WL_ShopDescriptions_Heroin", "client\icons\heroin.paa", 3500, 3000],
+
+	["IP/Net Camera", "cctv_camera", localize "STR_WL_ShopDescriptions_CCTV_Camera", "addons\cctv\icons\camcorder.paa", 850, 500],
+  ["Camera Terminal", "cctv_base", localize "STR_WL_ShopDescriptions_CCTV_Base", "addons\cctv\icons\laptop.paa", 500, 300]
 ];
 
 call compile preprocessFileLineNumbers "mapConfig\storeOwners.sqf";

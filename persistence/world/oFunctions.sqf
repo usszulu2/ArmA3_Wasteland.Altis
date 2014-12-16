@@ -62,6 +62,11 @@ o_isSaveable = {
     (cfg_MineSaving_on)
   };
 
+  if ([_obj] call sh_isCamera) exitWith {
+    (cfg_cctvCameraSaving_on)
+  };
+
+
   def(_locked);
   _locked = _obj getVariable ["objectLocked", false];
 
@@ -208,6 +213,12 @@ o_restoreObject = {_this spawn {
     pvar_spawn_beacons pushBack _obj;
     publicVariable "pvar_spawn_beacons";
   };
+
+  cctv_cameras = OR(cctv_cameras,[]);
+  if ([_obj] call sh_isCamera) then {
+    cctv_cameras pushBack _obj;
+    publicVariable "cctv_cameras";
+  };
   
   //restore the stuff inside the object  
   clearWeaponCargoGlobal _obj;
@@ -326,6 +337,14 @@ o_fillVariables = {
     _variables pushBack ["packing", false];
     _variables pushBack ["groupOnly", _obj getVariable ["groupOnly", false]];
     _variables pushBack ["ownerName", _obj getVariable ["ownerName", "[Beacon]"]];
+  };
+
+  if ([_obj] call sh_isCamera) then {
+    _variables pushBack ["a3w_cctv_camera", (_obj getVariable ["a3w_cctv_camera", nil])];
+    _variables pushBack ["camera_name", (_obj getVariable ["camera_name", nil])];
+    _variables pushBack ["camera_owner_type", (_obj getVariable ["camera_owner_type", nil])];
+    _variables pushBack ["camera_owner_value", (_obj getVariable ["camera_owner_value", nil])];
+    _variables pushBack ["mf_item_id", (_obj getVariable ["mf_item_id", nil])];
   };
 
   def(_r3fSide);
@@ -516,6 +535,8 @@ o_trackedObjectsListCleanup = {
 };
 
 
+
+
 tracked_objects_list = [];
 
 o_getTrackedObjectIndex = {
@@ -525,9 +546,8 @@ o_getTrackedObjectIndex = {
   (tracked_objects_list find _obj)
 };
 
-//event handlers for object tracking, and untracking
-"trackObject" addPublicVariableEventHandler {
-  private["_index","_object"];
+o_trackObject = {
+ private["_index","_object"];
   _object = _this select 1;
   _index = [OR(_object,nil)] call o_getTrackedObjectIndex;
   if (_index >= 0) exitWith {};
@@ -536,8 +556,10 @@ o_getTrackedObjectIndex = {
   tracked_objects_list pushBack _object;
 };
 
+//event handlers for object tracking, and untracking
+"trackObject" addPublicVariableEventHandler { _this call o_trackObject; };
 
-"untrackObject" addPublicVariableEventHandler {
+o_untrackObject = {
   private["_index","_object"];
   _object = _this select 1;
   _index = [OR(_object,nil)] call o_getTrackedObjectIndex;
@@ -545,6 +567,28 @@ o_getTrackedObjectIndex = {
 
   //diag_log format["%1 is being removed from the tracked list", _object];
   tracked_objects_list deleteAt _index;
+};
+
+"untrackObject" addPublicVariableEventHandler { _this call o_untrackObject; };
+
+fn_manualObjectSave = {
+  ARGVX3(0,_netId,"");
+
+  def(_object);
+  _object = objectFromNetId _netId;
+  if (!isOBJECT(_object)) exitWith {};
+
+  [_object] call o_trackObject;
+};
+
+fn_manualObjectDelete = {
+  ARGVX3(0,_netId,"");
+
+  def(_object);
+  _object = objectFromNetId _netId;
+  if (!isOBJECT(_object)) exitWith {};
+
+  [_object] call o_untrackObject;
 };
 
 o_saveLoop = {
@@ -601,14 +645,19 @@ o_loadObjects = {
   
   def(_objects);
   _objects = [_scope] call stats_get;
+
+  init(_oIds,[]);
   
   //nothing to load
   if (!isARRAY(_objects)) exitWith {};
 
   diag_log format["A3Wasteland - will restore %1 objects", count(_objects)];
-  { 
+  {
+    _oIds pushBack (_x select 0);
     [_x] call o_restoreObject;
   } forEach _objects;
+
+  (_oIds)
 };
 
 diag_log "oFunctions.sqf loading complete";

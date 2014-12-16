@@ -67,7 +67,7 @@ player call playerSetupStart;
 _baseMoney = ["A3W_startingMoney", 100] call getPublicVar;
 player setVariable ["cmoney", _baseMoney, true];
 
-// Player saving - Load from iniDB
+// Player saving - load data
 if (["A3W_playerSaving"] call isConfigOn) then
 {
 	call compile preprocessFileLineNumbers "persistence\players\c_setupPlayerDB.sqf";
@@ -75,15 +75,17 @@ if (["A3W_playerSaving"] call isConfigOn) then
 
 	waitUntil {!isNil "playerData_loaded"};
 
-	[] spawn
+	A3W_scriptThreads pushBack ([] spawn
 	{
+		scriptName "savePlayerLoop";
+
 		// Save player every 60s
 		while {true} do
 		{
 			sleep 60;
 			call fn_savePlayerData;
 		};
-	};
+	});
 };
 
 if (isNil "playerData_alive") then
@@ -134,7 +136,7 @@ A3W_scriptThreads pushBack execVM "addons\Lootspawner\LSclientScan.sqf";
 [] execVM "addons\camera\functions.sqf";
 [] execVM "addons\water_edge\functions.sqf";
 [] execVM "addons\bank\functions.sqf";
-
+[] execVM "addons\cctv\functions.sqf";
 
 
 if (["A3W_teamPlayersMap"] call isConfigOn) then

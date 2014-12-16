@@ -60,6 +60,11 @@ loadScreen = "mapConfig\Loading.jpg";
 #include "addons\bank\ui.hpp"
 #include "addons\bank\bank_menu.hpp"
 
+#include "addons\cctv\ui.hpp"
+#include "addons\cctv\laptop_flat_menu.hpp"
+#include "addons\cctv\cctv_menu.hpp"
+
+
 
 class RscTitles
 {

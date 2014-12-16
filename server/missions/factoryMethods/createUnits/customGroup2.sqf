@@ -1,5 +1,5 @@
 // ******************************************************************************************
-// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// * This project is licensed under the GNU Affero GPL v3. Copyright Â© 2014 A3Wasteland.com *
 // ******************************************************************************************
 //	@file Name: customGroup2.sqf
 //	@file Author: AgentRev, JoSchaap
@@ -39,6 +39,11 @@ for "_i" from 1 to _nbUnits do
 	removeBackpack _unit;
 	removeHeadgear _unit;
 	removeGoggles _unit;
+
+	_unit addVest "V_HarnessOSpec_gry";
+	_unit addMagazine "30Rnd_556x45_Stanag";
+	_unit addMagazine "30Rnd_556x45_Stanag";
+	_unit addMagazine "30Rnd_556x45_Stanag";
 
 	_unit addVest "V_PlateCarrier1_rgr";
 	_unit addItem "FirstAidKit";
@@ -97,9 +102,9 @@ for "_i" from 1 to _nbUnits do
 		};
 	};
 
-_unit addPrimaryWeaponItem "acc_flashlight";
-_unit enablegunlights "forceOn";					//set to "forceOn" to force use of lights (during day too default = AUTO)
-	
+	_unit addPrimaryWeaponItem "acc_flashlight";
+	_unit enablegunlights "forceOn";
+
 	_unit addRating 1e11;
 	_unit spawn refillPrimaryAmmo;
 	_unit call setMissionSkill;
