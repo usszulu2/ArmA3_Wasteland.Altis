@@ -197,10 +197,10 @@ o_restoreObject = {_this spawn {
   def(_mineVisibility);
   _mineVisibility = _obj getVariable "mineVisibility";
   {
-	_side = _x call sh_strToSide;
-	_side revealMine _obj;
+    _side = _x call sh_strToSide;
+    _side revealMine _obj;
   
-  } forEach _mineVisibility
+  } forEach _mineVisibility;
 
 
   if (not([_obj] call o_isSaveable)) exitWith {
@@ -375,10 +375,16 @@ o_fillVariables = {
   };
 
   if ([_obj] call sh_isMine) then {
-    _variables pushBack ["a3w_mine", (_obj getVariable ["a3w_mine", nil])];
-    _variables pushBack ["mine_owner_uid", (_obj getVariable ["mine_owner_uid", nil])];
-    _variables pushBack ["mine_owner_name", (_obj getVariable ["mine_owner_name", nil])];
-    _variables pushBack ["mine_owner_side", (_obj getVariable ["mine_owner_side", nil])];
+    init(_mineVisilitiy,[]);
+    {
+      if (_obj mineDetectedBy _x) then {
+        _mineVisilitiy pushBack str(_x);
+      }
+    } forEach [EAST,WEST,INDEPENDENT];
+    
+    _variables pushBack ["a3w_mine", (_obj getVariable ["a3w_mine", nil])];  
+    _variables pushBack ["mineVisibility", _mineVisilitiy];
+    
   };
 
   def(_r3fSide);
