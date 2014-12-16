@@ -1,3 +1,6 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Version: 1.0
 //	@file Name: playerSpawn.sqf
 //	@file Author: [404] Deadbeat, AgentRev
@@ -7,7 +10,7 @@
 playerSpawning = true;
 
 //Teamkiller Kick
-if (!isNil "pvar_teamKillList") then
+if (!isNil "pvar_teamKillList" && {playerSide in [BLUFOR,OPFOR]}) then
 {
 	if ([pvar_teamKillList, getPlayerUID player, 0] call fn_getFromPairs >= 2) exitWith
 	{

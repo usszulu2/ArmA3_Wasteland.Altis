@@ -1,3 +1,6 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 
 //	@file Version: 1.0
 //	@file Name: getInventory.sqf
@@ -99,9 +102,38 @@ for [{_x=1},{_x<=_amount},{_x=_x+1}] do
 	_index = _index + 1;
 };
 
+_amount = MF_ITEMS_LSD call mf_inventory_count;
+for [{_x=1},{_x<=_amount},{_x=_x+1}] do
+{
+	playerInventory set [_index, MF_ITEMS_LSD];
+	_index = _index + 1;
+};
+
+_amount = MF_ITEMS_MARIJUANA call mf_inventory_count;
+for [{_x=1},{_x<=_amount},{_x=_x+1}] do
+{
+	playerInventory set [_index, MF_ITEMS_MARIJUANA];
+	_index = _index + 1;
+};
+
+_amount = MF_ITEMS_COCAINE call mf_inventory_count;
+for [{_x=1},{_x<=_amount},{_x=_x+1}] do
+{
+	playerInventory set [_index, MF_ITEMS_COCAINE];
+	_index = _index + 1;
+};
+
+_amount = MF_ITEMS_HEROIN call mf_inventory_count;
+for [{_x=1},{_x<=_amount},{_x=_x+1}] do
+{
+	playerInventory set [_index, MF_ITEMS_HEROIN];
+	_index = _index + 1;
+};
+
+
 {
 	_class = _x;
-	
+
 	{
 		if (_class == _x select 1) exitWith
 		{

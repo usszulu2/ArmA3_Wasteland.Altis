@@ -1,24 +1,24 @@
-																																																												asaerw3rw3r4 = 1; Menu_Init_Lol = 1;
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Version: 1.2
 //	@file Name: init.sqf
-//	@file Author: [404] Deadbeat, [GoT] JoSchaap
+//	@file Author: [404] Deadbeat, [GoT] JoSchaap, AgentRev
 //	@file Description: The main init.
 
 #define DEBUG false
 
 enableSaving [false, false];
 
-currMissionDir = compileFinal str call
-{
-	private "_arr";
-	_arr = toArray str missionConfigFile;
-	_arr resize (count _arr - 15);
-	toString _arr
-};
+_descExtPath = str missionConfigFile;
+currMissionDir = compileFinal str (_descExtPath select [0, count _descExtPath - 15]);
 
 X_Server = false;
 X_Client = false;
 X_JIP = false;
+
+//disable TAW grass Option 'None'
+tawvd_disablenone = true;
 
 // versionName = ""; // Set in STR_WL_WelcomeToWasteland in stringtable.xml
 
@@ -40,7 +40,7 @@ if (!isDedicated) then
 	[] spawn
 	{
 		9999 cutText ["Welcome to A3Wasteland, please wait for your client to initialize", "BLACK", 0.01];
-		
+
 		waitUntil {!isNull player};
 		removeAllWeapons player;
 		client_initEH = player addEventHandler ["Respawn", { removeAllWeapons (_this select 0) }];
@@ -65,3 +65,8 @@ if (isServer) then
 [] execVM "addons\proving_ground\init.sqf";
 [] execVM "addons\scripts\DynamicWeatherEffects.sqf";
 [] execVM "addons\JumpMF\init.sqf";
+[] execVM "addons\Explosives-To-Vehicle\init.sqf";
+[] execVM "addons\JTS_PM\Functions.sqf";
+[] execVM "addons\scripts\servercredits.sqf";
+[] execVM "addons\scripts\zlt_fastrope.sqf";
+[] execVM "addons\outlw_magRepack\MagRepack_init_sv.sqf";

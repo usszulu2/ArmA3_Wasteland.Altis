@@ -1,3 +1,6 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Version: 1.0
 //	@file Name: planeCreation.sqf
 //	@file Author: AgentRev
@@ -44,10 +47,6 @@ switch (true) do
 		_plane removeMagazines "4Rnd_Missile_AGM_01_F";
 		_plane addMagazine ["4Rnd_Missile_AGM_01_F", 0];
 		_plane addMagazine "2Rnd_Bomb_03_F";
-	};
-	case (_planeType isKindOf "Plane_Fighter_03_base_F"):
-	{
-		_plane addMagazine "300Rnd_20mm_shells";
 	};
 };
 

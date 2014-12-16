@@ -1,5 +1,8 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Name: briefing.sqf
-
+//
 if (!hasInterface) exitWith {};
 
 waitUntil {!isNull player};
@@ -7,6 +10,49 @@ waitUntil {!isNull player};
 player createDiarySubject ["infos", "Infos and Help"];
 player createDiarySubject ["changelog", "Changelog"];
 player createDiarySubject ["credits", "Credits"];
+
+player createDiaryRecord ["changelog",
+[
+"v1.0b",
+"
+<br/> [Added] Helicopters DLC content
+<br/> [Added] Revamped respawn menu
+<br/> [Added] 250m altitude limit for territory capture
+<br/> [Added] HALO insertion on spawn beacons
+<br/> [Added] New vehicle store textures
+<br/> [Changed] Increased damage done to planes by 50%
+<br/> [Changed] Plane engines shutdown when above 90% damage
+<br/> [Changed] Player names can also be toggled with Home key
+<br/> [Changed] Increased ATGM UAV price
+<br/> [Changed] Increased prices from thermal scopes again
+<br/> [Changed] Minor edits to spawn loadouts
+<br/> [Fixed] FPS drop that began in v0.9h
+<br/> [Fixed] Saved UAVs not being connectable
+<br/> [Fixed] Indies unable to get in UGVs
+<br/> [Fixed] Blinking fog
+<br/> [Fixed] Clipped numbers on scoreboard
+<br/> [Fixed] Minor other optimizations and fixes
+"
+]];
+
+player createDiaryRecord ["changelog",
+[
+"v1.0",
+"
+<br/> [Added] Custom scoreboard
+<br/> [Added] Mission and store vehicle saving
+<br/> [Added] Player markers on GPS and UAV Terminal
+<br/> [Added] Holster actions
+<br/> [Changed] Full rewrite of side mission system
+<br/> [Changed] Windows key toggles player marker names too
+<br/> [Changed] New loading picture by Gameaholic.se
+<br/> [Fixed] Weapon sometimes disppearing when moving objects
+<br/> [Fixed] More money duping exploits
+<br/> [Fixed] Store menu sizes on smaller aspect ratios
+<br/> [Fixed] Hunger and thirst reset on rejoin
+<br/> [Fixed] Other minor optimizations and fixes
+"
+]];
 
 player createDiaryRecord ["changelog",
 [
@@ -172,7 +218,7 @@ player createDiaryRecord ["credits",
 [
 "Credits",
 "
-<br/><font size='16' color='#BBBBBB'>Developed by Team Wasteland:</font>
+<br/><font size='16' color='#BBBBBB'>Developed by A3Wasteland.com:</font>
 <br/>	* AgentRev (TeamPlayerGaming)
 <br/>	* JoSchaap (GoT/Tweakers.net)
 <br/>	* MercyfulFate
@@ -262,7 +308,7 @@ player createDiaryRecord ["infos",
 <br/>Q. Where can I get a gun?
 <br/>A. Weapons are found in one of three places, first in ammo crates that come as rewards from missions, inside and outside buildings, and second, in the gear section of the vehicles, which also randomly spawn around the map. The last place to find a gun would be at the gunshops located throughout the map. You can also find them on dead players whose bodies have not yet been looted.
 <br/>
-<br/>Q. What are the grey circles on the map?
+<br/>Q. What are the blue circles on the map?
 <br/>A. The circles represent town limits. If friendly soldiers are in a town, you can spawn there from the re-spawn menu; however if there is an enemy presence, you will not be able to spawn there.
 <br/>
 <br/>Q. Why is it so dark, I cant see.

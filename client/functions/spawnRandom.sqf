@@ -1,3 +1,6 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Version: 1.1
 //	@file Name: spawnRandom.sqf
 //	@file Author: [404] Deadbeat, [404] Costlyy, [GoT] JoSchaap, AgentRev
@@ -18,6 +21,8 @@ if (_preload) then { waitUntil {sleep 0.1; preloadCamera _playerPos} };
 player setPos _playerPos;
 
 respawnDialogActive = false;
+player setVariable ["respawnDialogActive", false, true];
+
 closeDialog 0;
 
 _townName spawn

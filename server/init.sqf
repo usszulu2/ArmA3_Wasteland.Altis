@@ -1,3 +1,9 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Version: 1.1
 //	@file Name: init.sqf
 //	@file Author: [404] Deadbeat, [GoT] JoSchaap, AgentRev
@@ -12,13 +18,10 @@ externalConfigFolder = "\A3Wasteland_settings";
 vChecksum = compileFinal str call A3W_fnc_generateKey;
 
 // Corpse deletion on disconnect if player alive and player saving on
-addMissionEventHandler ["HandleDisconnect",
-{
-	if (isNil "isConfigOn" || {["A3W_playerSaving"] call isConfigOn}) then
-	{
-		_unit = _this select 0;
-		if (alive _unit) then { deleteVehicle _unit };
-	};
+addMissionEventHandler ["HandleDisconnect", {
+  diag_log format["HandleDisconnect %1", _this];
+  _this call p_disconnectSave;
+  deleteVehicle (_this select 0);
 }];
 
 //Execute Server Side Scripts.
@@ -74,7 +77,8 @@ forEach
 	"A3W_globalVoiceWarnTimer",
 	"A3W_globalVoiceMaxWarns",
 	"A3W_antiHackMinRecoil",
-	"A3W_spawnBeaconCooldown"
+	"A3W_spawnBeaconCooldown",
+	"A3W_spawnBeaconSpawnHeight"
 ];
 
 _playerSavingOn = ["A3W_playerSaving"] call isConfigOn;
@@ -85,7 +89,14 @@ _warchestSavingOn = ["A3W_warchestSaving"] call isConfigOn;
 _warchestMoneySavingOn = ["A3W_warchestMoneySaving"] call isConfigOn;
 _beaconSavingOn = ["A3W_spawnBeaconSaving"] call isConfigOn;
 
-_serverSavingOn = (_baseSavingOn || _boxSavingOn || _staticWeaponSavingOn || _warchestSavingOn || _warchestMoneySavingOn || _beaconSavingOn);
+_purchasedVehicleSavingOn = ["A3W_purchasedVehicleSaving"] call isConfigOn;
+_missionVehicleSavingOn = ["A3W_missionVehicleSaving"] call isConfigOn;
+
+_serverSavingOn = (_baseSavingOn || _boxSavingOn || _staticWeaponSavingOn || _warchestSavingOn || _warchestMoneySavingOn || _beaconSavingOn || _purchasedVehicleSavingOn || _missionVehicleSavingOn);
+_vehicleSavingOn = (_purchasedVehicleSavingOn || _purchasedVehicleSavingOn);
+
+_serverSavingOn = (_baseSavingOn || _boxSavingOn || _staticWeaponSavingOn || _warchestSavingOn || _warchestMoneySavingOn || _beaconSavingOn || _purchasedVehicleSavingOn || _missionVehicleSavingOn);
+_vehicleSavingOn = (_purchasedVehicleSavingOn || _purchasedVehicleSavingOn);
 
 _setupPlayerDB = scriptNull;
 
@@ -93,6 +104,10 @@ _setupPlayerDB = scriptNull;
 if (_playerSavingOn || _serverSavingOn) then
 {
 	_verIniDB = "iniDB" callExtension "version";
+	if (("sock" callExtension "version") != "") then {
+	  //sock-rpc-stats pretending to be iniDB 1.2
+	  _verIniDB = "1.2";
+	};
 
 	if (_verIniDB == "") then
 	{
@@ -128,19 +143,20 @@ if (_playerSavingOn || _serverSavingOn) then
 		_setupPlayerDB = [] spawn compile preprocessFileLineNumbers "persistence\players\s_setupPlayerDB.sqf"; // For some reason, scriptDone stays stuck on false on Linux servers when using execVM for this line...
 	};
 
-	[_serverSavingOn, _playerSavingOn] spawn
+	[_playerSavingOn, _serverSavingOn, _vehicleSavingOn] spawn
 	{
-		_serverSavingOn = _this select 0;
-		_playerSavingOn = _this select 1;
+		_playerSavingOn = _this select 0;
+		_serverSavingOn = _this select 1;
+		_vehicleSavingOn = _this select 2;
 
 		if (_serverSavingOn) then
 		{
 			call compile preprocessFileLineNumbers "persistence\world\oLoad.sqf";
 		};
 
-		if (_serverSavingOn || (_playerSavingOn && ["A3W_savingMethod", 1] call getPublicVar == 1)) then
+		if (_vehicleSavingOn) then
 		{
-			execVM "persistence\world\oSave.sqf";
+  		call compile preprocessFileLineNumbers "persistence\world\vLoad.sqf";
 		};
 	};
 
@@ -159,6 +175,8 @@ if (_playerSavingOn || _serverSavingOn) then
 	];
 };
 
+call compile preprocessFileLineNumbers "server\missions\setupMissionArrays.sqf";
+call compile preprocessFileLineNumbers "server\missions\setupMissionArrays.sqf";
 call compile preprocessFileLineNumbers "server\functions\createTownMarkers.sqf";
 
 _createTriggers = [] spawn compile preprocessFileLineNumbers "territory\server\createCaptureTriggers.sqf"; // For some reason, scriptDone stays stuck on false on Linux servers when using execVM for this line...
@@ -249,11 +267,7 @@ else
 if (["A3W_serverMissions"] call isConfigOn) then
 {
 	diag_log "WASTELAND SERVER - Initializing Missions";
-	[] execVM "server\missions\sideMissionController.sqf";
-	sleep 5;
-	[] execVM "server\missions\mainMissionController.sqf";
-	sleep 5;
-	[] execVM "server\missions\moneyMissionController.sqf";
+	[] execVM "server\missions\masterController.sqf";
 };
 
 // Start clean-up loop

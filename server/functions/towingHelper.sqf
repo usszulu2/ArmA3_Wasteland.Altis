@@ -1,3 +1,6 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Name: towingHelper.sqf
 //	@file Author: AgentRev
 
@@ -43,10 +46,5 @@ switch (_type) do
 		_veh lockDriver true;
 		_veh enableCopilot false;
 		_veh engineOn false;
-
-		if (!isNull player) then
-		{
-			player action ["EngineOff", _veh];
-		};
 	};
 };

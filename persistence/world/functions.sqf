@@ -1,3 +1,6 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Name: functions.sqf
 //	@file Author: AgentRev
 
@@ -26,3 +29,4 @@ _hasInventory =
 };
 
 _fileName = "Objects" call PDB_objectFileName;
+_fileName2 = "Vehicles" call PDB_objectFileName;

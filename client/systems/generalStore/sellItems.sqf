@@ -1,3 +1,6 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Version: 1.0
 //	@file Name: sellItems.sqf
 //	@file Author: [404] Deadbeat
@@ -12,12 +15,12 @@ storeSellingHandle = [] spawn
 {
 	disableSerialization;
 	private ["_getHalfPrice", "_playerMoney", "_size", "_dialog", "_itemlist", "_totalText", "_playerMoneyText", "_itemIndex", "_itemText", "_itemData", "_price"];
-	
-	_getHalfPrice = 
+
+	_getHalfPrice =
 	{
 		((ceil ((_this / 2) / 5)) * 5) // Ceil half the value to the nearest multiple of 5
 	};
-	
+
 	//Initialize Values
 	_playerMoney = player getVariable "cmoney";
 	_size = 0;
@@ -38,7 +41,7 @@ storeSellingHandle = [] spawn
 	{
 		if (_itemText == _x select 0 && _itemData == _x select 1) exitWith
 		{
-			_price = (_x select 5) call _getHalfPrice;
+			_price = (_x select 5);
 		};
 	} forEach (call customPlayerItems);
 

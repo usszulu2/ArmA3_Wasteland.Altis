@@ -1,3 +1,6 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //@file Version: 1.1
 //@file Name: init.sqf
 //@file Author: [404] Deadbeat, [GoT] JoSchaap, AgentRev, [KoS] Bewilderbeest
@@ -9,8 +12,6 @@ if (isDedicated) exitWith {};
 if (!isServer) then
 {
 	waitUntil {!isNil "A3W_network_compileFuncs"};
-	_networkCompile = call A3W_network_compileFuncs;
-	waitUntil {scriptDone _networkCompile};
 };
 
 waitUntil {!isNil "A3W_serverSetupComplete"};
@@ -20,11 +21,13 @@ waitUntil {!isNil "A3W_serverSetupComplete"};
 showPlayerIcons = true;
 mutexScriptInProgress = false;
 respawnDialogActive = false;
+player setVariable ["respawnDialogActive", false, true];
 groupManagmentActive = false;
 pvar_PlayerTeamKiller = objNull;
 doCancelAction = false;
-currentMissionsMarkers = [];
-currentRadarMarkers = [];
+
+//AJ Beacondetector
+BeaconScanInProgress = false;
 
 //Initialization Variables
 playerCompiledScripts = false;
@@ -69,9 +72,9 @@ if (["A3W_playerSaving"] call isConfigOn) then
 {
 	call compile preprocessFileLineNumbers "persistence\players\c_setupPlayerDB.sqf";
 	call fn_requestPlayerData;
-	
+
 	waitUntil {!isNil "playerData_loaded"};
-	
+
 	[] spawn
 	{
 		// Save player every 60s
@@ -107,15 +110,13 @@ if (count (["config_territory_markers", []] call getPublicVar) > 0) then
 //Setup Key Handler
 waitUntil {!isNull findDisplay 46};
 (findDisplay 46) displayAddEventHandler ["KeyDown", onKeyPress];
-//(findDisplay 46) displayAddEventHandler ["KeyUp", onKeyRelease];
+(findDisplay 46) displayAddEventHandler ["KeyUp", onKeyRelease];
 
 call compile preprocessFileLineNumbers "client\functions\setupClientPVars.sqf";
 
 //client Executes
 A3W_scriptThreads pushBack execVM "client\systems\hud\playerHud.sqf";
 [] execVM "client\functions\initSurvival.sqf";
-[] spawn updateMissionsMarkers;
-// [] call updateRadarMarkers;
 
 [] spawn
 {
@@ -130,6 +131,11 @@ A3W_scriptThreads pushBack execVM "addons\fpsFix\vehicleManager.sqf";
 A3W_scriptThreads pushBack execVM "addons\Lootspawner\LSclientScan.sqf";
 [] execVM "client\functions\drawPlayerIcons.sqf";
 [] execVM "addons\far_revive\FAR_revive_init.sqf";
+[] execVM "addons\camera\functions.sqf";
+[] execVM "addons\water_edge\functions.sqf";
+[] execVM "addons\bank\functions.sqf";
+
+
 
 if (["A3W_teamPlayersMap"] call isConfigOn) then
 {

@@ -1,3 +1,6 @@
+// ******************************************************************************************
+// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// ******************************************************************************************
 //	@file Name: FAR_Player_Unconscious.sqf
 //	@file Author: Farooq, AgentRev
 
@@ -157,8 +160,6 @@ _unit spawn
 				}
 				else
 				{
-					// Turn off engine
-					_unit action ["EngineOff", _veh];
 					_veh engineOn false;
 				};
 			};
@@ -167,8 +168,6 @@ _unit spawn
 		{
 			if (driver _veh == _unit) then
 			{
-				// Turn off engine
-				_unit action ["EngineOff", _veh];
 				_veh engineOn false;
 			};
 		};
@@ -286,6 +285,7 @@ while {UNCONSCIOUS(_unit) && diag_tickTime < _bleedOut} do
 		if (!STABILIZED(_unit)) then
 		{
 			_unit setVariable ["FAR_isStabilized", 1, true];
+			_unit setVariable ["FAR_iconBlink", nil, true];
 
 			if (isPlayer _unit) then
 			{
@@ -297,9 +297,11 @@ while {UNCONSCIOUS(_unit) && diag_tickTime < _bleedOut} do
 		if (_unit == player) then
 		{
 			_progBar progressSetPosition 1;
-			_progBar ctrlSetForegroundColor [0,0.75,0,1];
-			_progText ctrlSetText "Stabilized";
-			player setVariable ["FAR_iconBlink", nil, true];
+
+			if (isNil "_treatedBy") then
+			{
+				_progText ctrlSetText "Stabilized";
+			};
 
 			//(FAR_cutTextLayer + 1) cutText [format ["\n\nYou have been stabilized\n\n%1", call FAR_CheckFriendlies], "PLAIN DOWN", 0.01];
 		};
