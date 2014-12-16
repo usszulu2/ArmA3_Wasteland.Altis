@@ -214,7 +214,13 @@ o_restoreObject = {_this spawn {
   
   _obj setPosWorld ATLtoASL _pos;
   if (isARRAY(_dir)) then {
-    _obj setVectorDirAndUp _dir;
+    if ([_obj] call sh_isMine) then {
+      //special handling for mines, because setVectorUpAndDir has local effects only ... on mines
+      [[_obj,_dir], "A3W_fnc_setVectorUpAndDir",true, true] call BIS_fnc_MP;
+    }
+    else {
+      _obj setVectorDirAndUp _dir;
+    };
   };
   
   _obj setVariable ["baseSaving_spawningTime", diag_tickTime];
