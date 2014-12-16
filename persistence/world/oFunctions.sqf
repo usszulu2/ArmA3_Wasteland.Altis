@@ -85,6 +85,15 @@ o_isLockableObject = {
 
 
 
+o_getMaxLifeTime = {
+  ARGV3(0,_class,"");
+
+  if (isNil "_class") exitWith {A3W_objectLifeTime};
+  if ([_class] call sh_isMineClass) exitWith {A3W_mineLifeTime};
+
+  A3W_objectLifeTime
+};
+
 o_restoreObject = {_this spawn {
   //diag_log format["%1 call o_restoreObject", _this];
   ARGVX3(0,_data_pair,[]);
@@ -153,13 +162,22 @@ o_restoreObject = {_this spawn {
   
   diag_log format["%1(%2) is being restored.", _object_key, _class];
 
-  if (isSCALAR(_hours_alive) && {A3W_objectLifetime > 0 && {_hours_alive > A3W_objectLifetime}}) exitWith {
-    diag_log format["object %1(%2) has been alive for %3 (max=%4), skipping it", _object_key, _class, _hours_alive, A3W_objectLifetime];
+  def(_max_life_time);
+  _max_life_time = [_class] call o_getMaxLifeTime;
+
+  if (isSCALAR(_hours_alive) && {_max_life_time > 0 && {_hours_alive > _max_life_time}}) exitWith {
+    diag_log format["object %1(%2) has been alive for %3 (max=%4), skipping it", _object_key, _class, _hours_alive, _max_life_time];
   };
   
   def(_obj);
-  _obj = createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"];
-  _obj allowDamage false; //set damage to false immediately to avoid taking fall damage
+  if ([_class] call sh_isMineClass) then {
+    //need to create the mine here
+  }
+  else {
+    _obj = createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"];
+    _obj allowDamage false; //set damage to false immediately to avoid taking fall damage
+  };
+
   if (!isOBJECT(_obj)) exitWith {
     diag_log format["object %1(%2) could not be created.", _object_key, _class];
   };
@@ -347,6 +365,13 @@ o_fillVariables = {
     _variables pushBack ["mf_item_id", (_obj getVariable ["mf_item_id", nil])];
   };
 
+  if ([_obj] call sh_isMine) then {
+    _variables pushBack ["a3w_mine", (_obj getVariable ["a3w_mine", nil])];
+    _variables pushBack ["mine_owner_uid", (_obj getVariable ["mine_owner_uid", nil])];
+    _variables pushBack ["mine_owner_name", (_obj getVariable ["mine_owner_name", nil])];
+    _variables pushBack ["mine_owner_side", (_obj getVariable ["mine_owner_side", nil])];
+  };
+
   def(_r3fSide);
   _r3fSide = _obj getVariable "R3F_Side";
   if (!isNil "_r3fSide" && {typeName _r3fSide == typeName sideUnknown}) then {
@@ -489,6 +514,8 @@ o_saveAllObjects = {
   init(_start_time, diag_tickTime);
   init(_last_save, diag_tickTime);
 
+  private["_all_objects"];
+  _all_objects = tracked_objects_list + allMines;
 
   {
     if (!isNil{[_request, _x] call o_addSaveObject}) then {

@@ -91,6 +91,11 @@ sh_isWarchest = {
   )
 };
 
+sh_isMineClass = {
+  ARGVX3(0,_class,"",false);
+  (_class isKindOf "MineBase")
+};
+
 sh_isMine = {
   ARGVX4(0,_obj,objNull,false);
   init(_class,typeOf _obj);
