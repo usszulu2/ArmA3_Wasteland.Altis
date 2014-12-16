@@ -196,11 +196,13 @@ o_restoreObject = {_this spawn {
   //Mine is revealed for all players in a side. Should do sth with independent side when it's possible.
   def(_mineVisibility);
   _mineVisibility = _obj getVariable "mineVisibility";
-  {
-    _side = _x call sh_strToSide;
-    _side revealMine _obj;
+  if (isARRAY(_mineVisibility)) then {
+    {
+      _side = _x call sh_strToSide;
+      _side revealMine _obj;
   
-  } forEach _mineVisibility;
+    } forEach _mineVisibility;
+  };
 
 
   if (not([_obj] call o_isSaveable)) exitWith {
@@ -375,15 +377,15 @@ o_fillVariables = {
   };
 
   if ([_obj] call sh_isMine) then {
-    init(_mineVisilitiy,[]);
+    init(_mineVisibility,[]);
     {
       if (_obj mineDetectedBy _x) then {
-        _mineVisilitiy pushBack str(_x);
+        _mineVisibility pushBack str(_x);
       }
     } forEach [EAST,WEST,INDEPENDENT];
     
     _variables pushBack ["a3w_mine", (_obj getVariable ["a3w_mine", nil])];  
-    _variables pushBack ["mineVisibility", _mineVisilitiy];
+    _variables pushBack ["mineVisibility", _mineVisibility];
     
   };
 
