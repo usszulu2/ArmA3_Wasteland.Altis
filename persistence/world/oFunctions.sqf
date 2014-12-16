@@ -41,23 +41,24 @@ o_isSaveable = {
 
   init(_class, typeOf _obj);
 
+  //diag_log format["_class = %1", _class];
+
   if (!(alive _obj)) exitWith {false};
   if ([_obj] call sh_isSaveableVehicle) exitWith {false}; //already being saved as a vehicle, don't save it
   if ([_obj] call o_isInSaveList) exitWith {true}; //not sure what this "saveList" thing is ...
 
-
   if ([_obj] call sh_isBeacon) exitWith {
     (cfg_spawnBeaconSaving_on)
   };
-  
+
   if ([_obj] call sh_isWarchest) exitWith {
     (cfg_warchestSaving_on)
   };
-  
+
   if ([_obj] call sh_isStaticWeapon) exitWith {
     (cfg_staticWeaponSaving_on)
   };
-  
+
   if ([_obj] call sh_isMine) exitWith {
     (cfg_MineSaving_on)
   };
@@ -65,7 +66,6 @@ o_isSaveable = {
   if ([_obj] call sh_isCamera) exitWith {
     (cfg_cctvCameraSaving_on)
   };
-
 
   def(_locked);
   _locked = _obj getVariable ["objectLocked", false];
@@ -89,7 +89,7 @@ o_getMaxLifeTime = {
   ARGV3(0,_class,"");
 
   if (isNil "_class") exitWith {A3W_objectLifeTime};
-  if ([_class] call sh_isMineClass) exitWith {A3W_mineLifeTime};
+  if ([_class] call sh_isMine) exitWith {A3W_mineLifeTime};
 
   A3W_objectLifeTime
 };
@@ -170,7 +170,7 @@ o_restoreObject = {_this spawn {
   };
   
   def(_obj);
-  if ([_class] call sh_isMineClass) then {
+  if ([_class] call sh_isMine) then {
     _obj = createMine[_class, _pos, [], 0];
   }
   else {
@@ -398,11 +398,23 @@ o_fillVariables = {
   _variables pushBack ["objectLocked", _obj getVariable "objectLocked"];
 };
 
+o_getVehClass = {
+  ARGVX3(0,_obj,objNull);
+
+  def(_class);
+  _class = typeOf _obj;
+
+  if ([_class] call sh_isMine) exitWith {
+    ([_class] call sh_mineAmmo2Vehicle)
+  };
+
+  _class
+};
+
 o_addSaveObject = {
   ARGVX3(0,_list,[]);
   ARGVX3(1,_obj,objNull);
   
-
   if (not([_obj] call o_isSaveable)) exitWith {};
 
   //diag_log format["will save %1", _obj];
@@ -413,7 +425,7 @@ o_addSaveObject = {
   def(_damage);
   def(_allowDamage);
 
-  _class = typeOf _obj;
+  _class = [_obj] call o_getVehClass;
    _netId = netId _obj;
   _pos = ASLtoATL getPosWorld _obj;
   _dir = [vectorDir _obj, vectorUp _obj];

@@ -91,14 +91,35 @@ sh_isWarchest = {
   )
 };
 
-sh_isMineClass = {
-  ARGVX3(0,_class,"",false);
-  (_class isKindOf "MineBase")
+sh_mineAmmo2Vehicle = {
+  ARGVX3(0,_class,"");
+
+  if (_class isKindOf "MineBase") exitWith {_class};
+  _class = (([_class, "_"] call BIS_fnc_splitString) select 0);
+
+  //hopefully after splitting, and taking the first part, we have the actual vehicle class name
+  (_class)
 };
 
+
 sh_isMine = {
-  ARGVX4(0,_obj,objNull,false);
-  init(_class,typeOf _obj);
+  ARGVX2(0,_arg);
+
+  def(_class);
+  if (isOBJECT(_arg)) then {
+    _class = typeOf _arg;
+  }
+  else { if(isSTRING(_arg)) then {
+    _class = _arg;
+  };};
+
+  if (isNil "_class") exitWith {false};
+
+  if (_class isKindOf "MineBase") exitWith {true};
+
+  //try conveting to the vehicle class
+  _class = [_class] call sh_mineAmmo2Vehicle;
+
   (_class isKindOf "MineBase")
 };
 
