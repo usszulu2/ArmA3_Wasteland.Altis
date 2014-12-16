@@ -207,12 +207,12 @@ vehicleAddition2 =
 
 minesList = 
 [
-	"DemoCharge_Remote_Mag",
-	"SatchelCharge_Remote_Mag",
-	"ATMine_Range_Mag",
-	"ClaymoreDirectionalMine_Remote_Mag",
-	"APERSMine_Range_Mag",
-	"APERSBoundingMine_Range_Mag",
-	"SLAMDirectionalMine_Wire_Mag",
-	"APERSTripMine_Wire_Mag"
+    "APERSTripMine_Wire_Ammo",
+    "APERSBoundingMine_Range_Ammo",
+    "APERSMine_Range_Ammo",
+    "ATMine_Range_Ammo",
+    "ClaymoreDirectionalMine_Remote_Ammo",
+    "SLAMDirectionalMine_Wire_Ammo",
+    "DemoCharge_Remote_Ammo",
+    "SatchelCharge_Remote_Ammo"
 ]

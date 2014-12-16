@@ -59,7 +59,7 @@ o_isSaveable = {
     (cfg_staticWeaponSaving_on)
   };
 
-  if ([_obj] call sh_isMine) exitWith {
+  if (([_obj] call sh_isMine)&&([_obj] call sh_isSaveableMine)) exitWith {
     (cfg_MineSaving_on)
   };
 

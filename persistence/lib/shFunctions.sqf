@@ -101,6 +101,22 @@ sh_mineAmmo2Vehicle = {
   (_class)
 };
 
+sh_isSaveableMine ={
+  ARGVX2(0,_arg);
+  
+  def(_class);
+  if (isOBJECT(_arg)) then {
+    _class = typeOf _arg;
+  }
+  else { if(isSTRING(_arg)) then {
+    _class = _arg;
+  };};
+  
+  if (isNil "_class") exitWith {false};
+  
+  if (_class in minesList) exitWith {true};
+};
+
 
 sh_isMine = {
   ARGVX2(0,_arg);
