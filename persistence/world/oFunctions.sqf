@@ -171,7 +171,7 @@ o_restoreObject = {_this spawn {
   
   def(_obj);
   if ([_class] call sh_isMineClass) then {
-    //need to create the mine here
+    _obj = createMine[_class, _pos, [], 0];
   }
   else {
     _obj = createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"];
@@ -192,6 +192,15 @@ o_restoreObject = {_this spawn {
   if (!isBOOLEAN(_objectLocked) && {[_obj] call o_isLockableObject}) then {
     _obj setVariable ["objectLocked", true, true];
   };
+  
+  //Mine is revealed for all players in a side. Should do sth with independent side when it's possible.
+  def(_mineVisibility);
+  _mineVisibility = _obj getVariable "mineVisibility";
+  {
+	_side = _x call sh_strToSide;
+	_side revealMine _obj;
+  
+  } forEach _mineVisibility
 
 
   if (not([_obj] call o_isSaveable)) exitWith {
