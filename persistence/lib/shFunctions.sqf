@@ -112,9 +112,7 @@ sh_isSaveableMine ={
     _class = _arg;
   };};
 
-  if (isNil "_class") exitWith {false};
-
-  if (_class in minesList) exitWith {true};
+  (!(isNil "_class") && {_class in minesList})
 };
 
 
