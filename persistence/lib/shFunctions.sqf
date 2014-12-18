@@ -100,9 +100,10 @@ sh_mineAmmo2Vehicle = {
   (_class)
 };
 
+
 sh_isSaveableMine ={
   ARGVX2(0,_arg);
-  
+
   def(_class);
   if (isOBJECT(_arg)) then {
     _class = typeOf _arg;
@@ -110,12 +111,67 @@ sh_isSaveableMine ={
   else { if(isSTRING(_arg)) then {
     _class = _arg;
   };};
-  
+
   if (isNil "_class") exitWith {false};
-  
+
   if (_class in minesList) exitWith {true};
 };
 
+
+
+
+/**
+ * KillzoneKid's way for creating Charges, and Claymores ... very hacky
+ */
+sh_placeCharge = {
+  ARGVX3(0,_charge,"");
+  ARGVX3(1,_position,[]);
+  ARGV2(2,_vectors_or_dir);
+
+  def(_unit);
+  def(_group);
+  _group = createGroup sideLogic;
+  _unit = _group createUnit ["B_Soldier_F", _position,[], 0, "CAN_COLLIDE"];
+  _unit hideObjectGlobal true;
+  if (isARRAY(_vectors_or_dir)) then {
+    _unit setVectorDirAndUp _vectors;
+  }
+  else { if (isSCALAR(_vectors_or_dir)) then {
+    _unit setDir _vectors;
+  };};
+
+  def(_muzzle);
+  def(_mag);
+  _mag = format["%1_Remote_Mag", _charge];
+  _muzzle = if (["directional", _charge, true] call BIS_fnc_inString) then {"DirectionalMineRemoteMuzzle"} else {"DemoChargeMuzzle"};
+
+  _unit playActionNow "PutDown";
+  _unit addMagazine format["%1_Remote_Mag", _charge];
+  _unit selectWeapon _muzzle;
+  _unit fire [_muzzle, _muzzle, _mag];
+  _unit setWeaponReloadingTime [_unit, _muzzle, 0];
+
+
+  [_unit,_group] spawn {
+    sleep 3;
+	  deleteVehicle (_this select 0);
+    deleteGroup (_this select 1);
+  };
+};
+
+sh_isCharge = {
+  ARGVX2(0,_arg);
+
+  def(_class);
+  if (isOBJECT(_arg)) then {
+    _class = typeOf _arg;
+  }
+  else { if(isSTRING(_arg)) then {
+    _class = _arg;
+  };};
+
+ ((["charge", _class, true] call BIS_fnc_inString) || {(["claymore", _class, true] call BIS_fnc_inString)})
+};
 
 sh_isMine = {
   ARGVX2(0,_arg);
@@ -132,10 +188,7 @@ sh_isMine = {
 
   _class = [_class] call sh_mineAmmo2Vehicle;
 
-  if (_class isKindOf "MineBase") exitWith {true};
-
-  //try checking on the mines list
-  (isARRAY(minesList) && {({(_class == ([_x] call sh_mineAmmo2Vehicle))} count minesList) > 0})
+  (_class isKindOf "MineBase")
 };
 
 sh_isAMissionVehicle = {
