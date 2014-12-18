@@ -3,7 +3,7 @@
 #include "dikcodes.h"
 
 if (not(undefined(cctv_functions_defined))) exitWith {};
-diag_log format["Loading cctv functions ..."];
+diag_log format["Loading camera functions ..."];
 
 
 cctv_camera_data_get = {
@@ -197,13 +197,13 @@ cctv_security_laptop_menu = {
   //player groupChat format["_cameras = %1", _cameras];
 
   if (count(_cameras) == 0) exitWith {
-    player groupChat format["There are no CCTV cameras currently accessible."];
+    player groupChat format["There are no cameras currently accessible."];
   };
 
   private["_handler"];
   _handler = [[_player, _cameras],"cctv_security_laptop_event_handler"];
   [_handler,_handler,_handler] call laptop_flat_menu_setup;
-  player groupChat format["Use space key on the laptop keyboard,to cycle between the CCTV cameras."];
+  player groupChat format["Use space-bar on laptop to cycle between cameras."];
 };
 
 
@@ -337,4 +337,4 @@ cctv_base_use = {
 
 cctv_functions_defined = true;
 
-diag_log format["Loading cctv functions complete"];
+diag_log format["Loading camera functions complete"];

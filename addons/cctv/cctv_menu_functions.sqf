@@ -4,7 +4,7 @@
 
 if (not(undefined(cctv_menu_functions_defined))) exitWith {};
 
-diag_log format["Loading cctv menu functions ..."];
+diag_log format["Loading camera menu functions ..."];
 
 cctv_menu_result_camera_name = 0;
 cctv_menu_result_ac = 1;
@@ -207,7 +207,7 @@ cctv_menu_setup = {
   _h = 0.30;
   _ysep = 0.006;
   _sep = 0.01;
-  _cctv_title = "CCTV MENU";
+  _cctv_title = "CAMERA MENU";
 
   private["_button_font_height","_font_family"];
   _button_font_height = MENU_TITLE_FONT_HEIGHT;
@@ -321,4 +321,4 @@ cctv_menu_setup = {
 
 cctv_menu_functions_defined = true;
 
-diag_log format["Loading cctv menu functions complete"];
+diag_log format["Loading camera menu functions complete"];

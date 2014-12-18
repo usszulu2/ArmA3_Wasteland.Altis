@@ -603,7 +603,7 @@ camera_update_nightvision = {
       false SetCamUseTi 0;
     };
     case 1: {
-      camera_unit commandChat format["Setting camera NV "];
+      camera_unit commandChat format["Setting camera NV"];
       camUseNVG true;
       false SetCamUseTi 0;
     };
@@ -628,22 +628,22 @@ camera_update_nightvision = {
       true SetCamUseTi 3;
     };
     case 6: {
-      camera_unit commandChat format["Setting camera light-orange-hot "];
+      camera_unit commandChat format["Setting camera light-orange-hot"];
       camUseNVG false;
       true SetCamUseTi 4;
     };
     case 7: {
-      camera_unit commandChat format["Setting camera dark-orange-hot "];
+      camera_unit commandChat format["Setting camera dark-orange-hot"];
       camUseNVG false;
       true SetCamUseTi 5;
     };
     case 8: {
-      camera_unit commandChat format["Setting camera orange body-heat "];
+      camera_unit commandChat format["Setting camera orange body-heat"];
       camUseNVG false;
       true SetCamUseTi 6;
     };
     case 9: {
-      camera_unit commandChat format["Setting camera colored body-heat "];
+      camera_unit commandChat format["Setting camera colored body-heat"];
       camUseNVG false;
       true SetCamUseTi 7;
     };
