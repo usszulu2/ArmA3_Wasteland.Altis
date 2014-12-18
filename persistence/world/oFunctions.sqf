@@ -106,6 +106,43 @@ o_restoreDirection = {
   _obj setVectorDirAndUp _vectors;
 };
 
+
+o_restoreHoursAlive_withVars = {
+  ARGVX3(0,_obj,objNull);
+  ARGVX2(1,_hours_alive,0);
+
+  _obj setVariable ["baseSaving_spawningTime", diag_tickTime];
+  if (!isNil "_hours_alive") then {
+    _obj setVariable ["baseSaving_hoursAlive", _hours_alive];
+  };
+};
+
+o_restoreHoursAlive_withGlobals = {
+  ARGVX3(0,_obj,objNull);
+  ARGVX2(1,_hours_alive,0);
+
+  def(_netId);
+  _netId = netId _obj;
+  //diag_log format["_netId = %1", _netId];
+
+  missionNamespace setVariable [format["%1_spawningTime",_netId], diag_tickTime];
+  if (!isNil "_hours_alive") then {
+    missionNamespace setVariable [format["%1_hoursAlive",_netId], _hours_alive];
+  };
+};
+
+o_restoreHoursAlive = {
+  ARGVX3(0,_obj,objNull);
+  ARGVX3(1,_hours_alive,0);
+
+  if ([_obj] call sh_isMine) exitWith {
+    [_obj, OR(_hours_alive,nil)] call o_restoreHoursAlive_withGlobals;
+  };
+
+  [_obj, OR(_hours_alive,nil)] call o_restoreHoursAlive_withVars;
+
+};
+
 o_restoreObject = {_this spawn {
   //diag_log format["%1 call o_restoreObject", _this];
   ARGVX3(0,_data_pair,[]);
@@ -224,12 +261,8 @@ o_restoreObject = {_this spawn {
 
   _obj setPosWorld ATLtoASL _pos;
   [_obj, OR(_dir,nil)] call o_restoreDirection;
+  [_obj, OR(_hours_alive,nil)] call o_restoreHoursAlive;
 
-  _obj setVariable ["baseSaving_spawningTime", diag_tickTime];
-  if (isSCALAR(_hours_alive)) then {
-    _obj setVariable ["baseSaving_hoursAlive", _hours_alive];
-  };
-  
 
   if (isSCALAR(_damage)) then {
     _obj setDamage _damage;
@@ -395,9 +428,7 @@ o_fillVariables = {
       }
     } forEach [EAST,WEST,INDEPENDENT];
     
-    _variables pushBack ["a3w_mine", (_obj getVariable ["a3w_mine", nil])];  
     _variables pushBack ["mineVisibility", _mineVisibility];
-    
   };
 
   def(_r3fSide);
@@ -422,6 +453,73 @@ o_getVehClass = {
   _class
 };
 
+o_getHoursAlive_withVars = {
+  ARGVX4(0,_obj,objNull,0);
+
+  def(_spawnTime);
+  def(_hoursAlive);
+  _spawnTime = _obj getVariable "baseSaving_spawningTime";
+  _hoursAlive = _obj getVariable "baseSaving_hoursAlive";
+
+  if (!isSCALAR(_spawnTime)) then {
+    _spawnTime = diag_tickTime;
+    _obj setVariable ["baseSaving_spawningTime", _spawnTime, true];
+  };
+
+  if (!isSCALAR(_hoursAlive)) then {
+    _hoursAlive = 0;
+    _obj setVariable ["baseSaving_hoursAlive", _hoursAlive, true];
+  };
+
+  def(_totalHours);
+  _totalHours = _hoursAlive + (diag_tickTime - _spawnTime) / 3600;
+
+  //diag_log format["_obj = %1, _totalHours = %2, _spawnTime = %3, _hoursAlive = %4",_obj, _totalHours, _spawnTime, _hoursAlive];
+
+  (_totalHours)
+};
+
+o_getHoursAlive_withGlobals = {
+  ARGVX4(0,_obj,objNull,0);
+
+  def(_spawnTime);
+  def(_hoursAlive);
+  def(_netId);
+
+  _netId = netId _obj;
+  //diag_log format["_netId = %1", _netId];
+
+  _spawnTime = missionNamespace getVariable format["%1_spawningTime", _netId];
+  _hoursAlive = missionNamespace getVariable format["%1_hoursAlive", _netId];
+
+  if (!isSCALAR(_spawnTime)) then {
+    _spawnTime = diag_tickTime;
+    missionNamespace setVariable [format["%1_spawningTime", _netId], _spawnTime];
+  };
+
+  if (!isSCALAR(_hoursAlive)) then {
+    _hoursAlive = 0;
+    missionNamespace setVariable [format["%1_hoursAlive", _netId], _hoursAlive];
+  };
+
+  def(_totalHours);
+  _totalHours = _hoursAlive + (diag_tickTime - _spawnTime) / 3600;
+
+  //diag_log format["_obj = %1, _totalHours = %2, _spawnTime = %3, _hoursAlive = %4",_obj, _totalHours, _spawnTime, _hoursAlive];
+
+  (_totalHours)
+};
+
+o_getHoursAlive = {
+  ARGVX4(0,_obj,objNull,0);
+
+  if ([_obj] call sh_isMine) exitWith {
+   ([_obj] call o_getHoursAlive_withGlobals)
+  };
+
+  ([_obj] call o_getHoursAlive_withVars)
+};
+
 o_addSaveObject = {
   ARGVX3(0,_list,[]);
   ARGVX3(1,_obj,objNull);
@@ -435,6 +533,7 @@ o_addSaveObject = {
   def(_dir);
   def(_damage);
   def(_allowDamage);
+  def(_totalHours);
 
   _class = [_obj] call o_getVehClass;
    _netId = netId _obj;
@@ -442,27 +541,8 @@ o_addSaveObject = {
   _dir = [vectorDir _obj, vectorUp _obj];
   _damage = damage _obj;
   _allowDamage = if (_obj getVariable ["allowDamage", false]) then { 1 } else { 0 };
- 
- 
-  def(_spawnTime);
-  def(_hoursAlive);
-  _spawnTime = _obj getVariable "baseSaving_spawningTime";
-  _hoursAlive = _obj getVariable "baseSaving_hoursAlive";
-  
-  if (isNil "_spawnTime") then {
-    _spawnTime = diag_tickTime;
-    _obj setVariable ["baseSaving_spawningTime", _spawnTime, true];
-  };
-  
-  if (isNil "_hoursAlive") then {
-    _hoursAlive = 0;
-    _obj setVariable ["baseSaving_hoursAlive", _hoursAlive, true];  
-  };
-  
-  def(_totalHours);
-  _totalHours = _hoursAlive + (diag_tickTime - _spawnTime) / 3600;
- 
-  
+  _totalHours = [_obj] call o_getHoursAlive;
+
   init(_variables,[]);
   [_obj,_variables] call o_fillVariables;
  
