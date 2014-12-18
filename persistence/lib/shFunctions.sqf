@@ -130,12 +130,12 @@ sh_isMine = {
 
   if (isNil "_class") exitWith {false};
 
-  if (_class isKindOf "MineBase") exitWith {true};
-
-  //try conveting to the vehicle class
   _class = [_class] call sh_mineAmmo2Vehicle;
 
-  (_class isKindOf "MineBase")
+  if (_class isKindOf "MineBase") exitWith {true};
+
+  //try checking on the mines list
+  (isARRAY(minesList) && {({(_class == ([_x] call sh_mineAmmo2Vehicle))} count minesList) > 0})
 };
 
 sh_isAMissionVehicle = {
