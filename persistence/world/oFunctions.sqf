@@ -94,6 +94,18 @@ o_getMaxLifeTime = {
   A3W_objectLifeTime
 };
 
+o_restoreDirection = {
+  ARGVX3(0,_obj,objNull);
+  ARGVX3(1,_vectors,[]);
+
+  if ([_obj] call sh_isMine) exitWith {
+    //special handling for mines, because setVectorUpAndDir has local effects only ... on mines
+    [[_obj,_vectors], "A3W_fnc_setVectorUpAndDir",true, true] call BIS_fnc_MP;
+  };
+
+  _obj setVectorDirAndUp _vectors;
+};
+
 o_restoreObject = {_this spawn {
   //diag_log format["%1 call o_restoreObject", _this];
   ARGVX3(0,_data_pair,[]);
@@ -210,19 +222,9 @@ o_restoreObject = {_this spawn {
     deleteVehicle _obj;
   };
 
-
-  
   _obj setPosWorld ATLtoASL _pos;
-  if (isARRAY(_dir)) then {
-    if ([_obj] call sh_isMine) then {
-      //special handling for mines, because setVectorUpAndDir has local effects only ... on mines
-      [[_obj,_dir], "A3W_fnc_setVectorUpAndDir",true, true] call BIS_fnc_MP;
-    }
-    else {
-      _obj setVectorDirAndUp _dir;
-    };
-  };
-  
+  [_obj, OR(_dir,nil)] call o_restoreDirection;
+
   _obj setVariable ["baseSaving_spawningTime", diag_tickTime];
   if (isSCALAR(_hours_alive)) then {
     _obj setVariable ["baseSaving_hoursAlive", _hours_alive];
@@ -303,8 +305,11 @@ o_restoreObject = {_this spawn {
     createVehicleCrew _obj;
   };
 
-  //objects, warchests, and beacons
-  tracked_objects_list pushBack _obj;
+  if (not([_obj] call sh_isMine)) exitWith { //don't put mines in the tracked objects list (we use allMines)
+    //objects, warchests, and beacons
+    tracked_objects_list pushBack _obj;
+  };
+
 
 };};
 
