@@ -9,8 +9,11 @@
 diag_log "vLoad.sqf loading ...";
 if (!isServer) exitWith {};
 
-#include "vFunctions.sqf"
-  
+#include "macro.h"
+call compile preProcessFileLineNumbers "persistence\lib\hash.sqf";
+call compile preProcessFileLineNumbers "persistence\world\vFunctions.sqf";
+
+
 init(_vScope, "Vehicles" call PDB_objectFileName);
 
 def(_vIds);
