@@ -94,7 +94,6 @@ sh_isWarchest = {
 sh_mineAmmo2Vehicle = {
   ARGVX3(0,_class,"");
 
-  if (_class isKindOf "MineBase") exitWith {_class};
   _class = (([_class, "_"] call BIS_fnc_splitString) select 0);
 
   //hopefully after splitting, and taking the first part, we have the actual vehicle class name
