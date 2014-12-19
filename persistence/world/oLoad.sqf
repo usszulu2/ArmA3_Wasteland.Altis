@@ -6,11 +6,14 @@
 //	@file Author: micovery
 //	@file Description: object loading
 
-diag_log "oLoad.sqf loading ...";
 if (!isServer) exitWith {};
+diag_log "oLoad.sqf loading ...";
 
+#include "macro.h"
 
-#include "oFunctions.sqf"
+call compile preProcessFileLineNumbers "persistence\lib\hash.sqf";
+call compile preProcessFileLineNumbers "persistence\world\oFunctions.sqf";
+
 
 init(_oScope, "Objects" call PDB_objectFileName);
 
