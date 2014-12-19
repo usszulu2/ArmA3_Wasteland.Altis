@@ -121,6 +121,15 @@ vehicleDammagedEvent = [_serverFunc, "vehicleDammagedEvent.sqf"] call mf_compile
 vehicleEngineEvent = [_serverFunc, "vehicleEngineEvent.sqf"] call mf_compile;
 vehicleHandleDamage = [_serverFunc, "vehicleHandleDamage.sqf"] call mf_compile;
 vehicleHitTracking = [_serverFunc, "vehicleHitTracking.sqf"] call mf_compile;
+A3W_fnc_setVectorUpAndDir = {
+  private["_left", "_right"];
+  _left = _this select 0;
+  _right = _this select 1;
+  if (isNil "_left" || {typeName _left != typeName objNull || {isNull _left}}) exitWith {};
+  if (isNil "_right" || {typeName _right != typeName []}) exitWith {};
+
+  _left setVectorDirAndUp _right;
+} call mf_compile;
 
 call compile preprocessFileLineNumbers "server\functions\mf_remote.sqf";
 

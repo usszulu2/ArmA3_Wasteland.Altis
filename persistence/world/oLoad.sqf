@@ -6,10 +6,11 @@
 //	@file Author: micovery
 //	@file Description: object loading
 
-diag_log "oLoad.sqf loading ...";
 if (!isServer) exitWith {};
+diag_log "oLoad.sqf loading ...";
 
 call compile preprocessFileLineNumbers "persistence\lib\normalize_config.sqf";
+call compile preprocessFileLineNumbers "persistence\lib\hash.sqf";
 call compile preprocessFileLineNumbers "persistence\lib\shFunctions.sqf";
 call compile preprocessFileLineNumbers "persistence\world\oFunctions.sqf";
 
