@@ -47,13 +47,80 @@ atm_remove_actions = {
 	atm_actions = [];
 };
 
+atm_is_out_of_service = {
+  ARGVX4(0,_player,objNull,false);
+
+  if (!isARRAY(bank_towns_whitelist)) exitWith {false};
+  if (count(bank_towns_whitelist) == 0) exitWith {false};
+
+  def(_town);
+  _town = ((nearestLocations [_player,["NameCityCapital","NameCity","NameVillage"],10000]) select 0);
+  if (isNil "_town") exitWith {false};
+
+  def(_town_name);
+  _town_name = text _town;
+  if (_town_name in bank_towns_whitelist) exitWith {false};
+
+  (not(_town_name in bank_towns_whitelist))
+};
+
+atm_nearest_town = {
+  ARGVX3(0,_player,objNull);
+
+  if (!isARRAY(bank_towns_whitelist)) exitWith {};
+  if (count(bank_towns_whitelist) == 0) exitWith {};
+
+  def(_nearest);
+  init(_dist,1000000);
+
+  {if(true) then {
+    if (!isSTRING(_x)) exitWith {};
+
+    def(_loc);
+    _loc = [_x] call name2location;
+    if (isNil "_loc") exitWith {};
+
+    def(_pos);
+    _pos = (locationPosition _loc);
+    if (!isARRAY(_pos) || {count(_pos) < 2}) exitWith {};
+    _pos set [2, 0];
+
+    def(_cdist);
+    _cdist = _player distance _pos;
+    if (_cdist < _dist) then {
+      _dist = _cdist;
+      _nearest = text(_loc);
+    };
+  };} forEach bank_towns_whitelist;
+
+  (OR(_nearest,nil))
+};
+
+atm_access = {
+  init(_player, player);
+
+  if ([_player] call atm_is_out_of_service) exitWith {
+    //find the nearest city to the player
+    def(_nearest_town);
+    _nearest_town = [_player] call atm_nearest_town;
+
+    if (!isSTRING(_nearest_town)) exitWith {
+      player groupChat format ["%1, this ATM is out of service, and there is no ATM near, sorry.", (name _player)];
+    };
+
+    player groupChat format["%1, this ATM is out of service, the nearest working ATM is in ""%2"" city", (name _player), _nearest_town];
+  };
+
+  [player] call bank_menu_dialog;
+};
+
 atm_add_actions = {
 	if (count atm_actions > 0) exitWith {};
 	private["_player"];
 	_player = _this select 0;
 
   private["_action_id", "_text"];
-  _action_id = _player addAction ["<img image='addons\bank\icons\bank.paa'/> Access ATM", {[player] call bank_menu_dialog;}];
+  _action_id = _player addAction ["<img image='addons\bank\icons\bank.paa'/> Access ATM", {call atm_access}];
   atm_actions = atm_actions + [_action_id];
 };
 

@@ -66,3 +66,24 @@ player_human = {
   ARGVX4(0,_player,objNull,false);
   (alive _player && {isPlayer _player})
 };
+
+
+name2location = {
+  ARGVX3(0,_name,"");
+  _name = toLower _name;
+
+  def(_all);
+  _all = (nearestLocations [player,["NameCityCapital","NameCity","NameVillage"],1000000]);
+
+
+  def(_location);
+  def(_cname);
+  {
+    _cname = text(_x);
+    if ((toLower _cname) == _name) exitWith {
+      _location = _x;
+    }
+  } forEach _all;
+
+  OR(_location,nil)
+};
