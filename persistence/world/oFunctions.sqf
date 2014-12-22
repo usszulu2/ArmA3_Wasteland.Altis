@@ -41,11 +41,10 @@ o_isSaveable = {
 
   init(_class, typeOf _obj);
 
-  //diag_log format["_class = %1", _class];
-
   if (!(alive _obj)) exitWith {false};
   if ([_obj] call sh_isSaveableVehicle) exitWith {false}; //already being saved as a vehicle, don't save it
   if ([_obj] call o_isInSaveList) exitWith {true}; //not sure what this "saveList" thing is ...
+
 
   if ([_obj] call sh_isBeacon) exitWith {
     (cfg_spawnBeaconSaving_on)
@@ -189,8 +188,10 @@ o_restoreObject = {_this spawn {
   def(_cargo_ammo);
   def(_cargo_fuel);
   def(_cargo_repair);
-  def(_turret_magazines);
   def(_mineVisibility);
+  def(_turret0);
+  def(_turret1);
+  def(_turret2);
 
   def(_key);
   def(_value);
@@ -214,7 +215,9 @@ o_restoreObject = {_this spawn {
       case "RepairCargo": { _cargo_repair = OR(_value,nil);};
       case "HoursAlive": { _hours_alive = OR(_value,nil);};
       case "Variables": { _variables = OR(_value,nil);};
-      case "TurretMagazines": { _turret_magazines = OR(_value,nil);};
+      case "TurretMagazines": { _turret0 = OR_ARRAY(_value,nil);};
+      case "TurretMagazines2": { _turret1 = OR_ARRAY(_value,nil);};
+      case "TurretMagazines3": { _turret2 = OR_ARRAY(_value,nil);};
     };
   } forEach _object_data;
 
@@ -267,11 +270,14 @@ o_restoreObject = {_this spawn {
     [_obj,_variables] call o_restoreMineVisibility;
   };
 
+
   if (not([_obj] call o_isSaveable)) exitWith {
     diag_log format["%1(%2) has been deleted, it is not saveable", _object_key, _class];
     deleteVehicle _obj;
   };
 
+
+  
   _obj setPosWorld ATLtoASL _pos;
   [_obj, OR(_dir,nil)] call o_restoreDirection;
   [_obj, OR(_hours_alive,nil)] call o_restoreHoursAlive;
@@ -330,10 +336,8 @@ o_restoreObject = {_this spawn {
     { _obj addMagazineCargoGlobal _x } forEach _cargo_magazines;
   };
   
-  if (isARRAY(_turret_magazines)) then {
-    { _obj addMagazine _x } forEach _turret_magazines;
-  };
-  
+  [_obj, OR(_turret0,nil), OR(_turret1,nil), OR(_turret2,nil)] call sh_restoreVehicleTurrets;
+
   if (isSCALAR(_cargo_ammo)) then {
     _obj setAmmoCargo _cargo_ammo;
   };
@@ -572,11 +576,16 @@ o_addSaveObject = {
     _items = (getItemCargo _obj) call cargoToPairs;
     _backpacks = (getBackpackCargo _obj) call cargoToPairs;
   };
-  
-  init(_turretMags,[]);
+
+  def(_all_turrets);
+  _all_turrets = [nil,nil,nil];
   if ((cfg_staticWeaponSaving_on) && {[_obj] call sh_isStaticWeapon}) then {
-    _turretMags = magazinesAmmo _obj;
+    _all_turrets = [_obj] call sh_getVehicleTurrets;
   };
+  init(_turret0,_all_turrets select 0);
+  init(_turret1,_all_turrets select 1);
+  init(_turret2,_all_turrets select 2);
+
 
   init(_ammoCargo,getAmmoCargo _obj);
   init(_fuelCargo,getFuelCargo _obj);
@@ -604,7 +613,9 @@ o_addSaveObject = {
     ["Magazines", _magazines],
     ["Items", _items],
     ["Backpacks", _backpacks],
-    ["TurretMagazines", _turretMags],
+    ["TurretMagazines", OR(_turret0,nil)],
+    ["TurretMagazines2", OR(_turret1,nil)],
+    ["TurretMagazines3", OR(_turret2,nil)],
     ["AmmoCargo", _ammoCargo],
     ["FuelCargo", _fuelCargo],
     ["RepairCargo", _repairCargo]
