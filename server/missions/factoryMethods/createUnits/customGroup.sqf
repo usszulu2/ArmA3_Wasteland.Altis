@@ -34,6 +34,8 @@ grenadier_loadout =  {
   _unit addMagazine "30Rnd_65x39_caseless_mag";
   _unit addMagazine "1Rnd_HE_Grenade_shell";
   _unit addMagazine "1Rnd_HE_Grenade_shell";
+  _unit addItem "NVGoggles";
+  _unit assignItem "NVGoggles";
 };
   
 support_loadout = {
@@ -48,6 +50,8 @@ support_loadout = {
   _unit addUniform "U_IG_Guerilla1_1";
   _unit addMagazine "200Rnd_65x39_cased_Box";
   _unit addItem "FirstAidKit";
+  _unit addItem "NVGoggles";
+  _unit assignItem "NVGoggles";
 };
 
 sniper_loadout = {
@@ -69,6 +73,8 @@ sniper_loadout = {
   _unit assignItem "ItemGps";
   _unit addItem "ItemCompass";
   _unit assignItem "ItemCompass";  
+  _unit addItem "NVGoggles";
+  _unit assignItem "NVGoggles";
 };
 
 aa_loadout = {
@@ -85,6 +91,8 @@ aa_loadout = {
   _unit addMagazine "Titan_AA";
   _unit addWeapon "launch_Titan_F";
   _unit addMagazine "Titan_AA";
+  _unit addItem "NVGoggles";
+  _unit assignItem "NVGoggles";
 };
 
 at_loadout = {
@@ -102,6 +110,8 @@ at_loadout = {
   _unit addWeapon "launch_Titan_short_F";
   _unit addMagazine "Titan_AT";
   _unit addMagazine "Titan_AT";
+  _unit addItem "NVGoggles";
+  _unit assignItem "NVGoggles";
 };
 
 leader_loadout = {
@@ -122,6 +132,8 @@ leader_loadout = {
   _unit assignItem "ItemGps";
   _unit addItem "ItemCompass";
   _unit assignItem "ItemCompass";
+  _unit addItem "NVGoggles";
+  _unit assignItem "NVGoggles";
 };
 
 rifleman_loadout = {
@@ -129,13 +141,14 @@ rifleman_loadout = {
   _unit = _this;
   
   _unit addUniform "U_IG_Guerilla2_3";
-  _unit addMagazine "20Rnd_762x51_Mag";
-  _unit addMagazine "20Rnd_762x51_Mag";
+  _unit addMagazine "30Rnd_65x39_caseless_mag_Tracer";
   _unit addBackpack "B_AssaultPack_rgr";
-  _unit addMagazine "20Rnd_762x51_Mag";
-  _unit addMagazine "20Rnd_762x51_Mag";
-  _unit addWeapon "srifle_EBR_ARCO_pointer_snds_F";
-  _unit addMagazine "20Rnd_762x51_Mag";
+  _unit addMagazine "30Rnd_65x39_caseless_mag_Tracer";
+  _unit addMagazine "30Rnd_65x39_caseless_mag_Tracer";
+  _unit addWeapon "arifle_MX_ACO_F";
+  _unit addMagazine "30Rnd_65x39_caseless_mag_Tracer";
+  _unit addPrimaryWeaponItem "acc_flashlight";
+  _unit enablegunlights "forceOn";
 };
 
 weighted_list = 
@@ -191,8 +204,6 @@ for "_i" from 1 to _nbUnits do
   removeGoggles _unit;
 
   _unit addVest "V_PlateCarrier1_rgr";
-  _unit addItem "NVGoggles";
-  _unit assignItem "NVGoggles";
   _unit addItem "FirstAidKit";
   
   if (_unit == leader _group) then {
@@ -204,9 +215,6 @@ for "_i" from 1 to _nbUnits do
     _loadout = call get_weighted_loadout;
     _unit call _loadout;
   };
-  
-	_unit addPrimaryWeaponItem "acc_flashlight";
-	_unit enablegunlights "forceOn";
 	
   _unit addRating 1e11;
   _unit spawn addMilCap;

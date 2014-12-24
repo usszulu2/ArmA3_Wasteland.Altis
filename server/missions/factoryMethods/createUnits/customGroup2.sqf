@@ -40,11 +40,6 @@ for "_i" from 1 to _nbUnits do
 	removeHeadgear _unit;
 	removeGoggles _unit;
 
-	_unit addVest "V_HarnessOSpec_gry";
-	_unit addMagazine "30Rnd_556x45_Stanag";
-	_unit addMagazine "30Rnd_556x45_Stanag";
-	_unit addMagazine "30Rnd_556x45_Stanag";
-
 	_unit addVest "V_PlateCarrier1_rgr";
 	_unit addItem "FirstAidKit";
 
