@@ -239,6 +239,12 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					{
 						_object setRepairCargo 25;
 					};
+
+					case ({_object isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0):
+					{
+						_object removeMagazineTurret ["6Rnd_LG_scalpel",[0]];
+						_object addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+					};
 				};
 
 				if (_object getVariable ["A3W_purchasedVehicle", false] && !isNil "fn_manualVehicleSave") then
