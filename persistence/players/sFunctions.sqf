@@ -266,6 +266,8 @@ p_getPlayerStorage = {
     ["Backpacks", _backpacks]
   ] call sock_hash;
 
+  deleteVehicle _obj;
+
   (_storage)
 };
 
