@@ -52,7 +52,7 @@ ps_create_boxes = {
     _town_pos = position _town;
     if (isARRAY(ps_cities_whitelist) && {count(ps_cities_whitelist) > 0 && {not(_town_name in ps_cities_whitelist)}}) exitWith {};
   
-    _garage = (nearestObjects [_town_pos, ["Land_i_Garage_V2_F"], 300]) select 0;
+    _garage = (nearestObjects [_town_pos, ["Land_i_Garage_V2_F", "Sign_Arrow_Yellow_F"], 300]) select 0;
     if (!isOBJECT(_garage)) exitWith {
       diag_log format["No garage in %1", _town_name];
     };
@@ -62,14 +62,17 @@ ps_create_boxes = {
   
   
     _pos = _garage modelToWorld [0,0,0];
-  
+    if (_garage isKindOf "Helper") then {
+      _pos set [2,0];
+    };
+
     _model = ps_box_models call BIS_fnc_selectRandom;
   
     _box = createVehicle [_model, _pos, [], 0, ""];
     _box setPos _pos;
     _box setVectorDirAndUp [vectorDir _garage, vectorUp _garage];
     _box allowDamage false;
-    _box enableSimulation false;
+    //_box enableSimulation false;
     _box setVariable ["is_storage", true, true];
     _box setVariable ["R3F_LOG_disabled", true]; //don't allow players to move the boxes
 
@@ -271,6 +274,3 @@ ps_setup_boxes = {
 
 storage_functions_defined = true;
 diag_log format["Loading storage functions complete"];
-
-
-
