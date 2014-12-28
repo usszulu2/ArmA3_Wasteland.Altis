@@ -62,7 +62,7 @@ ps_create_boxes = {
   
   
     _pos = _garage modelToWorld [0,0,0];
-    if (_garage isKindOf "Helper") then {
+    if (_garage isKindOf "Helper_Base_F") then {
       _pos set [2,0];
     };
 
