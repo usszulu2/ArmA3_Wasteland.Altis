@@ -1,6 +1,6 @@
 
 //List of cities where private parking is available (empty or unset means all cities)
-pp_cities_whitelist = [];
+pp_cities_whitelist = ["Katalaki", "Agios Konstantinos", "Ioannina", "Panagia"];
 
 //whether or not to show map markers for private parking locations
 pp_markers_enabled = true; 
