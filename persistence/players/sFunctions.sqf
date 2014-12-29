@@ -271,6 +271,38 @@ p_getPlayerStorage = {
   (_storage)
 };
 
+p_getPlayerParking = {
+  //diag_log format["%1 call p_getPlayerParking", _this];
+  ARGVX3(0,_player,objNull);
+
+  def(_parked_vehicles);
+  _parked_vehicles = _player getVariable ["parked_vehicles", []];
+
+  init(_vehicles,[]);
+
+  def(_vehicle_info);
+
+  {if(true) then {
+    _vehicle_info = _x;
+    if (!isARRAY(_vehicle_info) || {count(_vehicle_info) < 2}) exitWith {};
+
+    def(_vehicle_id);
+    _vehicle_id = _vehicle_info select 0;
+    if (!isSTRING(_vehicle_id)) exitWith {};
+
+    def(_vehicle_data);
+    _vehicle_data = _vehicle_info select 1;
+    if (!isARRAY(_vehicle_data)) exitWith {};
+
+    _vehicles pushBack [_vehicle_id, (_vehicle_data call sock_hash)];
+  };} forEach _parked_vehicles;
+
+
+  if (count(_vehicles) == 0) exitWith {};
+
+
+  (_vehicles call sock_hash)
+};
 p_addPlayerSave = {
   //diag_log format["%1 call p_addPlayerSave", _this];
   ARGVX3(0,_request,[]);
@@ -312,6 +344,13 @@ p_addPlayerSave = {
 
   if (isARRAY(_playerStorage)) then {
     _request pushBack ["PlayerStorage", _playerStorage];
+  };
+
+  def(_playerParking);
+  _playerParking = [_player] call p_getPlayerParking;
+
+  if (isARRAY(_playerParking)) then {
+    _request pushBack ["PlayerParking", _playerParking];
   };
 
   def(_scoreInfo);

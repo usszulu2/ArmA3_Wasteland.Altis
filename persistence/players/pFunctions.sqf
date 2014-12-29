@@ -432,6 +432,38 @@ fn_applyPlayerStorage = {
 
 };
 
+fn_applyPlayerParking = {
+  if (!isARRAY(_this)) exitWith {
+    diag_log format["WARNING: No player private parking data"];
+  };
+  init(_data,_this);
+
+
+  diag_log "#############################################";
+  diag_log "Dumping _parkingData";
+  [_data] call p_dumpHash;
+
+  init(_parked_vehicles,[]);
+
+  def(_vehicle_info);
+  {if (true) then {
+    _vehicle_info = _x;
+    if (!isARRAY(_vehicle_info) || {count(_vehicle_info) < 2}) exitWith {};
+
+    def(_vehicle_id);
+
+    _vehicle_id = _vehicle_info select 0;
+    if (!isSTRING(_vehicle_id)) exitWith {};
+
+    def(_vehicle_data);
+    _vehicle_data = _vehicle_info select 1;
+    if (!isCODE(_vehicle_data)) exitWith {};
+    _parked_vehicles pushBack [_vehicle_id, (call _vehicle_data)];
+  };} forEach _data;
+
+  player setVariable ["parked_vehicles",_parked_vehicles,true];
+};
+
 
 p_restoreInfo = {
   ARGVX2(0,_hash);
@@ -452,6 +484,17 @@ p_restoreStorage = {
 
   OR(_data,nil) call fn_applyPlayerStorage;
 };
+
+p_restoreParking = {
+  ARGVX2(0,_hash);
+  if (!isCODE(_hash)) exitWith {};
+  format["%1 call p_restoreParking;", _this] call p_log_finest;
+  def(_data);
+  _data = call _hash;
+
+  OR(_data,nil) call fn_applyPlayerParking;
+};
+
 
 
 p_restoreScore = {
@@ -562,13 +605,14 @@ fn_requestPlayerData = {[] spawn {
   init(_infoKey, "PlayerInfo");
   init(_scoreKey, "PlayerScore");
   init(_storageKey, "PlayerStorage");
+  init(_parkingKey, "PlayerParking");
 
 
   def(_worldDataKey);
   _worldDataKey = format["%1_%2", _genericDataKey, worldName];
 
   def(_pData);
-  _pData = [_scope, [_genericDataKey, nil], [_worldDataKey, nil], [_infoKey, nil], [_storageKey, nil], [_scoreKey, nil]] call stats_get;
+  _pData = [_scope, [_genericDataKey, nil], [_worldDataKey, nil], [_infoKey, nil], [_storageKey, nil], [_parkingKey, nil], [_scoreKey, nil]] call stats_get;
   if (not(isARRAY(_pData))) exitWith {
     //player data did not load, force him back to lobby
     endMission "LOSER";
@@ -589,6 +633,9 @@ fn_requestPlayerData = {[] spawn {
       };
       case _storageKey: {
         [xGet(_x,1)] call p_restoreStorage;
+      };
+      case _parkingKey: {
+        [xGet(_x,1)] call p_restoreParking;
       };
       case _infoKey: {
         [xGet(_x,1)] call p_restoreInfo;

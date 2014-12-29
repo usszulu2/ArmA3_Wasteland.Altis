@@ -197,6 +197,83 @@ sh_restoreVehicleTurrets = {
 
 };
 
+sh_calcualte_vectors = {
+  ARGVX3(0,_data,[]);
+  private["_direction","_angle","_pitch"];
+
+  _direction = _data select 0;
+  _angle = _data select 1;
+  _pitch = _data select 2;
+
+  _vecdx = sin(_direction) * cos(_angle);
+  _vecdy = cos(_direction) * cos(_angle);
+  _vecdz = sin(_angle);
+
+  _vecux = cos(_direction) * cos(_angle) * sin(_pitch);
+  _vecuy = sin(_direction) * cos(_angle) * sin(_pitch);
+  _vecuz = cos(_angle) * cos(_pitch);
+
+  private["_dir_vector"];
+  private["_up_vector"];
+  _dir_vector = [_vecdx,_vecdy,_vecdz];
+  _up_vector = [_vecux,_vecuy,_vecuz];
+
+  ([_dir_vector,_up_vector])
+};
+
+sh_set_heading = {
+  ARGVX3(0,_object,objNull);
+  ARGVX3(1,_data,[]);
+
+  if (typeName (_data select 0) == typeName []) exitWith {
+    _object setVectorDirAndUp _data;
+  };
+
+  def(_vectors);
+  _vectors = [_data] call sh_calcualte_vectors;
+  _object setVectorDirAndUp _vectors;
+};
+
+sh_fake_attach = {
+  ARGVX3(0,_source,objNull);
+  ARGVX3(1,_target,objNull);
+  ARGVX3(2,_offset,[]);
+  ARGV3(3,_heading,[]);
+  ARGV4(4,_attached,false,false);
+
+  if (isNil "_heading") then {
+    _heading = [0,0,0];
+  };
+
+  _source attachTo [_target, _offset];
+
+  [_source, _heading] call sh_set_heading;
+
+  if (not(_attached)) then {
+    //hack to have the objects not being attached
+    _source attachTo [_source,[0,0,0]];
+    detach _source;
+  };
+};
+
+sh_create_setPos_reference = {
+  if (!isNil "setPos_reference") exitWith {};
+  setPos_reference = "Sign_Sphere10cm_F" createVehicleLocal [0,0,0];
+  setPos_reference setPos [0,0,0];
+
+  [setPos_reference,[0,0,0]] call sh_set_heading;
+};
+
+[] call sh_create_setPos_reference;
+
+sh_fake_setPos = {
+  //player groupChat format["camera_fake_setPos %1",_this];
+  ARGVX3(0,_object,objNull);
+  ARGVX3(1,_position,[]);
+  ARGV3(2,_heading,[]);
+
+  [_object,setPos_reference, (setPos_reference worldToModel _position),OR(_heading,nil)] call object_fake_attach;
+};
 
 shFunctions_loased = true;
 diag_log "shFunctions loading complete";

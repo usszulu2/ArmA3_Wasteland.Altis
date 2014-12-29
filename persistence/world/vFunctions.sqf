@@ -5,18 +5,28 @@ diag_log "vFunctions.sqf loading ...";
 call compile preProcessFileLineNumbers "persistence\lib\shFunctions.sqf";
 
 
-v_restoreVehicle = {_this spawn {
+
+v_restoreVehicle = {
   //diag_log format["%1 call v_restoreVehicle", _this];
   ARGVX3(0,_data_pair,[]);
+  ARGV4(1,_ignore_expiration,false,false);
+  ARGV3(2,_create_array,[]);
 
   _this = _data_pair;
   ARGVX3(0,_vehicle_key,"");
   ARGVX2(1,_vehicle_hash);
 
-  if (!isCODE(_vehicle_hash)) exitWith {};
 
   def(_vehicle_data);
-  _vehicle_data =  call _vehicle_hash;
+  if (isCODE(_vehicle_hash)) then {
+    _vehicle_data = call _vehicle_hash;
+  }
+  else { if(isARRAY(_vehicle_hash)) then {
+    _vehicle_data = _vehicle_hash;
+  };};
+
+  if (isNil "_vehicle_data") exitWith {};
+
   //diag_log _vehicle_data;
 
 
@@ -82,27 +92,40 @@ v_restoreVehicle = {_this spawn {
   diag_log format["%1(%2) is being restored.", _vehicle_key, _class];
 
 
-  if (isSCALAR(_hours_alive) && {A3W_vehicleLifetime > 0 && {_hours_alive > A3W_vehicleLifetime}}) exitWith {
+  if (not(_ignore_expiration) && {isSCALAR(_hours_alive) && {A3W_vehicleLifetime > 0 && {_hours_alive > A3W_vehicleLifetime}}}) exitWith {
     diag_log format["vehicle %1(%2) has been alive for %3 (max=%4), skipping it", _vehicle_key, _class, _hours_alive, A3W_vehicleLifetime];
   };
 
-  if (isSCALAR(_hours_abandoned) && {A3W_vehicleMaxUnusedTime > 0 && {_hours_abandoned > A3W_vehicleMaxUnusedTime}}) exitWith {
+  if (not(_ignore_expiration) && {isSCALAR(_hours_abandoned) && {A3W_vehicleMaxUnusedTime > 0 && {_hours_abandoned > A3W_vehicleMaxUnusedTime}}}) exitWith {
     diag_log format["vehicle %1(%2) has been abandoned for %3 hours, (max=%4), skipping it", _vehicle_key, _class, _hours_abandoned, A3W_vehicleMaxUnusedTime];
   };
 
 
   def(_obj);
-  _obj = createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"];
+  if (isARRAY(_create_array)) then {
+    _obj = createVehicle _create_array;
+  }
+  else {
+    _obj = createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"];
+  };
+
   if (!isOBJECT(_obj)) exitWith {
     diag_log format["Could not create vehicle of class: %1", _class];
   };
+
+  _obj allowDamage false;
+  [_obj] spawn { ARGVX3(0,_obj,objNull); sleep 3; _obj allowDamage true;}; //hack so that vehicle does not take damage while spawning
+
 
   [_obj, false] call vehicleSetup;
 
   _obj setVariable ["vehicle_key", _vehicle_key, true];
   missionNamespace setVariable [_vehicle_key, _obj];
 
-  _obj setPosWorld ATLtoASL _pos;
+  if (!isARRAY(_create_array)) then {
+    _obj setPosWorld ATLtoASL _pos;
+  };
+
   if (isARRAY(_dir)) then {
     _obj setVectorDirAndUp _dir;
   };
@@ -200,7 +223,8 @@ v_restoreVehicle = {_this spawn {
 
   tracked_vehicles_list pushBack _obj;
 
-}};;
+  _obj
+};
 
 
 tracked_vehicles_list = [];
@@ -411,6 +435,7 @@ v_setupVehicleSavedVariables = {
 v_addSaveVehicle = {
   ARGVX3(0,_list,[]);
   ARGVX3(1,_obj,objNull);
+  ARGV4(2,_hashify,false,true);
 
   if (not([_obj] call v_isSaveable)) exitWith {};
 
@@ -487,7 +512,8 @@ v_addSaveVehicle = {
     };
   };
 
-  _list pushBack [_objName, ([
+  def(_result);
+  _result = [
     ["Class", _class],
     ["Position", _pos],
     ["Direction", _dir],
@@ -507,8 +533,10 @@ v_addSaveVehicle = {
     ["FuelCargo", _fuelCargo],
     ["RepairCargo", _repairCargo],
     ["Hitpoints", _hitPoints]
-  ] call sock_hash)];
+  ];
 
+  _result = if (_hashify) then {_result call sock_hash} else {_result};
+  _list pushBack [_objName, _result];
 
   true
 };
@@ -629,7 +657,7 @@ v_loadVehicles = {
 
   diag_log format["A3Wasteland - will restore %1 vehicles", count(_vehicles)];
   {
-    [_x] call v_restoreVehicle;
+    [_x] spawn v_restoreVehicle;
   } forEach _vehicles;
 
   v_loadVehicles_complete = true;
