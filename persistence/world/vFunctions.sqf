@@ -5,10 +5,12 @@ diag_log "vFunctions.sqf loading ...";
 call compile preProcessFileLineNumbers "persistence\lib\shFunctions.sqf";
 
 
+
 v_restoreVehicle = {
   //diag_log format["%1 call v_restoreVehicle", _this];
   ARGVX3(0,_data_pair,[]);
-  ARGVX4(1,_ignore_expiration,false,false);
+  ARGV4(1,_ignore_expiration,false,false);
+  ARGV3(2,_create_array,[]);
 
   _this = _data_pair;
   ARGVX3(0,_vehicle_key,"");
@@ -100,17 +102,30 @@ v_restoreVehicle = {
 
 
   def(_obj);
-  _obj = createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"];
+  if (isARRAY(_create_array)) then {
+    _obj = createVehicle _create_array;
+  }
+  else {
+    _obj = createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"];
+  };
+
   if (!isOBJECT(_obj)) exitWith {
     diag_log format["Could not create vehicle of class: %1", _class];
   };
+
+  _obj allowDamage false;
+  [_obj] spawn { ARGVX3(0,_obj,objNull); sleep 3; _obj allowDamage true;}; //hack so that vehicle does not take damage while spawning
+
 
   [_obj, false] call vehicleSetup;
 
   _obj setVariable ["vehicle_key", _vehicle_key, true];
   missionNamespace setVariable [_vehicle_key, _obj];
 
-  _obj setPosWorld ATLtoASL _pos;
+  if (!isARRAY(_create_array)) then {
+    _obj setPosWorld ATLtoASL _pos;
+  };
+
   if (isARRAY(_dir)) then {
     _obj setVectorDirAndUp _dir;
   };

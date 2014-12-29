@@ -52,8 +52,10 @@ class list_simple_menu {
 
   class list_simple_menu_list : gui_RscListBox {
     idc = list_simple_menu_list_idc;
-    x = -10; y = -10;
-    w = 0.05; h = 0.50;
+    //x = -10; y = -10;
+    //w = 0.05; h = 0.50;
+    x = 0.15; y = 0.198;
+    w = 0.53; h = 0.334;
     rowHeight = 0.065;
   };
 };

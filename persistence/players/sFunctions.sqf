@@ -277,7 +277,6 @@ p_getPlayerParking = {
 
   def(_parked_vehicles);
   _parked_vehicles = _player getVariable ["parked_vehicles", []];
-  diag_log str(_parked_vehicles);
 
   init(_vehicles,[]);
 
