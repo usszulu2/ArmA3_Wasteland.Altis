@@ -6,19 +6,19 @@ diag_log format["Loading parking interact functions ..."];
 
 
 pp_interact_select_vehicle = {
-	ARGVX3(0,_vehicle_id,"");
-	if (_vehicle_id == "") exitWith {nil};
+  ARGVX3(0,_vehicle_id,"");
+  if (_vehicle_id == "") exitWith {nil};
 
-	pp_interact_selected_vehicle = _vehicle_id;
-	closeDialog 0;
-	_vehicle_id
+  pp_interact_selected_vehicle = _vehicle_id;
+  closeDialog 0;
+  _vehicle_id
 };
 
 pp_interact_park_vehicle_wait = {
-	//player groupChat format["interact_select_vehicle_wait %1",_this];
-	disableSerialization;
-	ARGVX3(0,_title,"");
-	ARGVX3(1,_vehicle_list,[]);
+  //player groupChat format["interact_select_vehicle_wait %1",_this];
+  disableSerialization;
+  ARGVX3(0,_title,"");
+  ARGVX3(1,_vehicle_list,[]);
 
   pp_interact_selected_vehicle = nil;
 
@@ -26,24 +26,24 @@ pp_interact_park_vehicle_wait = {
   def(_list);
   def(_submit);
 
-	_controls = [toUpper(_title),0.14,0.14,0.55,0.45] call list_simple_menu_setup;
-	if (!isARRAY(_controls)) exitWith {
+  _controls = [toUpper(_title),0.14,0.14,0.55,0.45] call list_simple_menu_setup;
+  if (!isARRAY(_controls)) exitWith {
     player groupChat format["ERROR: Could not setup dialog for parking vehicles"];
-	  nil
-	};
+    nil
+  };
 
-	_list = _controls select list_simple_menu_list;
-	_submit = _controls select list_simple_menu_submit;
+  _list = _controls select list_simple_menu_list;
+  _submit = _controls select list_simple_menu_submit;
 
-	_submit ctrlSetText "Select";
+  _submit ctrlSetText "Select";
 
-	buttonSetAction [(ctrlIDC _submit),'[([] call list_simple_menu_label_data)] call pp_interact_select_vehicle;'];
+  buttonSetAction [(ctrlIDC _submit),'[([] call list_simple_menu_label_data)] call pp_interact_select_vehicle;'];
 
-	_submit ctrlCommit 0;
+  _submit ctrlCommit 0;
 
-	interact_selected_vehicle = nil;
+  interact_selected_vehicle = nil;
 
-	{if(true) then {
+  {if(true) then {
     init(_vehicle_data,_x);
 
     def(_vehicle_id);
@@ -68,15 +68,15 @@ pp_interact_park_vehicle_wait = {
     _picture = [_class] call generic_picture_path;
 
     def(_index);
-		_index = _list lbAdd format["%1 (%2)",_name, _vehicle_id];
-		_list lbSetData [_index, _vehicle_id];
-		_list lbSetPicture [_index, _picture];
-	};} forEach _vehicle_list;
+    _index = _list lbAdd format["%1 (%2)",_name, _vehicle_id];
+    _list lbSetData [_index, _vehicle_id];
+    _list lbSetPicture [_index, _picture];
+  };} forEach _vehicle_list;
 
-	_list lbSetCurSel 0;
-	waitUntil {(not(isNil "pp_interact_selected_vehicle") || {not(ctrlShown _list)})};
+  _list lbSetCurSel 0;
+  waitUntil {(not(isNil "pp_interact_selected_vehicle") || {not(ctrlShown _list)})};
 
-	OR(pp_interact_selected_vehicle,nil);
+  OR(pp_interact_selected_vehicle,nil);
 };
 
 diag_log format["Loading parking interact functions complete"];
