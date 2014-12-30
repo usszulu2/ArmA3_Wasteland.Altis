@@ -120,6 +120,7 @@ if (["A3W_combatAbortDelay", 0] call getPublicVar > 0) then
 {
 	player addEventHandler ["Fired",
 	{
+	  private["_isShop"];
 		// Remove remote explosives if within 100m of a store
 		if (_this select 1 == "Put") then
 		{
@@ -132,14 +133,15 @@ if (["A3W_combatAbortDelay", 0] call getPublicVar > 0) then
 				_minDist = ["A3W_remoteBombStoreRadius", 100] call getPublicVar;
 
 				{
-					if (_x getVariable ["storeNPC_setupComplete", false] && {_bomb distance _x < _minDist}) exitWith
+				  _isShop = (_x getVariable ["storeNPC_setupComplete", false] || { _x getVariable ["is_parking", false]});
+					if (_isShop && {_bomb distance _x < _minDist}) exitWith
 					{
 						deleteVehicle _bomb;
 						player addMagazine _mag;
 						playSound "FD_CP_Not_Clear_F";
 						titleText [format ["You are not allowed to place explosives within %1m of a store.\nThe explosive has been re-added to your inventory.", _minDist], "PLAIN DOWN", 0.5];
 					};
-				} forEach entities "CAManBase";
+				} forEach ((entities "CAManBase") + (entities "Land_Laptop_unfolded_F"));
 			};
 		};
 	}];
