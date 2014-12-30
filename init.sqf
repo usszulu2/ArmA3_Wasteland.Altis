@@ -29,6 +29,8 @@ if (isNull player) then { X_JIP = true };
 A3W_scriptThreads = [];
 
 [DEBUG] call compile preprocessFileLineNumbers "globalCompile.sqf";
+[] spawn compile preprocessFileLineNumbers "addons\spawn\functions.sqf";
+
 
 //init Wasteland Core
 [] execVM "config.sqf";
@@ -72,6 +74,7 @@ if (isServer) then
 };
 
 //init 3rd Party Scripts
+[] execVM "addons\parking\functions.sqf";
 [] execVM "addons\storage\functions.sqf";
 [] execVM "addons\R3F_ARTY_AND_LOG\init.sqf";
 [] execVM "addons\proving_ground\init.sqf";
