@@ -1,6 +1,6 @@
 if (isServer) then {
   A3W_fnc_hideObjectGlobal = {
-    diag_log format["%1 call A3W_fnc_hideObjectGlobal", _this];
+    //diag_log format["%1 call A3W_fnc_hideObjectGlobal", _this];
     private["_left", "_right"];
     _left = _this select 0;
     _right = _this select 1;
@@ -16,7 +16,7 @@ if (isServer) then {
 
 if (!isServer) then {
   A3W_fnc_hideSpawning = {
-    diag_log format["%1 call A3W_fnc_hideSpawning", _this];
+    //diag_log format["%1 call A3W_fnc_hideSpawning", _this];
 
     private["_player", "_pos1", "_pos2"];
     _player = _this select 0;
