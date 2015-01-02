@@ -156,7 +156,7 @@ va_information_action_available = {
 va_get_tag = {
   ARGVX4(0,_vehicle,objNull,"");
   def(_tag);
-  _tag =  _vehicle getVariable "va_key"; //sock-rpc-stats
+  _tag =  _vehicle getVariable "vehicle_key"; //sock-rpc-stats
   if (isSTRING(_tag)) exitWith {_tag};
   
   _tag = _vehicle getVariable "A3W_vehicleID"; //iniDB, and extDB
