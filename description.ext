@@ -95,7 +95,7 @@ class CfgSounds
 {
 	sounds[] = 
 	{
-		beep, beep2, beep3, beep4, beep5, beep6, beep7, beep8, beep9, carlock
+		beep, beep2, beep3, beep4, beep5, beep6, beep7, beep8, beep9
 	};
 		class beep
 			{
@@ -141,11 +141,5 @@ class CfgSounds
 			{
                                 sound[] = {"addons\beacondetector\sound\beep.wav", db-10, 0.1};
                                 titles[] = {};
-			};
-		class carlock
-			{
-								name = "carlock";
-								sound[] = {sounds\carlock.ogg,0.2,1};
-								titles[] = {};
 			};
 };
