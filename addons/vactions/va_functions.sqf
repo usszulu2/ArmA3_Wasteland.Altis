@@ -506,8 +506,8 @@ va_outside_target = {
   
   def(_target);
   _target = _objects select 0;
-  
-  if (not(_target isKindOf "LandVehicle")) exitWith {nil};
+
+  if (({_target isKindOf _x } count ["Helicopter", "Plane", "Ship_F", "Car", "Motorcycle", "Tank"]) == 0) exitWith {nil};
   
   _target
 };
