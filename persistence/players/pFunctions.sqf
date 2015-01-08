@@ -437,7 +437,7 @@ p_recreateStorageBox = {
     };
   } forEach _data;
 
-  if (!isSTRING(_class) || {_class == ""}) then {
+  if (!isSTRING(_class) || {_class == "" || {_class != _box_class}}) then {
     _class = _box_class;
   };
 
