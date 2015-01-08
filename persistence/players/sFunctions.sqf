@@ -207,69 +207,7 @@ p_getPlayerInfo = {
   (_info)
 };
 
-p_trackStorageHoursAlive = {
-  ARGVX3(0,_obj,objNull);
 
-  def(_spawnTime);
-  def(_hoursAlive);
-
-  _spawnTime = _obj getVariable "storage_spawningTime";
-  _hoursAlive = _obj getVariable "storage_hoursAlive";
-
-  if (isNil "_spawnTime") then {
-    _spawnTime = diag_tickTime;
-    _obj setVariable ["storage_spawningTime", _spawnTime, true];
-  };
-
-  if (isNil "_hoursAlive") then {
-    _hoursAlive = 0;
-    _obj setVariable ["storage_hoursAlive", _hoursAlive, true];
-  };
-
-  def(_totalHours);
-  _totalHours = _hoursAlive + (diag_tickTime - _spawnTime) / 3600;
-
-  (_totalHours)
-};
-
-p_getPlayerStorage = {
-  //diag_log format["%1 call p_getPlayerInfo", _this];
-  ARGVX3(0,_player,objNull);
-
-  def(_obj);
-  _obj = _player getVariable ["storage_box", objNull];
-
-  if (!isOBJECT(_obj)) exitWith {nil};
-
-  def(_hours_alive);
-  _hours_alive = [_obj] call p_trackStorageHoursAlive;
-
-  init(_weapons,[]);
-  init(_magazines,[]);
-  init(_items,[]);
-  init(_backpacks,[]);
-
-  // Save weapons & ammo
-  _weapons = (getWeaponCargo _obj) call cargoToPairs;
-  _magazines = (getMagazineCargo _obj) call cargoToPairs;
-  _items = (getItemCargo _obj) call cargoToPairs;
-  _backpacks = (getBackpackCargo _obj) call cargoToPairs;
-
-  def(_storage);
-  _storage =
-  [
-    ["Class", typeOf _obj],
-    ["HoursAlive", _hours_alive],
-    ["Weapons", _weapons],
-    ["Magazines", _magazines],
-    ["Items", _items],
-    ["Backpacks", _backpacks]
-  ] call sock_hash;
-
-  deleteVehicle _obj;
-
-  (_storage)
-};
 
 p_getPlayerParking = {
   //diag_log format["%1 call p_getPlayerParking", _this];
@@ -303,6 +241,19 @@ p_getPlayerParking = {
 
   (_vehicles call sock_hash)
 };
+
+p_getPlayerStorage = {
+  ARGVX3(0,_player,objNull);
+
+  def(_storage);
+
+  _storage = _player getVariable "private_storage";
+  if (!isARRAY(_storage)) exitWith {};
+
+  (_storage call sock_hash)
+};
+
+
 p_addPlayerSave = {
   //diag_log format["%1 call p_addPlayerSave", _this];
   ARGVX3(0,_request,[]);
