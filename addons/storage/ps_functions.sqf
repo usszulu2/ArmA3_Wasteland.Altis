@@ -137,6 +137,7 @@ ps_inventory_ui_mod = {
 ps_access = {
   private["_box"];
   _box = [player, ps_container_class] call p_recreateStorageBox;
+
   if (isNil "_box") exitWith {
     player commandChat "ERROR: Could not access private storage, please report this error to the server administrator";
   };

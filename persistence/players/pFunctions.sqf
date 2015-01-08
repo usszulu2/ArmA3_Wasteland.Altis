@@ -448,6 +448,14 @@ p_recreateStorageBox = {
     diag_log format["WARNING: Could not create storage container of class ""%1""", _class];
   };
 
+  removeAllWeapons _obj;
+  removeAllItems _obj;
+  clearWeaponCargo _obj;
+  clearMagazineCargo _obj;
+  clearBackpackCargo _obj;
+  clearItemCargo _obj;
+  _obj hideObject true;
+
   if (isARRAY(_cargo_weapons)) then {
     { _obj addWeaponCargoGlobal _x } forEach _cargo_weapons;
   };
