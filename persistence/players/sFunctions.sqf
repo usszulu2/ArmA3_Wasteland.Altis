@@ -207,69 +207,7 @@ p_getPlayerInfo = {
   (_info)
 };
 
-p_trackStorageHoursAlive = {
-  ARGVX3(0,_obj,objNull);
 
-  def(_spawnTime);
-  def(_hoursAlive);
-
-  _spawnTime = _obj getVariable "storage_spawningTime";
-  _hoursAlive = _obj getVariable "storage_hoursAlive";
-
-  if (isNil "_spawnTime") then {
-    _spawnTime = diag_tickTime;
-    _obj setVariable ["storage_spawningTime", _spawnTime, true];
-  };
-
-  if (isNil "_hoursAlive") then {
-    _hoursAlive = 0;
-    _obj setVariable ["storage_hoursAlive", _hoursAlive, true];
-  };
-
-  def(_totalHours);
-  _totalHours = _hoursAlive + (diag_tickTime - _spawnTime) / 3600;
-
-  (_totalHours)
-};
-
-p_getPlayerStorage = {
-  //diag_log format["%1 call p_getPlayerInfo", _this];
-  ARGVX3(0,_player,objNull);
-
-  def(_obj);
-  _obj = _player getVariable ["storage_box", objNull];
-
-  if (!isOBJECT(_obj)) exitWith {nil};
-
-  def(_hours_alive);
-  _hours_alive = [_obj] call p_trackStorageHoursAlive;
-
-  init(_weapons,[]);
-  init(_magazines,[]);
-  init(_items,[]);
-  init(_backpacks,[]);
-
-  // Save weapons & ammo
-  _weapons = (getWeaponCargo _obj) call cargoToPairs;
-  _magazines = (getMagazineCargo _obj) call cargoToPairs;
-  _items = (getItemCargo _obj) call cargoToPairs;
-  _backpacks = (getBackpackCargo _obj) call cargoToPairs;
-
-  def(_storage);
-  _storage =
-  [
-    ["Class", typeOf _obj],
-    ["HoursAlive", _hours_alive],
-    ["Weapons", _weapons],
-    ["Magazines", _magazines],
-    ["Items", _items],
-    ["Backpacks", _backpacks]
-  ] call sock_hash;
-
-  deleteVehicle _obj;
-
-  (_storage)
-};
 
 p_getPlayerParking = {
   //diag_log format["%1 call p_getPlayerParking", _this];
@@ -303,6 +241,19 @@ p_getPlayerParking = {
 
   (_vehicles call sock_hash)
 };
+
+p_getPlayerStorage = {
+  ARGVX3(0,_player,objNull);
+
+  def(_storage);
+
+  _storage = _player getVariable "private_storage";
+  if (!isARRAY(_storage)) exitWith {};
+
+  (_storage call sock_hash)
+};
+
+
 p_addPlayerSave = {
   //diag_log format["%1 call p_addPlayerSave", _this];
   ARGVX3(0,_request,[]);
@@ -314,21 +265,23 @@ p_addPlayerSave = {
   init(_alive, alive _player);
   diag_log format["p_addPlayerSave: Saving stats for %1(%2)", _name, _uid];
 
-  def(_initComplete);
-  _initComplete = _player getVariable ["initComplete", false];
-  //diag_log format["_initComplete = %1", _initComplete];
-  if (not(_initComplete)) exitWith {};
+  def(_init_complete);
+  _init_complete = _player getVariable ["initComplete", false];
 
-  def(_respawnDialogActive);
-  _respawnDialogActive = _player getVariable ["respawnDialogActive", false];
-  //diag_log format["_respawnDialogActive = %1", _respawnDialogActive];
+  if (not(_init_complete)) exitWith {
+    diag_log format["%1(%2) exited without completing initialization", _name, _uid];
+  };
 
-  def(_FAR_isUnconscious);
-  _FAR_isUnconscious = (_player getVariable ["FAR_isUnconscious", 0] != 0);
-  //diag_log format["_FAR_isUnconscious = %1", _FAR_isUnconscious];
+  def(_respawn_active);
+  _respawn_active = _player getVariable ["respawnDialogActive", false];
+  //diag_log format["_respawn_active = %1", _respawn_active];
+
+  def(_unconscious);
+  _unconscious = (_player getVariable ["FAR_isUnconscious", 0] != 0);
+  //diag_log format["_unconscious = %1", _unconscious];
 
   def(_reset_save);
-  _reset_save = (_respawnDialogActive || {_FAR_isUnconscious || {not(_alive)}}); //or not alive
+  _reset_save = (_respawn_active || {_unconscious || {not(_alive)}}); //or not alive
   //diag_log format["_reset_save = %1", _reset_save];
 
 
@@ -360,7 +313,7 @@ p_addPlayerSave = {
     _request pushBack ["PlayerScore",_scoreInfo];
   };
 
-  diag_log format["Disconnected %1(%2):  unconscious = %3, respawning = %4, alive = %5", _name,_uid,_FAR_isUnconscious, _respawnDialogActive, _alive];
+  diag_log format["Disconnected %1(%2):  unconscious = %3, respawning = %4, alive = %5", _name,_uid, _unconscious, _respawn_active, _alive];
   if (_reset_save) exitWith {
      diag_log format["Resetting %1(%2) stats", _name, _uid];
      _request pushBack ["PlayerSave",nil];
@@ -535,6 +488,7 @@ p_disconnectSave = {
 
   _request call stats_set;
   [_scope] call stats_flush;
+  diag_log format["Stats for %1(%2) saved", _name, _uid];
 };
 
 

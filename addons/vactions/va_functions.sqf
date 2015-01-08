@@ -78,7 +78,7 @@ va_pull_player_action_available = {
   
   
   if (not(alive _player)) exitWith {false};
-  
+  if (not(isPlayer _target) && {_vehicle isKindOf "UAV_02_base_F" || {_vehicle isKindOf "UGV_01_base_F"}}) exitWith {false};
   if (cursorTarget != _vehicle) exitWith {false};
   if (not(locked _vehicle < 2)) exitWith {false};
   if (not([_target, _vehicle] call va_player_inside)) exitWith {false};
@@ -506,8 +506,8 @@ va_outside_target = {
   
   def(_target);
   _target = _objects select 0;
-  
-  if (not(_target isKindOf "LandVehicle")) exitWith {nil};
+
+  if (({_target isKindOf _x } count ["Helicopter", "Plane", "Ship_F", "Car", "Motorcycle", "Tank"]) == 0) exitWith {nil};
   
   _target
 };

@@ -47,7 +47,6 @@ o_isSaveable = {
 
   init(_class, typeOf _obj);
 
-  if (!(alive _obj)) exitWith {false};
   if ([_obj] call sh_isSaveableVehicle) exitWith {false}; //already being saved as a vehicle, don't save it
   if ([_obj] call o_isInSaveList) exitWith {true}; //not sure what this "saveList" thing is ...
 
@@ -548,6 +547,7 @@ o_addSaveObject = {
   ARGVX3(1,_obj,objNull);
   
   if (not([_obj] call o_isSaveable)) exitWith {};
+  if (!(alive _obj)) exitWith {};
 
   //diag_log format["will save %1", _obj];
   def(_class);
