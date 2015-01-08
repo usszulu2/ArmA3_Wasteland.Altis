@@ -85,19 +85,10 @@ ps_create_boxes = {
 };
 
 
-ps_get_box = {
-  def(_box);
-  init(_player,player);
-  _box = _player getVariable ["storage_box", objNull];
-  if (isOBJECT(_box) && {not(isNull _box)}) exitWith {_box};
-  
-  _box = ps_container_class createVehicle [0,0, 1000];
-  _player setVariable ["storage_box", _box, true];
-  (_box)
-};
-
 
 ps_inventory_ui_mod = {
+  ARGVX3(0,_box,objNull);
+
   disableSerialization;
   waitUntil {!(isNull (findDisplay IDD_FUTURAGEAR))};
   def(_display);
@@ -138,26 +129,32 @@ ps_inventory_ui_mod = {
     isNull (findDisplay IDD_FUTURAGEAR)
   };
   
-  private["_box"];
-  _box = (call ps_get_box);
-  detach _box;
-  _box setPos [0,0,1000];
+
+  [player, _box] call p_saveStorage;
+  deleteVehicle _box;
 };
 
 ps_access = {
   private["_box"];
-  _box = (call ps_get_box);
+  _box = [player, ps_container_class] call p_recreateStorageBox;
+  if (isNil "_box") exitWith {
+    player commandChat "ERROR: Could not access private storage, please report this error to the server administrator";
+  };
+
   _box attachTo [player, [0,0,3]];
+
+
   player removeAllEventHandlers "InventoryOpened";
   player addEventHandler ["InventoryOpened", {
-    if ((call ps_get_box) == (_this select 1)) exitWith {
+    if (((_this select 1) getVariable ["is_storage_box", false])) exitWith {
       true
     };
-	  false
+	false
   }];
-  player action ["Gear",  (call ps_get_box)];
+
+  player action ["Gear",  _box];
   player removeAllEventHandlers "InventoryOpened";
-  [] spawn ps_inventory_ui_mod;
+  [_box] spawn ps_inventory_ui_mod;
 };
 
 ps_cameraDir = {
@@ -265,7 +262,6 @@ ps_setup_boxes = {
     diag_log format["Waiting for storage boxes setup to complete ..."];
     waitUntil {not(isNil "ps_setup_boxes_complete")};
     diag_log format["Waiting for storage boxes setup to complete ... done"];
-    [] call ps_get_box; //create the storage box if it does not already exist
   };
 };
 
