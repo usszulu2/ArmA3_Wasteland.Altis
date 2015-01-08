@@ -379,19 +379,47 @@ fn_applyPlayerStorage = {
     diag_log format["WARNING: No player private storage data"];
   };
   init(_data,_this);
-
-
+  init(_player,player;)
 
   diag_log "#############################################";
   diag_log "Dumping _storageData";
   [_data] call p_dumpHash;
+
+  def(_hours_alive);
+  _hours_alive = [_data, "HoursAlive"] call fn_getFromPairs;
+
+
+  if (isSCALAR(_hours_alive) && {A3W_storageLifetime > 0 && {_hours_alive > A3W_storageLifetime}}) exitWith {
+    player commandChat format["WARNING: Your private storage is over %1 hours, it has been reset"];
+    diag_log format["Private storage for %1 (%2) has been alive for %3 (max=%4), resetting it", (name player), (getPlayerUID player), _hours_alive, A3W_storageLifetime];
+    _player setVariable ["private_storage", nil, true];
+  };
+
+  _player setVariable ["private_storage", _data, true];
+
+  _player setVariable ["storage_spawningTime", diag_tickTime];
+  if (isSCALAR(_hours_alive)) then {
+    _player setVariable ["storage_hoursAlive", _hours_alive];
+  };
+};
+
+
+
+p_recreateStorageBox = {
+  //diag_log format["%1 call p_recreateStorageBox", _this];
+
+  ARGVX3(0,_player,objNull);
+  ARGVX3(1,_box_class,"");
+
+
+  def(_data);
+  _data = _player getVariable ["private_storage", []];
 
   def(_class);
   def(_cargo_backpacks);
   def(_cargo_magazines);
   def(_cargo_items);
   def(_cargo_weapons);
-  def(_hours_alive);
 
   def(_name);
   def(_value);
@@ -402,36 +430,31 @@ fn_applyPlayerStorage = {
     switch (_name) do
     {
       case "Class": {_class = OR(_value,nil)};
-      case "HoursAlive": { _hours_alive = OR(_value,nil);};
       case "Weapons": { _cargo_weapons = OR(_value,nil);};
       case "Items": { _cargo_items = OR(_value,nil);};
       case "Magazines": { _cargo_magazines = OR(_value,nil);};
       case "Backpacks": { _cargo_backpacks = OR(_value,nil);};
-      case "HoursAlive": { _hours_alive = OR(_value,nil);};
     };
   } forEach _data;
 
-  if (!isSTRING(_class)) exitWith {
-    diag_log format["WARNING: There is no container class for private storage"];
+  if (!isSTRING(_class) || {_class == ""}) then {
+    _class = _box_class;
   };
 
-  if (isSCALAR(_hours_alive) && {A3W_storageLifetime > 0 && {_hours_alive > A3W_storageLifetime}}) exitWith {
-    player commandChat format["WARNING: Your private storage is over %1 hours, it has been reset"];
-    diag_log format["Private storage for %1 (%2) has been alive for %3 (max=%4), resetting it", (name player), (getPlayerUID player), _hours_alive, A3W_storageLifetime];
-  };
 
   def(_obj);
-  _obj = _class createVehicle [0,0,1000];
+  _obj = _class createVehicleLocal [0,0,1000];
   if (!isOBJECT(_obj)) exitWith {
     diag_log format["WARNING: Could not create storage container of class ""%1""", _class];
   };
 
-  player setVariable ["storage_box", _obj, true];
-
-  _obj setVariable ["storage_spawningTime", diag_tickTime];
-  if (isSCALAR(_hours_alive)) then {
-    _obj setVariable ["storage_hoursAlive", _hours_alive];
-  };
+  removeAllWeapons _obj;
+  removeAllItems _obj;
+  clearWeaponCargo _obj;
+  clearMagazineCargo _obj;
+  clearBackpackCargo _obj;
+  clearItemCargo _obj;
+  _obj hideObject true;
 
   if (isARRAY(_cargo_weapons)) then {
     { _obj addWeaponCargoGlobal _x } forEach _cargo_weapons;
@@ -453,6 +476,73 @@ fn_applyPlayerStorage = {
     { _obj addMagazineCargoGlobal _x } forEach _cargo_magazines;
   };
 
+  _obj setVariable ["is_storage_box", true];
+
+  _obj
+};
+
+
+
+p_trackStorageHoursAlive = {
+  ARGVX3(0,_player,objNull);
+
+  def(_spawnTime);
+  def(_hoursAlive);
+
+  _spawnTime = _player getVariable "storage_spawningTime";
+  _hoursAlive = _player getVariable "storage_hoursAlive";
+
+  if (isNil "_spawnTime") then {
+    _spawnTime = diag_tickTime;
+    _player setVariable ["storage_spawningTime", _spawnTime, true];
+  };
+
+  if (isNil "_hoursAlive") then {
+    _hoursAlive = 0;
+    _player setVariable ["storage_hoursAlive", _hoursAlive, true];
+  };
+
+  def(_totalHours);
+  _totalHours = _hoursAlive + (diag_tickTime - _spawnTime) / 3600;
+
+  (_totalHours)
+};
+
+p_saveStorage = {
+  //diag_log format["%1 call p_getPlayerInfo", _this];
+  ARGVX3(0,_player,objNull);
+  ARGVX3(1,_obj,objNull);
+
+
+  if (isNull _obj) exitWith {};
+
+  def(_hours_alive);
+  _hours_alive = [_player] call p_trackStorageHoursAlive;
+
+  init(_weapons,[]);
+  init(_magazines,[]);
+  init(_items,[]);
+  init(_backpacks,[]);
+
+  // Save weapons & ammo
+  _weapons = (getWeaponCargo _obj) call cargoToPairs;
+  _magazines = (getMagazineCargo _obj) call cargoToPairs;
+  _items = (getItemCargo _obj) call cargoToPairs;
+  _backpacks = (getBackpackCargo _obj) call cargoToPairs;
+
+  def(_storage);
+  _storage =
+  [
+    ["Class", typeOf _obj],
+    ["HoursAlive", _hours_alive],
+    ["Weapons", _weapons],
+    ["Magazines", _magazines],
+    ["Items", _items],
+    ["Backpacks", _backpacks]
+  ];
+
+  _player setVariable ["private_storage", _storage, true];
+  (_storage)
 };
 
 fn_applyPlayerParking = {
