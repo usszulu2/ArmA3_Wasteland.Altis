@@ -59,7 +59,7 @@ if (not(isClient)) then {
     _added = [_parked_vehicles, _vehicle, false] call v_addSaveVehicle;
     if (isNil "_added") exitWith {
       diag_log format["ERROR: Could not park vehicle %1(%2) for player %3(%4)", typeOf _vehicle, netId _vehicle,  (name _player), _uid];
-      [_player, format["The %1 could not be parked (it may not be saveable). Please check with server administrator.", ([typeOf _vehicle] call generic_display_name)], "Parking Error"] call pp_notify;
+      [_player, format["The %1 needs to be saved before you can park it.", ([typeOf _vehicle] call generic_display_name)], "Parking Error"] call pp_notify;
     };
 
     def(_display_name);
@@ -90,7 +90,7 @@ if (not(isClient)) then {
 
     if (!isARRAY(_vehicle_data)) exitWith {
       diag_log format["ERROR: Could not retrieve vehicle %1 for player %2(%3)", _vehicle_id,  (name _player), _uid];
-      [_player, format["Your vehicle (%2) could not be retrieved. Please report this error to the server administrator.", _vehicle_id], "Retrieval Error"] call pp_notify;
+      [_player, format["Your vehicle (%2) could not be retrieved. Please report this error to A3Armory.com.", _vehicle_id], "Retrieval Error"] call pp_notify;
     };
 
     def(_position);
@@ -110,7 +110,7 @@ if (not(isClient)) then {
 
     if (isNil "_vehicle") exitWith {
       diag_log format["ERROR: Could not restore vehicle %1 for player %2(%3)", _vehicle_id,  (name _player), _uid];
-      [_player, format["Your vehicle (%1) could not be restored. Please report this error to the server administrator.", _vehicle_id], "Restoring Error"] call pp_notify;
+      [_player, format["Your vehicle (%1) could not be restored. Please report this error to A3Armory.com.", _vehicle_id], "Restoring Error"] call pp_notify;
     };
 
     [_parked_vehicles, _vehicle_id] call fn_removeFromPairs;
