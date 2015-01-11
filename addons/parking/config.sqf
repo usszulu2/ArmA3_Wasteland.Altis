@@ -8,7 +8,7 @@ pp_markers_enabled = true;
 //shape, type, color, size, text (for map markers, if enabled)
 pp_markers_properties = ["ICON", "mil_dot", "ColorKhaki", [1.2,1.2], "Parking"];
 
-//number of seconds to wait (after parking a vehicle) before it can be retrieved (0 = no wait)
+//number of seconds to wait (after joining the sever) before a vehicle can be retrieved (0 = no wait)
 pp_retrieve_wait = 0;
 
 //amount of money to charge player for retrieving a vehicle from parking (0 = no charge)
