@@ -148,6 +148,7 @@ pp_get_near_vehicles = {
 
 
 
+pp_join_time = diag_tickTime; //time when the player joined the server
 
 pp_get_wait_time = {
   ARGVX4(0,_vehicle_id,"",0);
@@ -157,18 +158,17 @@ pp_get_wait_time = {
   def(_cooldown_start_name);
   _cooldown_start_name =  format["%1_cooldown_start", _vehicle_id];
 
-  init(_ctime,diag_tickTime);
 
   def(_cooldown_start);
   _cooldown_start = missionNamespace getVariable _cooldown_start_name;
 
   if (!isSCALAR(_cooldown_start)) then {
-    _cooldown_start = _ctime;
+    _cooldown_start = pp_join_time;
     missionNamespace setVariable [_cooldown_start_name, _cooldown_start];
   };
 
   def(_time_elapsed);
-  _time_elapsed = _ctime - _cooldown_start;
+  _time_elapsed = diag_tickTime - _cooldown_start;
 
   def(_time_remaining);
   _time_remaining = pp_retrieve_wait - _time_elapsed;
