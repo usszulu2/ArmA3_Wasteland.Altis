@@ -50,6 +50,7 @@ v_restoreVehicle = {
   def(_turret0);
   def(_turret1);
   def(_turret2);
+  def(_lock_state);
 
 
   def(_key);
@@ -78,6 +79,7 @@ v_restoreVehicle = {
       case "TurretMagazines3": { _turret2 = OR_ARRAY(_value,nil);};
       case "Fuel": { _fuel = OR(_value,nil);};
       case "Hitpoints": { _hitPoints = OR(_value,nil);};
+      case "LockState": { _lock_state = OR(_value,nil);};
     };
   } forEach _vehicle_data;
 
@@ -143,12 +145,14 @@ v_restoreVehicle = {
   // disables thermal equipment on loaded vehicles, comment out if you want thermal
   _obj disableTIEquipment true;
 
-  //lock vehicles form this list
+  //override the lock-state for vehicles form this this
   if ({_obj isKindOf _x} count A3W_locked_vehicles_list > 0) then {
-    _obj lock 2;
-    _obj setVariable ["locked", 2, true];
-    _obj setVariable ["objectLocked", true, true];
-    _obj setVariable ["R3F_LOG_disabled",true,true];
+    _lock_state = 2;
+  };
+
+  if (isSCALAR(_lock_state)) then {
+    _obj lock _lock_state;
+    _obj setVariable ["R3F_LOG_disabled", (_lock_state > 1) , true];
   };
 
   if (isSCALAR(_damage)) then {
@@ -512,6 +516,9 @@ v_addSaveVehicle = {
     };
   };
 
+  def(_lock_state);
+  _lock_state = locked _obj;
+  
   def(_result);
   _result = [
     ["Class", _class],
@@ -532,7 +539,8 @@ v_addSaveVehicle = {
     ["AmmoCargo", _ammoCargo],
     ["FuelCargo", _fuelCargo],
     ["RepairCargo", _repairCargo],
-    ["Hitpoints", _hitPoints]
+    ["Hitpoints", _hitPoints],
+    ["LockState", _lock_state]
   ];
 
   _result = if (_hashify) then {_result call sock_hash} else {_result};
