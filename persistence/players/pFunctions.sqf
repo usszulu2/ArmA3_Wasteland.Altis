@@ -420,6 +420,8 @@ p_recreateStorageBox = {
   def(_cargo_magazines);
   def(_cargo_items);
   def(_cargo_weapons);
+  def(_full_magazines);
+  def(_partial_magazines);
 
   def(_name);
   def(_value);
@@ -432,7 +434,9 @@ p_recreateStorageBox = {
       case "Class": {_class = OR(_value,nil)};
       case "Weapons": { _cargo_weapons = OR(_value,nil);};
       case "Items": { _cargo_items = OR(_value,nil);};
-      case "Magazines": { _cargo_magazines = OR(_value,nil);};
+      case "Magazines": { _cargo_magazines = OR(_value,nil);}; //keep this for a while for legacy reasons
+      case "FullMagazines": { _full_magazines = OR(_value,nil);};
+      case "PartialMagazines": { _partial_magazines = OR(_value,nil);};
       case "Backpacks": { _cargo_backpacks = OR(_value,nil);};
     };
   } forEach _data;
@@ -472,8 +476,16 @@ p_recreateStorageBox = {
     { _obj addItemCargoGlobal _x } forEach _cargo_items;
   };
 
-  if (isARRAY(_cargo_magazines)) then {
+  if (isARRAY(_cargo_magazines)) then { //FIXME: this is legacy code, need to remove eventually
     { _obj addMagazineCargoGlobal _x } forEach _cargo_magazines;
+  };
+
+  if (isARRAY(_full_magazines)) then {
+    { _obj addMagazineCargoGlobal _x } forEach _full_magazines;
+  };
+
+  if (isARRAY(_partial_magazines)) then {
+    { _obj addMagazineAmmoCargo  [(_x select 0), 1, (_x select 1)] } forEach _partial_magazines;
   };
 
   _obj setVariable ["is_storage_box", true];
@@ -520,15 +532,16 @@ p_saveStorage = {
   _hours_alive = [_player] call p_trackStorageHoursAlive;
 
   init(_weapons,[]);
-  init(_magazines,[]);
+  init(_partial_magazines,[]);
+  init(_full_magazines,[]);
   init(_items,[]);
   init(_backpacks,[]);
 
   // Save weapons & ammo
   _weapons = (getWeaponCargo _obj) call cargoToPairs;
-  _magazines = (getMagazineCargo _obj) call cargoToPairs;
   _items = (getItemCargo _obj) call cargoToPairs;
   _backpacks = (getBackpackCargo _obj) call cargoToPairs;
+  [_obj, _full_magazines, _partial_magazines] call sh_fillMagazineData;
 
   def(_storage);
   _storage =
@@ -536,9 +549,10 @@ p_saveStorage = {
     ["Class", typeOf _obj],
     ["HoursAlive", _hours_alive],
     ["Weapons", _weapons],
-    ["Magazines", _magazines],
     ["Items", _items],
-    ["Backpacks", _backpacks]
+    ["Backpacks", _backpacks],
+    ["PartialMagazines", _partial_magazines],
+    ["FullMagazines", _full_magazines]
   ];
 
   _player setVariable ["private_storage", _storage, true];

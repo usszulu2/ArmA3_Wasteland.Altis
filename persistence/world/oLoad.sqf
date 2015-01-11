@@ -9,8 +9,11 @@
 diag_log "oLoad.sqf loading ...";
 if (!isServer) exitWith {};
 
+call compile preProcessFileLineNumbers "persistence\lib\normalize_config.sqf";
+call compile preProcessFileLineNumbers "persistence\lib\shFunctions.sqf";
+call compile preProcessFileLineNumbers "persistence\world\oFunctions.sqf";
 
-#include "oFunctions.sqf"
+#include "macro.h"
 
 init(_oScope, "Objects" call PDB_objectFileName);
 
