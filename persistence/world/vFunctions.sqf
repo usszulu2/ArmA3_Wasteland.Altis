@@ -2,10 +2,6 @@ diag_log "vFunctions.sqf loading ...";
 
 #include "macro.h"
 
-call compile preProcessFileLineNumbers "persistence\lib\shFunctions.sqf";
-
-
-
 v_restoreVehicle = {
   //diag_log format["%1 call v_restoreVehicle", _this];
   ARGVX3(0,_data_pair,[]);
