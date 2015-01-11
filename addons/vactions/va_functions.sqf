@@ -91,7 +91,10 @@ va_flipped = {
   
   def(_pos);
   _pos = getPos _vehicle;
-  
+
+  //no unflip action if vehicle is in water
+  if (surfaceIsWater _pos) exitWith {false};
+
   def(_snormal);
   def(_vnormal);
   _snormal = surfaceNormal _pos;
@@ -496,18 +499,25 @@ va_outside_target = {
   ARGVX3(1,_distance,0);
   if (!isPlayer _player) exitWith {};
   
-  private["_pos1", "_pos2"];
-  _pos1 = (eyePos player);
-  _pos2 = ([_pos1, cameraDirDist(_distance)] call vector_add);
 
-  private["_objects"];
-  _objects = (lineIntersectsWith [_pos1,_pos2,objNull,objNull,true]);
-  if (!isARRAY(_objects) || {count _objects == 0}) exitWith {};
-  
   def(_target);
-  _target = _objects select 0;
+  if (surfaceIsWater (position _player)) then {
+   //line intersect does not work well when vehicle is in water
+    _target = cursorTarget;
+  }
+  else {
+    def(_pos1);
+    def(_pos2);
+    _pos1 = (eyePos player);
+    _pos2 = ([_pos1, cameraDirDist(_distance)] call vector_add);
+	_objects = (lineIntersectsWith [_pos1,_pos2,objNull,objNull,true]);
+	if (!isARRAY(_objects) || {count _objects == 0}) exitWith {};
+	_target = _objects select 0;
+  };
 
-  if (({_target isKindOf _x } count ["Helicopter", "Plane", "Ship_F", "Car", "Motorcycle", "Tank"]) == 0) exitWith {nil};
+  if (isNil "_target") exitWith {};
+
+  if (({_target isKindOf _x } count ["Helicopter", "Plane", "Ship_F", "Car", "Motorcycle", "Tank"]) == 0) exitWith {};
   
   _target
 };
