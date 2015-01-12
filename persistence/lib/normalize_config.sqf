@@ -1,3 +1,6 @@
+if (!isNil "normalize_config_loaded" || {not(isServer)}) exitWith {};
+diag_log "normalize_config loading ...";
+
 #include "macro.h"
 
 #define ON_SCALAR(v) (if(isCODE(v)) then { private["_val"]; _val = call v; (isSCALAR(_val) && {_val == 1})} else {(isSCALAR(v) && {v == 1})})
@@ -74,4 +77,6 @@ diag_log format["[INFO] config: A3W_healthTime = %1", A3W_healthTime];
 diag_log format["[INFO] config: A3W_hungerTime = %1", A3W_hungerTime];
 diag_log format["[INFO] config: A3W_thirstTime = %1", A3W_thirstTime];
 
+normalize_config_loaded = true;
+diag_log "normalize_config loading complete";
 

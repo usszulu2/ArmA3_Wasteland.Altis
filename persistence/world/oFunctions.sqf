@@ -5,9 +5,6 @@
 
 diag_log "oFunctions.sqf loading ...";
 
-
-call compile preProcessFileLineNumbers "persistence\lib\shFunctions.sqf";
-
 #include "macro.h";
 
 o_loadingOrderArray = ["Building","StaticWeapon","ReammoBox_F", "All"];

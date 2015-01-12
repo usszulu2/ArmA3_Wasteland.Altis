@@ -77,6 +77,16 @@ class RscTitles
 	#include "client\systems\scoreboard\score_gui.hpp"
 };
 
+class CfgDebriefing
+{  
+	class Reboot
+	{
+		title = "Rebooting";
+		subtitle = "Thank you for playing!";
+		description = "Server will save database and restart to increase performance. Please, give us some time :)";
+	};
+};
+
 class CfgFunctions
 {
   #include "addons\taw_vd\CfgFunctions.hpp"

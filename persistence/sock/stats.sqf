@@ -250,6 +250,16 @@ stats_merge = {
 };
 
 stats_write = {
+  def(_var_name);
+  _var_name = format["var_%1",ceil(random 10000)];
+
+  def(_fsm);
+  _fsm = [_var_name, _this, stats_write_wrapped] execFSM "persistence\sock\call.fsm";
+  waitUntil {completedFSM _fsm};
+  (missionNamespace getVariable _var_name)
+};
+
+stats_write_wrapped = {
   if (isNil "_this") exitWith {false};
   format["%1 stats_set;", _this] call stats_log_finest;
 
@@ -583,6 +593,16 @@ stats_keys = {
   (["keys", _this] call stats_read)
 };
 
+
+stats_read_fsm = {
+  def(_var_name);
+  _var_name = format["var_%1",ceil(random 10000)];
+
+  def(_fsm);
+  _fsm = [_var_name, _this, stats_read_wrapped] execFSM "persistence\sock\call.fsm";
+  waitUntil {completedFSM _fsm};
+  (missionNamespace getVariable _var_name)
+};
 
 stats_read = {
   if (isNil "_this") exitWith {};

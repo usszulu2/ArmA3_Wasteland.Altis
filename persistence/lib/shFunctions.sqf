@@ -1,9 +1,8 @@
-if (!isNil "shFunctions_loased") exitWith {};
+if (!isNil "shFunctions_loaded") exitWith {};
 diag_log "shFunctions loading ...";
 
 #include "macro.h"
 
-call compile preProcessFileLineNumbers "persistence\lib\normalize_config.sqf";
 
 sh_isSaveableVehicle = {
   ARGVX4(0,_obj,objNull,false);
@@ -403,5 +402,27 @@ sh_getValueFromPairs = {
   (_result);
 };
 
-shFunctions_loased = true;
+sh_fillMagazineData = {
+  ARGVX3(0,_container,objNull);
+  ARGVX3(1,_full_mags,[]);
+  ARGVX3(2,_partial_mags,[]);
+
+  def(_mag);
+  def(_ammo);
+
+  {if (true) then {
+    _mag = _x select 0;
+    _ammo = _x select 1;
+
+    if (_ammo == getNumber (configFile >> "CfgMagazines" >> _mag >> "count")) exitWith {
+      [_full_mags, _mag, 1] call fn_addToPairs;
+    };
+
+    if (_ammo > 0) exitWith {
+      _partial_mags pushBack [_mag, _ammo];
+    };
+  }} forEach (magazinesAmmoCargo _container);
+};
+
+shFunctions_loaded = true;
 diag_log "shFunctions loading complete";
