@@ -24,22 +24,6 @@ switch (toLower _action) do
 			_message = format ["[NOTICE] %1 used the admin menu to obtain $%2", name player, _value];
 		};
 	};
-	case "markers":
-		{
-		if (_value) then {
-			_message = format ["[NOTICE] %1 ENABLED player markers", name player];
-		}else{
-			_message = format ["[NOTICE] %1 DISABLED player markers", name player];
-		};
-	};
-	case "godmode":
-		{
-		if (_value) then {
-		_message = format ["[NOTICE] %1 ENABLED GodMode", name player];
-		}else{
-			_message = format ["[NOTICE] %1 DISABLED GodMode", name player];
-		};
-	};
 	case "teleport":
 	{
 		_value resize 2;
