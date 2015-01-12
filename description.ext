@@ -83,7 +83,7 @@ class CfgDebriefing
 	{
 		title = "Restarting";
 		subtitle = "Thank you for playing @ A3Armory";
-		description = "Server will save the database and restart to increase performance. Please, give us some time";
+		description = "Server will save the database and restart to increase performance. Please, give the server some time";
 	};
 };
 
