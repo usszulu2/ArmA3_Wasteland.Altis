@@ -73,7 +73,7 @@ if (isServer) then
 	[] execVM "server\init.sqf";
 	
 	//[AiCacheDistance(players),TargetFPS(-1 for Auto),Debug,CarCacheDistance,AirCacheDistance,BoatCacheDistance]execvm "zbe_cache\main.sqf";
-	[1500,0,false,200,1500,1500]execVM "addons\zbe_cache\main.sqf"
+	[2550,0,false,1000,1000,1000]execVM "addons\zbe_cache\main.sqf"
 };
 
 //init 3rd Party Scripts
