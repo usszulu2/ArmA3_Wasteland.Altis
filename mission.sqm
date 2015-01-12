@@ -85,7 +85,6 @@ class Mission
 		"A3_Structures_F_Mil_Cargo",
 		"A3_Structures_F_Households_Slum",
 		"A3_Structures_F_Civ_Market",
-		"A3_Structures_F_Civ_Camping",
 		"A3_Structures_F_EPA_Mil_Scrapyard",
 		"a3_map_altis"
 	};
@@ -2658,7 +2657,7 @@ class Mission
 		};
 		class Item38
 		{
-			position[]={20857.92,2.3399255,14654.278};
+			position[]={23823.162,7.3760862,16418.084};
 			name="Mission_5";
 			type="Empty";
 			colorName="ColorOrange";
@@ -2721,7 +2720,7 @@ class Mission
 		};
 		class Item47
 		{
-			position[]={14311.896,97.153267,21831.371};
+			position[]={16806.289,6.3426394,21895.252};
 			name="Mission_15";
 			type="Empty";
 			colorName="ColorOrange";
