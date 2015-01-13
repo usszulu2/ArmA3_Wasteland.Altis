@@ -42,8 +42,10 @@ if (["A3W_atmEnabled"] call isConfigOn) then
 			} forEach nearestObjects [_x, [], 3];
 		};
 	} forEach A3W_atmArray;
-}
-else
+};
+
+//Not nice, leave the ATMs in the map as-is
+/*else
 {
 	// Delete all ATMs
 	{
@@ -55,4 +57,4 @@ else
 	} forEach A3W_atmArray;
 
 	A3W_atmArray = [];
-};
+}; */
