@@ -34,6 +34,9 @@ A3W_healthTime = 60*5;             //seconds till death
 A3W_hungerTime = 60*60;            //seconds till starving
 A3W_thirstTime = 60*50;            //seconds till dehydrated
 
+//Ownership settings
+A3W_onlyUavOwner = 1;              //Allow usage for uav only for person who purchased it
+
 // Persistence settings
 A3W_playerSaving = 1;              // Save player data like position, health, inventory, etc. (0 = no, 1 = yes)
 A3W_moneySaving = 1;               // If playerSaving = 1, save player money amount (0 = no, 1 = yes)
