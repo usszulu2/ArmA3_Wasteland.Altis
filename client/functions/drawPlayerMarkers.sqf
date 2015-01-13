@@ -52,7 +52,7 @@ A3W_mapDraw_thread = [] spawn
 	{
 		_newArrayIcons = [];
 
-		if (!isNil "A3W_atmArray") then
+		if (!isNil "A3W_atmArray" && {["A3W_atmEnabled"] call isConfigOn}) then
 		{
 			_deadATMs = [];
 
