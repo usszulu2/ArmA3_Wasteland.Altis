@@ -69,6 +69,37 @@ s_processRestartMessage = {
   true
 };
 
+
+s_processBootMessage = {
+  ARGVX3(0,_scope,"");
+  ARGVX3(1,_id,"");
+  ARGVX3(2,_from,"");
+  ARGVX3(3,_to,"");
+  ARGVX3(4,_subject,"");
+  ARGV2(5,_body);
+
+  //End Misson for all players
+  [[], "A3W_fnc_reboot", BLUFOR, true] call BIS_fnc_MP;
+  [[], "A3W_fnc_reboot", OPFOR, true] call BIS_fnc_MP;
+  [[], "A3W_fnc_reboot", Independent, true] call BIS_fnc_MP;
+
+  diag_log format["Sending boot message ack"];
+  //send ack that the message has been processed
+  def(_res);
+  _res =
+  [
+    ["id", _id],
+    ["from", "server"],
+    ["to", _from],
+    ["subject", "ack"],
+    ["body", _id]
+  ] call sock_hash;
+
+  [_scope, format["%1.recv", _from], _res] call stats_push;
+
+  true
+};
+
 s_processMessage = {
   ARGVX3(0,_scope,"");
   ARGV2(1,_message);
@@ -104,6 +135,11 @@ s_processMessage = {
   if (_subject == "restart" && _to == "server" && _from != "server") exitWith {
     ([_scope,_id,_from,_to,_subject, OR(_body,nil)] call s_processRestartMessage)
   };
+
+  if (_subject == "boot" && _to == "server" && _from != "server") exitWith {
+    ([_scope,_id,_from,_to,_subject, OR(_body,nil)] call s_processBootMessage)
+  };
+
   diag_log format["message queue: process(id:%1): complete"];
 
   false
@@ -207,6 +243,53 @@ p_getPlayerInfo = {
   (_info)
 };
 
+
+
+p_getPlayerParking = {
+  //diag_log format["%1 call p_getPlayerParking", _this];
+  ARGVX3(0,_player,objNull);
+
+  def(_parked_vehicles);
+  _parked_vehicles = _player getVariable ["parked_vehicles", []];
+
+  init(_vehicles,[]);
+
+  def(_vehicle_info);
+
+  {if(true) then {
+    _vehicle_info = _x;
+    if (!isARRAY(_vehicle_info) || {count(_vehicle_info) < 2}) exitWith {};
+
+    def(_vehicle_id);
+    _vehicle_id = _vehicle_info select 0;
+    if (!isSTRING(_vehicle_id)) exitWith {};
+
+    def(_vehicle_data);
+    _vehicle_data = _vehicle_info select 1;
+    if (!isARRAY(_vehicle_data)) exitWith {};
+
+    _vehicles pushBack [_vehicle_id, (_vehicle_data call sock_hash)];
+  };} forEach _parked_vehicles;
+
+
+  if (count(_vehicles) == 0) exitWith {};
+
+
+  (_vehicles call sock_hash)
+};
+
+p_getPlayerStorage = {
+  ARGVX3(0,_player,objNull);
+
+  def(_storage);
+
+  _storage = _player getVariable "private_storage";
+  if (!isARRAY(_storage)) exitWith {};
+
+  (_storage call sock_hash)
+};
+
+
 p_addPlayerSave = {
   //diag_log format["%1 call p_addPlayerSave", _this];
   ARGVX3(0,_request,[]);
@@ -218,21 +301,23 @@ p_addPlayerSave = {
   init(_alive, alive _player);
   diag_log format["p_addPlayerSave: Saving stats for %1(%2)", _name, _uid];
 
-  def(_initComplete);
-  _initComplete = _player getVariable ["initComplete", false];
-  //diag_log format["_initComplete = %1", _initComplete];
-  if (not(_initComplete)) exitWith {};
+  def(_init_complete);
+  _init_complete = _player getVariable ["initComplete", false];
 
-  def(_respawnDialogActive);
-  _respawnDialogActive = _player getVariable ["respawnDialogActive", false];
-  //diag_log format["_respawnDialogActive = %1", _respawnDialogActive];
+  if (not(_init_complete)) exitWith {
+    diag_log format["%1(%2) exited without completing initialization", _name, _uid];
+  };
 
-  def(_FAR_isUnconscious);
-  _FAR_isUnconscious = (_player getVariable ["FAR_isUnconscious", 0] != 0);
-  //diag_log format["_FAR_isUnconscious = %1", _FAR_isUnconscious];
+  def(_respawn_active);
+  _respawn_active = _player getVariable ["respawnDialogActive", false];
+  //diag_log format["_respawn_active = %1", _respawn_active];
+
+  def(_unconscious);
+  _unconscious = (_player getVariable ["FAR_isUnconscious", 0] != 0);
+  //diag_log format["_unconscious = %1", _unconscious];
 
   def(_reset_save);
-  _reset_save = (_respawnDialogActive || {_FAR_isUnconscious || {not(_alive)}}); //or not alive
+  _reset_save = (_respawn_active || {_unconscious || {not(_alive)}}); //or not alive
   //diag_log format["_reset_save = %1", _reset_save];
 
 
@@ -243,6 +328,19 @@ p_addPlayerSave = {
     _request pushBack ["PlayerInfo", _playerInfo];
   };
 
+  def(_playerStorage);
+  _playerStorage = [_player] call p_getPlayerStorage;
+
+  if (isARRAY(_playerStorage)) then {
+    _request pushBack ["PlayerStorage", _playerStorage];
+  };
+
+  def(_playerParking);
+  _playerParking = [_player] call p_getPlayerParking;
+
+  if (isARRAY(_playerParking)) then {
+    _request pushBack ["PlayerParking", _playerParking];
+  };
 
   def(_scoreInfo);
   _scoreInfo = [_uid] call p_getScoreInfo;
@@ -251,8 +349,9 @@ p_addPlayerSave = {
     _request pushBack ["PlayerScore",_scoreInfo];
   };
 
+  diag_log format["Disconnected %1(%2):  unconscious = %3, respawning = %4, alive = %5", _name,_uid, _unconscious, _respawn_active, _alive];
   if (_reset_save) exitWith {
-     diag_log format["Resetting stats for %1(%2), unconscious = %3, respawning = %4, alive = %5",_name,_uid,_FAR_isUnconscious, _respawnDialogActive, _alive];
+     diag_log format["Resetting %1(%2) stats", _name, _uid];
      _request pushBack ["PlayerSave",nil];
      _request pushBack ["PlayerSave_Stratis",nil];
      _request pushBack ["PlayerSave_Altis",nil];
@@ -408,11 +507,20 @@ p_addPlayerSave = {
   true
 };
 
+
+ordered_invoke = {
+  if (isNil "_this" || {typeName _this != typeName []}) exitWith {};
+  {
+    (_x select 0) call (_x select 1);
+  } forEach _this;
+};
+
+
 p_disconnectSave = {
-  //diag_log format["%1 call p_disconnectSave", _this];
+  diag_log format["%1 call p_disconnectSave", _this];
   ARGVX3(0,_player,objNull);
-  ARGVX3(2,_uid,"");
-  ARGVX3(3,_name,"");
+  ARGVX3(1,_uid,"");
+  ARGVX3(2,_name,"");
 
 
   init(_scope,_uid call PDB_playerFileName);
@@ -420,10 +528,15 @@ p_disconnectSave = {
 
   if (isNil{[_request,_player,_uid,_name] call p_addPlayerSave}) exitWith {
     diag_log format["WARNING: No stats saved for %1(%2) on disconnect", _name, _uid];
+    [_scope] spawn stats_flush;
   };
 
-  _request call stats_set;
-  [_scope] call stats_flush;
+  [
+    [_request, stats_set],
+    [[_scope], stats_flush]
+  ] spawn ordered_invoke;
+
+  diag_log format["Stats for %1(%2) saved", _name, _uid];
 };
 
 
@@ -456,6 +569,65 @@ p_disconnectSave = {
   } forEach _vitals;
 };};
 
+fn_getPlayerFlag = {
+  ARGVX3(0,_uid,"");
+
+  def(_scope);
+  _scope = "Hackers2" call PDB_hackerLogFileName;
+
+  def(_key);
+  _key = format["%1.records",_uid];
+
+
+  def(_records);
+  _records = [_scope, _key, nil] call stats_get;
+
+  if (!isARRAY(_records)) exitWith {};
+
+  private["_last"];
+  _last = _records select (count(_records) -1);
+
+  if (!isCODE(_last)) exitWith {};
+
+  (call _last)
+};
+
+fn_kickPlayerIfFlagged = {
+  ARGVX3(0,_UID,"");
+  ARGVX3(1,_name,"");
+
+  def(_flag);
+  _flag = [_UID] call fn_getPlayerFlag;
+  if (!isARRAY(_flag) || {count(_flag) == 0}) exitWith {};
+
+  // Super mega awesome dodgy player kick method
+  "Logic" createUnit [[1,1,1], createGroup sideLogic,
+  ("
+    this spawn {
+      if (isServer) then {
+        _grp = group _this;
+        deleteVehicle _this;
+        deleteGroup _grp;
+      }
+      else {
+        waitUntil {!isNull player};
+        if (getPlayerUID player == '" + _UID + "') then {
+          preprocessFile 'client\functions\quit.sqf';
+        };
+      };
+    }
+  ")];
+
+  //_oldName = _flag select 0; // always empty for extDB
+  def(_hackType);
+  def(_hackValue);
+
+  _hackType = [_flag, "hackType", "unknown"] call fn_getFromPairs;
+  _hackValue = [_flag, "hackValue", "unknown"] call fn_getFromPairs;
+
+  diag_log format ["ANTI-HACK: %1 (%2) was kicked due to having been flagged for [%3, %4] in the past", _name, _UID, _hackType, _hackValue];
+
+};
 
 active_players_list = [];
 

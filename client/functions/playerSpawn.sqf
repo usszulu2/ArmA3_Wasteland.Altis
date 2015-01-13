@@ -24,6 +24,7 @@ if (!isNil "pvar_teamKillList" && {playerSide in [BLUFOR,OPFOR]}) then
 		_time = diag_tickTime;
 
 		waitUntil {scriptDone _msgBox || diag_tickTime - _time >= 20};
+		player setVariable ["initComplete", false, true];
 		endMission "LOSER";
 		waitUntil {uiNamespace setVariable ["BIS_fnc_guiMessage_status", false]; closeDialog 0; false};
 	};
@@ -31,7 +32,9 @@ if (!isNil "pvar_teamKillList" && {playerSide in [BLUFOR,OPFOR]}) then
 //Teamswitcher Kick
 if (!isNil "pvar_teamSwitchList" && playerSide in [BLUFOR,OPFOR]) then
 {
-	if ([pvar_teamSwitchList, getPlayerUID player, playerSide] call fn_getFromPairs != playerSide) exitWith
+	_prevSide = [pvar_teamSwitchList, getPlayerUID player, playerSide] call fn_getFromPairs;
+
+	if (_prevSide != playerSide) exitWith
 	{
 		player allowDamage false;
 		[player, "AinjPpneMstpSnonWrflDnon"] call switchMoveGlobal;
@@ -39,10 +42,18 @@ if (!isNil "pvar_teamSwitchList" && playerSide in [BLUFOR,OPFOR]) then
 		0 fadeSound 0;
 
 		uiNamespace setVariable ["BIS_fnc_guiMessage_status", false];
-		_msgBox = [localize "STR_WL_Loading_Teamswitched"] spawn BIS_fnc_guiMessage;
+
+		_sideName = switch (_prevSide) do
+		{
+			case BLUFOR: { "BLUFOR" };
+			case OPFOR:  { "OPFOR" };
+		};
+
+		_msgBox = [format [localize "STR_WL_Loading_Teamswitched", _sideName]] spawn BIS_fnc_guiMessage;
 		_time = diag_tickTime;
 
 		waitUntil {scriptDone _msgBox || diag_tickTime - _time >= 20};
+		player setVariable ["initComplete", false, true];
 		endMission "LOSER";
 		waitUntil {uiNamespace setVariable ["BIS_fnc_guiMessage_status", false]; closeDialog 0; false};
 	};
@@ -59,7 +70,7 @@ if (isNil "playerData_alive" || !isNil "playerData_resetPos") then
 
 	waitUntil {respawnDialogActive};
 	9999 cutText ["", "BLACK", 0.01];
-	waitUntil {!respawnDialogActive};
+	waitUntil {player setOxygenRemaining 1; !respawnDialogActive};
 
 	if (["A3W_playerSaving"] call isConfigOn) then
 	{
@@ -69,6 +80,24 @@ if (isNil "playerData_alive" || !isNil "playerData_resetPos") then
 
 playerData_alive = nil;
 playerData_resetPos = nil;
+
+player enableSimulation true;
+
+if (!isNil "playerData_spawnPos") then
+{
+	player setPosATL playerData_spawnPos;
+	playerData_spawnPos = nil;
+};
+
+if (!isNil "playerData_spawnDir") then
+{
+	player setDir playerData_spawnDir;
+	playerData_spawnDir = nil;
+};
+
+player setVelocity [0,0,0];
+[player, false] call fn_hideObjectGlobal;
+player allowDamage true;
 
 9999 cutText ["", "BLACK IN"];
 

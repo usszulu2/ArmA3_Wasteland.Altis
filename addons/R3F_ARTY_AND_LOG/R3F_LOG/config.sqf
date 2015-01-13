@@ -66,6 +66,7 @@ R3F_LOG_CFG_objets_remorquables =
 	"B_Heli_Transport_01_F",
 	"B_Heli_Transport_01_camo_F",
 	"O_Heli_Light_02_F",
+	"O_Heli_Light_02_v2_F",
 	"I_Heli_light_03_F",
 	"B_Heli_Attack_01_F",
 	"O_Heli_Attack_02_F",
@@ -101,6 +102,7 @@ R3F_LOG_CFG_objets_remorquablesH =
 	"B_Heli_Transport_01_F",
 	"B_Heli_Transport_01_camo_F",
 	"O_Heli_Light_02_F",
+	"O_Heli_Light_02_v2_F",
 	"I_Heli_light_03_F",
 	"B_Heli_Attack_01_F",
 	"O_Heli_Attack_02_F",
@@ -145,6 +147,7 @@ R3F_LOG_CFG_heliporteurs =
 	"B_Heli_Transport_01_F",
 	"B_Heli_Transport_01_camo_F",
 	"O_Heli_Light_02_F",
+	"O_Heli_Light_02_v2_F",
 	"I_Heli_light_03_F",
 	"B_Heli_Attack_01_F",
 	"O_Heli_Attack_02_F",
@@ -347,5 +350,6 @@ R3F_LOG_CFG_objets_deplacables =
 	"Land_Shoot_House_Wall_F",
 	"Land_Stone_8m_F",
 	"Land_ToiletBox_F",
-	"Land_BarrelWater_F"
+	"Land_BarrelWater_F",
+	"Land_HandyCam_F"
 ];

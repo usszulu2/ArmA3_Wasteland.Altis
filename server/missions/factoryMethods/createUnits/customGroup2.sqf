@@ -1,5 +1,5 @@
 // ******************************************************************************************
-// * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
+// * This project is licensed under the GNU Affero GPL v3. Copyright Â© 2014 A3Wasteland.com *
 // ******************************************************************************************
 //	@file Name: customGroup2.sqf
 //	@file Author: AgentRev, JoSchaap
@@ -97,9 +97,9 @@ for "_i" from 1 to _nbUnits do
 		};
 	};
 
-_unit addPrimaryWeaponItem "acc_flashlight";
-_unit enablegunlights "forceOn";					//set to "forceOn" to force use of lights (during day too default = AUTO)
-	
+	_unit addPrimaryWeaponItem "acc_flashlight";
+	_unit enablegunlights "forceOn";
+
 	_unit addRating 1e11;
 	_unit spawn refillPrimaryAmmo;
 	_unit call setMissionSkill;

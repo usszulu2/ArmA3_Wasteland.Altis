@@ -2,22 +2,27 @@ diag_log "vFunctions.sqf loading ...";
 
 #include "macro.h"
 
-call compile preProcessFileLineNumbers "persistence\lib\shFunctions.sqf";
-
-
-
-v_restoreVehicle = {_this spawn {
+v_restoreVehicle = {
   //diag_log format["%1 call v_restoreVehicle", _this];
   ARGVX3(0,_data_pair,[]);
+  ARGV4(1,_ignore_expiration,false,false);
+  ARGV3(2,_create_array,[]);
 
   _this = _data_pair;
   ARGVX3(0,_vehicle_key,"");
   ARGVX2(1,_vehicle_hash);
 
-  if (!isCODE(_vehicle_hash)) exitWith {};
 
   def(_vehicle_data);
-  _vehicle_data =  call _vehicle_hash;
+  if (isCODE(_vehicle_hash)) then {
+    _vehicle_data = call _vehicle_hash;
+  }
+  else { if(isARRAY(_vehicle_hash)) then {
+    _vehicle_data = _vehicle_hash;
+  };};
+
+  if (isNil "_vehicle_data") exitWith {};
+
   //diag_log _vehicle_data;
 
 
@@ -33,13 +38,15 @@ v_restoreVehicle = {_this spawn {
   def(_cargo_magazines);
   def(_cargo_backpacks);
   def(_cargo_items);
-  def(_turret_magazines);
   def(_cargo_ammo);
   def(_cargo_fuel);
   def(_cargo_repair);
   def(_fuel);
   def(_hitPoints);
-
+  def(_turret0);
+  def(_turret1);
+  def(_turret2);
+  def(_lock_state);
 
 
   def(_key);
@@ -63,9 +70,12 @@ v_restoreVehicle = {_this spawn {
       case "AmmoCargo": { _cargo_ammo = OR(_value,nil);};
       case "FuelCargo": { _cargo_fuel = OR(_value,nil);};
       case "RepairCargo": { _cargo_repair = OR(_value,nil);};
-      //case "TurretMagazines": { _turret_magazines = OR(_value,nil);};
+      case "TurretMagazines": { _turret0 = OR_ARRAY(_value,nil);};
+      case "TurretMagazines2": { _turret1 = OR_ARRAY(_value,nil);};
+      case "TurretMagazines3": { _turret2 = OR_ARRAY(_value,nil);};
       case "Fuel": { _fuel = OR(_value,nil);};
       case "Hitpoints": { _hitPoints = OR(_value,nil);};
+      case "LockState": { _lock_state = OR(_value,nil);};
     };
   } forEach _vehicle_data;
 
@@ -80,27 +90,40 @@ v_restoreVehicle = {_this spawn {
   diag_log format["%1(%2) is being restored.", _vehicle_key, _class];
 
 
-  if (isSCALAR(_hours_alive) && {A3W_vehicleLifetime > 0 && {_hours_alive > A3W_vehicleLifetime}}) exitWith {
+  if (not(_ignore_expiration) && {isSCALAR(_hours_alive) && {A3W_vehicleLifetime > 0 && {_hours_alive > A3W_vehicleLifetime}}}) exitWith {
     diag_log format["vehicle %1(%2) has been alive for %3 (max=%4), skipping it", _vehicle_key, _class, _hours_alive, A3W_vehicleLifetime];
   };
 
-  if (isSCALAR(_hours_abandoned) && {A3W_vehicleMaxUnusedTime > 0 && {_hours_abandoned > A3W_vehicleMaxUnusedTime}}) exitWith {
+  if (not(_ignore_expiration) && {isSCALAR(_hours_abandoned) && {A3W_vehicleMaxUnusedTime > 0 && {_hours_abandoned > A3W_vehicleMaxUnusedTime}}}) exitWith {
     diag_log format["vehicle %1(%2) has been abandoned for %3 hours, (max=%4), skipping it", _vehicle_key, _class, _hours_abandoned, A3W_vehicleMaxUnusedTime];
   };
 
 
   def(_obj);
-  _obj = createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"];
+  if (isARRAY(_create_array)) then {
+    _obj = createVehicle _create_array;
+  }
+  else {
+    _obj = createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"];
+  };
+
   if (!isOBJECT(_obj)) exitWith {
     diag_log format["Could not create vehicle of class: %1", _class];
   };
+
+  _obj allowDamage false;
+  [_obj] spawn { ARGVX3(0,_obj,objNull); sleep 3; _obj allowDamage true;}; //hack so that vehicle does not take damage while spawning
+
 
   [_obj, false] call vehicleSetup;
 
   _obj setVariable ["vehicle_key", _vehicle_key, true];
   missionNamespace setVariable [_vehicle_key, _obj];
 
-  _obj setPosWorld ATLtoASL _pos;
+  if (!isARRAY(_create_array)) then {
+    _obj setPosWorld ATLtoASL _pos;
+  };
+
   if (isARRAY(_dir)) then {
     _obj setVectorDirAndUp _dir;
   };
@@ -118,12 +141,14 @@ v_restoreVehicle = {_this spawn {
   // disables thermal equipment on loaded vehicles, comment out if you want thermal
   _obj disableTIEquipment true;
 
-  //lock vehicles form this list
+  //override the lock-state for vehicles form this this
   if ({_obj isKindOf _x} count A3W_locked_vehicles_list > 0) then {
-    _obj lock 2;
-    _obj setVariable ["locked", 2, true];
-    _obj setVariable ["objectLocked", true, true];
-    _obj setVariable ["R3F_LOG_disabled",true,true];
+    _lock_state = 2;
+  };
+
+  if (isSCALAR(_lock_state)) then {
+    _obj lock _lock_state;
+    _obj setVariable ["R3F_LOG_disabled", (_lock_state > 1) , true];
   };
 
   if (isSCALAR(_damage)) then {
@@ -160,7 +185,8 @@ v_restoreVehicle = {_this spawn {
   clearMagazineCargoGlobal _obj;
   clearItemCargoGlobal _obj;
   clearBackpackCargoGlobal _obj;
-  //_obj setVehicleAmmo 0;
+
+  [_obj, OR(_turret0,nil), OR(_turret1,nil), OR(_turret2,nil)] call sh_restoreVehicleTurrets;
 
   if (isARRAY(_cargo_weapons)) then {
     { _obj addWeaponCargoGlobal _x } forEach _cargo_weapons;
@@ -182,10 +208,6 @@ v_restoreVehicle = {_this spawn {
     { _obj addMagazineCargoGlobal _x } forEach _cargo_magazines;
   };
 
-  if (isARRAY(_turret_magazines)) then {
-    { _obj addMagazine _x } forEach _turret_magazines;
-  };
-
   if (isSCALAR(_cargo_ammo)) then {
     _obj setAmmoCargo _cargo_ammo;
   };
@@ -201,7 +223,8 @@ v_restoreVehicle = {_this spawn {
 
   tracked_vehicles_list pushBack _obj;
 
-}};;
+  _obj
+};
 
 
 tracked_vehicles_list = [];
@@ -232,6 +255,22 @@ v_untrackVehicle = {
   //diag_log format["%1 is being removed from the tracked list", _object];
   tracked_vehicles_list deleteAt _index;
 };
+
+fn_manualVehicleSave = {
+  ARGVX2(0,_object);
+
+  if (isSTRING(_object)) then {
+    _object = objectFromNetId _object;
+  };
+
+  if (!isOBJECT(_object)) exitWith {};
+  if (diag_tickTime - (_object getVariable ["vehSaving_lastSave", 0]) <= MANUAL_VEH_SAVE_COOLDOWN) exitWith {};
+
+  _object setVariable ["vehSaving_lastUse", diag_tickTime];
+  _object setVariable ["vehSaving_lastSave", diag_tickTime];
+  [_object] call v_trackVehicle;
+};
+
 
 v_trackedVehiclesListCleanup = {
   //post cleanup the array
@@ -403,9 +442,11 @@ v_setupVehicleSavedVariables = {
 
 };
 
+
 v_addSaveVehicle = {
   ARGVX3(0,_list,[]);
   ARGVX3(1,_obj,objNull);
+  ARGV4(2,_hashify,false,true);
 
   if (not([_obj] call v_isSaveable)) exitWith {};
 
@@ -444,10 +485,14 @@ v_addSaveVehicle = {
   _items = (getItemCargo _obj) call cargoToPairs;
   _backpacks = (getBackpackCargo _obj) call cargoToPairs;
 
-  init(_turretMags,[]);
-  if (cfg_staticWeaponSaving_on && {[_obj] call sh_isStaticWeapon}) then {
-    _turretMags = magazinesAmmo _obj;
-  };
+
+
+  def(_all_turrets);
+  _all_turrets = [_obj] call sh_getVehicleTurrets;
+  init(_turret0,_all_turrets select 0);
+  init(_turret1,_all_turrets select 1);
+  init(_turret2,_all_turrets select 2);
+
 
   init(_hitPoints,[]);
   {
@@ -478,7 +523,11 @@ v_addSaveVehicle = {
     };
   };
 
-  _list pushBack [_objName, ([
+  def(_lock_state);
+  _lock_state = locked _obj;
+  
+  def(_result);
+  _result = [
     ["Class", _class],
     ["Position", _pos],
     ["Direction", _dir],
@@ -491,13 +540,18 @@ v_addSaveVehicle = {
     ["Magazines", _magazines],
     ["Items", _items],
     ["Backpacks", _backpacks],
-    ["TurretMagazines", _turretMags],
+    ["TurretMagazines", OR(_turret0,nil)],
+    ["TurretMagazines2", OR(_turret1,nil)],
+    ["TurretMagazines3", OR(_turret2,nil)],
     ["AmmoCargo", _ammoCargo],
     ["FuelCargo", _fuelCargo],
     ["RepairCargo", _repairCargo],
-    ["Hitpoints", _hitPoints]
-  ] call sock_hash)];
+    ["Hitpoints", _hitPoints],
+    ["LockState", _lock_state]
+  ];
 
+  _result = if (_hashify) then {_result call sock_hash} else {_result};
+  _list pushBack [_objName, _result];
 
   true
 };
@@ -613,15 +667,24 @@ v_loadVehicles = {
   def(_vehicles);
   _vehicles = [_scope] call stats_get;
 
+  init(_vIds,[]);
+
+
   //nothing to load
-  if (!isARRAY(_vehicles)) exitWith {};
+  if (!isARRAY(_vehicles)) exitWith {
+    diag_log format["WARNING: No vehicles loaded from the database"];
+    _vIds
+  };
 
   diag_log format["A3Wasteland - will restore %1 vehicles", count(_vehicles)];
   {
-    [_x] call v_restoreVehicle;
+    _vIds pushBack (_x select 0);
+    [_x] spawn v_restoreVehicle;
   } forEach _vehicles;
 
   v_loadVehicles_complete = true;
+
+  (_vIds)
 };
 
 diag_log "vFunctions.sqf loading complete";

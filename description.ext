@@ -36,6 +36,7 @@ loadScreen = "mapConfig\Loading.jpg";
 #include "client\systems\ui_toolkit.hpp"
 #include "client\systems\common.hpp"
 #include "client\items\warchest\dialog.hpp"
+#include "client\items\atm\atm_gui.hpp"
 #include "client\actions\gui.hpp"
 #include "addons\far_revive\revive_gui.hpp"
 #include "client\systems\playerMenu\dialog\player_settings.hpp"
@@ -56,9 +57,17 @@ loadScreen = "mapConfig\Loading.jpg";
 #include "addons\JTS_PM\PM_Compact.hpp"
 #include "addons\outlw_magRepack\MagRepack_Config.hpp"
 #include "addons\taw_vd\dialog.hpp"
+#include "addons\gui\gui.hpp"
+#include "addons\parking\list_simple_menu.hpp"
+
 
 #include "addons\bank\ui.hpp"
 #include "addons\bank\bank_menu.hpp"
+
+#include "addons\cctv\ui.hpp"
+#include "addons\cctv\laptop_flat_menu.hpp"
+#include "addons\cctv\cctv_menu.hpp"
+
 
 
 class RscTitles
@@ -67,6 +76,16 @@ class RscTitles
  	#include "client\systems\hud\dialog\hud.hpp"
 	#include "client\systems\playerMenu\dialog\welcome.hpp"
 	#include "client\systems\scoreboard\score_gui.hpp"
+};
+
+class CfgDebriefing
+{  
+	class Reboot
+	{
+		title = "Restarting";
+		subtitle = "Thank you for playing @ A3Armory";
+		description = "Server will save the database and restart to increase performance. Please, give the server some time";
+	};
 };
 
 class CfgFunctions
@@ -87,7 +106,7 @@ class CfgSounds
 {
 	sounds[] = 
 	{
-		beep, beep2, beep3, beep4, beep5, beep6, beep7, beep8, beep9, carlock
+		beep, beep2, beep3, beep4, beep5, beep6, beep7, beep8, beep9
 	};
 		class beep
 			{
@@ -133,11 +152,5 @@ class CfgSounds
 			{
                                 sound[] = {"addons\beacondetector\sound\beep.wav", db-10, 0.1};
                                 titles[] = {};
-			};
-		class carlock
-			{
-								name = "carlock";
-								sound[] = {sounds\carlock.ogg,0.2,1};
-								titles[] = {};
 			};
 };

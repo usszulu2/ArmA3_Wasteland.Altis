@@ -132,15 +132,94 @@ p_copy_pairs = {
 p_restorePosition = {
   ARGV3(0,_position,[]);
 
-  if (isPOS(_position)) exitWith {
+  def(_nearSpawn);
+  _nearSpawn = (isPOS(_position) && {(player distance _position) < 100});
+
+  if (isPOS(_position) && {not(_nearSpawn)}) exitWith {
     player setPosATL _position;
   };
 
-  diag_log format["WARNING: No position available. Putting player at a random safe location."];
-  player groupChat format["WARNING: No position available. Putting you at a random safe location."];
+  if (_nearSpawn) then {
+    diag_log format["WARNING: Saved position is too near the spawn. Putting player at a random safe location."];
+    player groupChat format["WARNING: Saved position is too near the spawn. Putting you at a random safe location."];
+  }
+  else {
+    diag_log format["WARNING: No position available. Putting player at a random safe location."];
+    player groupChat format["WARNING: No position available. Putting you at a random safe location."];
+  };
+
   [nil,false] spawn spawnRandom;
 };
 
+p_restorePrimaryWeaponItems = {
+  ARGVX3(0,_items,[]);
+  {
+    if (_x != "") then {
+      player addPrimaryWeaponItem _x;
+    };
+  } forEach _items
+};
+
+p_restoreSecondaryWeaponItems = {
+  ARGVX3(0,_items,[]);
+  {
+    if (_x != "") then {
+      player addSecondaryWeaponItem _x;
+    };
+  } forEach _items;
+};
+
+p_restoreHandgunWeaponItems = {
+  ARGVX3(0,_items,[]);
+
+  {
+    if (_x != "") then {
+      player addHandgunItem _x;
+    };
+  } forEach _items;
+};
+
+p_restoreGoggles = {
+  ARGVX3(0,_goggles,"");
+  if (_goggles == "") exitWith {};
+  player addGoggles _goggles;
+};
+
+p_restoreHeadgear = {
+  ARGVX3(0,_headgear,"");
+
+  // If wearing one of the default headgears, give the one belonging to actual team instead
+  def(_defHeadgear);
+  def(_defHeadgears);
+
+  _defHeadgear = [player, "headgear"] call getDefaultClothing;
+  _defHeadgears =
+  [
+    [typeOf player, "headgear", BLUFOR] call getDefaultClothing,
+    [typeOf player, "headgear", OPFOR] call getDefaultClothing,
+    [typeOf player, "headgear", INDEPENDENT] call getDefaultClothing
+  ];
+
+  if (_headgear != _defHeadgear && {_defHeadgear != ""} && {{_headgear == _x} count _defHeadgears > 0}) then {
+    player addHeadgear _defHeadgear;
+  }
+  else {
+    player addHeadgear _headgear;
+  };
+};
+
+p_restoreAssignedItems = {
+  ARGVX3(0,_assigned_items,[]);
+
+  {
+    if ([player, _x] call isAssignableBinocular) then {
+      player addWeapon _x;
+    }
+    else {
+      player linkItem _x;
+    };
+  } forEach _assigned_items;
+};
 
 
 fn_applyPlayerData = {
@@ -160,6 +239,13 @@ fn_applyPlayerData = {
   def(_vest_class);
   def(_vehicle_key);
   def(_position);
+  def(_primary_weapon_items);
+  def(_secondary_weapon_items);
+  def(_handgun_weapon_items);
+  def(_headgear);
+  def(_goggles);
+  def(_assigned_items);
+
 
   //iterate through the data, and extract the hash variables into local variables
   {
@@ -179,16 +265,28 @@ fn_applyPlayerData = {
       case "Vest": { _vest_class = _value};
       case "InVehicle": { _vehicle_key = _value};
       case "Position": {if (isPOS(_value)) then {_position = _value;}};
+      case "PrimaryWeaponItems": {_primary_weapon_items = OR_ARRAY(_value,nil)};
+      case "SecondaryWeaponItems": {_secondary_weapon_items = OR_ARRAY(_value,nil)};
+      case "HandgunItems": {_handgun_weapon_items = OR_ARRAY(_value,nil)};
+      case "Headgear": {_headgear = OR_STRING(_value,nil)};
+      case "Goggles": {_goggles = OR_STRING(_value,nil)};
+      case "AssignedItems": {_assigned_items = OR_ARRAY(_value,nil)};
+
     };
   } forEach _data;
 
-
   //Restore the weapons, backpack, uniform, and vest in correct order
   player addBackpack "B_Carryall_Base"; // add a temporary backpack for holding loaded weapon magazines
+  [OR(_headgear,nil)] call p_restoreHeadgear;
+  [OR(_assigned_items,nil)] call p_restoreAssignedItems;
+  [OR(_goggles,nil)] call p_restoreGoggles;
   [OR(_loaded_magazines,nil)] call p_restoreLoadedMagazines;
   [OR(_primary_weapon,nil)] call p_restorePrimaryWeapon;
   [OR(_secondary_weapon,nil)] call p_restoreSecondaryWeapon;
   [OR(_handgun_weapon,nil)] call p_restoreHandgunWeapon;
+  [OR(_primary_weapon_items,nil)] call p_restorePrimaryWeaponItems;
+  [OR(_secondary_weapon_items,nil)] call p_restoreSecondaryWeaponItems;
+  [OR(_handgun_weapon_items,nil)] call p_restoreHandgunWeaponItems;
   removeBackpack player;  //remove the temporary backpack
 
   //Restore backpack, and stuff inside
@@ -221,39 +319,6 @@ fn_applyPlayerData = {
       case "Thirst": { thirstLevel = OR(_value,nil); };
       case "Money": { player setVariable ["cmoney", OR(_value,0), true] };
       case "Direction": { if (defined(_value)) then {player setDir _value} };
-      case "Goggles": { if (isSTRING(_value) && {_value != ""}) then { player addGoggles _value } };
-      case "Headgear": {
-        // If wearing one of the default headgears, give the one belonging to actual team instead
-        if (isSTRING(_value) && {_value != ""}) then {
-          _defHeadgear = [player, "headgear"] call getDefaultClothing;
-          _defHeadgears =
-          [
-            [typeOf player, "headgear", BLUFOR] call getDefaultClothing,
-            [typeOf player, "headgear", OPFOR] call getDefaultClothing,
-            [typeOf player, "headgear", INDEPENDENT] call getDefaultClothing
-          ];
-
-          if (_value != _defHeadgear && {_defHeadgear != ""} && {{_value == _x} count _defHeadgears > 0}) then {
-            player addHeadgear _defHeadgear;
-          }
-          else {
-            player addHeadgear _value;
-          };
-        };
-      };
-      case "PrimaryWeaponItems": { { if (_x != "") then { player addPrimaryWeaponItem _x } } forEach (OR(_value,[])) };
-      case "SecondaryWeaponItems": { { if (_x != "") then { player addSecondaryWeaponItem _x } } forEach (OR(_value,[])) };
-      case "HandgunItems": { { if (_x != "") then { player addHandgunItem _x } } forEach (OR(_value,[])) };
-      case "AssignedItems": {
-        {
-          if ([player, _x] call isAssignableBinocular) then {
-            player addWeapon _x;
-          }
-          else {
-            player linkItem _x;
-          };
-        } forEach (OR(_value,[]));
-      };
       case "CurrentWeapon": { player selectWeapon OR(_value,"") };
       case "Animation": { if (isSTRING(_value) && {_value != ""}) then {[player, _value] call switchMoveGlobal};};
       case "UniformWeapons": { { (uniformContainer player) addWeaponCargoGlobal _x } forEach (OR(_value,[])) };
@@ -309,6 +374,223 @@ fn_applyPlayerInfo = {
   } forEach _data;
 };
 
+fn_applyPlayerStorage = {
+  if (!isARRAY(_this)) exitWith {
+    diag_log format["WARNING: No player private storage data"];
+  };
+  init(_data,_this);
+  init(_player,player;)
+
+  diag_log "#############################################";
+  diag_log "Dumping _storageData";
+  [_data] call p_dumpHash;
+
+  def(_hours_alive);
+  _hours_alive = [_data, "HoursAlive"] call fn_getFromPairs;
+
+
+  if (isSCALAR(_hours_alive) && {A3W_storageLifetime > 0 && {_hours_alive > A3W_storageLifetime}}) exitWith {
+    player commandChat format["WARNING: Your private storage is over %1 hours, it has been reset"];
+    diag_log format["Private storage for %1 (%2) has been alive for %3 (max=%4), resetting it", (name player), (getPlayerUID player), _hours_alive, A3W_storageLifetime];
+    _player setVariable ["private_storage", nil, true];
+  };
+
+  _player setVariable ["private_storage", _data, true];
+
+  _player setVariable ["storage_spawningTime", diag_tickTime];
+  if (isSCALAR(_hours_alive)) then {
+    _player setVariable ["storage_hoursAlive", _hours_alive];
+  };
+};
+
+
+
+p_recreateStorageBox = {
+  //diag_log format["%1 call p_recreateStorageBox", _this];
+
+  ARGVX3(0,_player,objNull);
+  ARGVX3(1,_box_class,"");
+
+
+  def(_data);
+  _data = _player getVariable ["private_storage", []];
+
+  def(_class);
+  def(_cargo_backpacks);
+  def(_cargo_magazines);
+  def(_cargo_items);
+  def(_cargo_weapons);
+  def(_full_magazines);
+  def(_partial_magazines);
+
+  def(_name);
+  def(_value);
+  {
+    _name = _x select 0;
+    _value = _x select 1;
+
+    switch (_name) do
+    {
+      case "Class": {_class = OR(_value,nil)};
+      case "Weapons": { _cargo_weapons = OR(_value,nil);};
+      case "Items": { _cargo_items = OR(_value,nil);};
+      case "Magazines": { _cargo_magazines = OR(_value,nil);}; //keep this for a while for legacy reasons
+      case "FullMagazines": { _full_magazines = OR(_value,nil);};
+      case "PartialMagazines": { _partial_magazines = OR(_value,nil);};
+      case "Backpacks": { _cargo_backpacks = OR(_value,nil);};
+    };
+  } forEach _data;
+
+  if (!isSTRING(_class) || {_class == "" || {_class != _box_class}}) then {
+    _class = _box_class;
+  };
+
+
+  def(_obj);
+  _obj = _class createVehicleLocal [0,0,1000];
+  if (!isOBJECT(_obj)) exitWith {
+    diag_log format["WARNING: Could not create storage container of class ""%1""", _class];
+  };
+
+  removeAllWeapons _obj;
+  removeAllItems _obj;
+  clearWeaponCargo _obj;
+  clearMagazineCargo _obj;
+  clearBackpackCargo _obj;
+  clearItemCargo _obj;
+  _obj hideObject true;
+
+  if (isARRAY(_cargo_weapons)) then {
+    { _obj addWeaponCargoGlobal _x } forEach _cargo_weapons;
+  };
+
+  if (isARRAY(_cargo_backpacks)) then {
+    {
+      if (not((_x select 0) isKindOf "Weapon_Bag_Base")) then {
+        _obj addBackpackCargoGlobal _x
+      };
+    } forEach _cargo_backpacks;
+  };
+
+  if (isARRAY(_cargo_items)) then {
+    { _obj addItemCargoGlobal _x } forEach _cargo_items;
+  };
+
+  if (isARRAY(_cargo_magazines)) then { //FIXME: this is legacy code, need to remove eventually
+    { _obj addMagazineCargoGlobal _x } forEach _cargo_magazines;
+  };
+
+  if (isARRAY(_full_magazines)) then {
+    { _obj addMagazineCargoGlobal _x } forEach _full_magazines;
+  };
+
+  if (isARRAY(_partial_magazines)) then {
+    { _obj addMagazineAmmoCargo  [(_x select 0), 1, (_x select 1)] } forEach _partial_magazines;
+  };
+
+  _obj setVariable ["is_storage_box", true];
+
+  _obj
+};
+
+
+
+p_trackStorageHoursAlive = {
+  ARGVX3(0,_player,objNull);
+
+  def(_spawnTime);
+  def(_hoursAlive);
+
+  _spawnTime = _player getVariable "storage_spawningTime";
+  _hoursAlive = _player getVariable "storage_hoursAlive";
+
+  if (isNil "_spawnTime") then {
+    _spawnTime = diag_tickTime;
+    _player setVariable ["storage_spawningTime", _spawnTime, true];
+  };
+
+  if (isNil "_hoursAlive") then {
+    _hoursAlive = 0;
+    _player setVariable ["storage_hoursAlive", _hoursAlive, true];
+  };
+
+  def(_totalHours);
+  _totalHours = _hoursAlive + (diag_tickTime - _spawnTime) / 3600;
+
+  (_totalHours)
+};
+
+p_saveStorage = {
+  //diag_log format["%1 call p_getPlayerInfo", _this];
+  ARGVX3(0,_player,objNull);
+  ARGVX3(1,_obj,objNull);
+
+
+  if (isNull _obj) exitWith {};
+
+  def(_hours_alive);
+  _hours_alive = [_player] call p_trackStorageHoursAlive;
+
+  init(_weapons,[]);
+  init(_partial_magazines,[]);
+  init(_full_magazines,[]);
+  init(_items,[]);
+  init(_backpacks,[]);
+
+  // Save weapons & ammo
+  _weapons = (getWeaponCargo _obj) call cargoToPairs;
+  _items = (getItemCargo _obj) call cargoToPairs;
+  _backpacks = (getBackpackCargo _obj) call cargoToPairs;
+  [_obj, _full_magazines, _partial_magazines] call sh_fillMagazineData;
+
+  def(_storage);
+  _storage =
+  [
+    ["Class", typeOf _obj],
+    ["HoursAlive", _hours_alive],
+    ["Weapons", _weapons],
+    ["Items", _items],
+    ["Backpacks", _backpacks],
+    ["PartialMagazines", _partial_magazines],
+    ["FullMagazines", _full_magazines]
+  ];
+
+  _player setVariable ["private_storage", _storage, true];
+  (_storage)
+};
+
+fn_applyPlayerParking = {
+  if (!isARRAY(_this)) exitWith {
+    diag_log format["WARNING: No player private parking data"];
+  };
+  init(_data,_this);
+
+
+  diag_log "#############################################";
+  diag_log "Dumping _parkingData";
+  [_data] call p_dumpHash;
+
+  init(_parked_vehicles,[]);
+
+  def(_vehicle_info);
+  {if (true) then {
+    _vehicle_info = _x;
+    if (!isARRAY(_vehicle_info) || {count(_vehicle_info) < 2}) exitWith {};
+
+    def(_vehicle_id);
+
+    _vehicle_id = _vehicle_info select 0;
+    if (!isSTRING(_vehicle_id)) exitWith {};
+
+    def(_vehicle_data);
+    _vehicle_data = _vehicle_info select 1;
+    if (!isCODE(_vehicle_data)) exitWith {};
+    _parked_vehicles pushBack [_vehicle_id, (call _vehicle_data)];
+  };} forEach _data;
+
+  player setVariable ["parked_vehicles",_parked_vehicles,true];
+};
+
 
 p_restoreInfo = {
   ARGVX2(0,_hash);
@@ -317,8 +599,30 @@ p_restoreInfo = {
   def(_data);
   _data = call _hash;
 
-  _data call fn_applyPlayerInfo;
+  OR(_data,nil) call fn_applyPlayerInfo;
 };
+
+p_restoreStorage = {
+  ARGVX2(0,_hash);
+  if (!isCODE(_hash)) exitWith {};
+  format["%1 call p_restoreStorage;", _this] call p_log_finest;
+  def(_data);
+  _data = call _hash;
+
+  OR(_data,nil) call fn_applyPlayerStorage;
+};
+
+p_restoreParking = {
+  ARGVX2(0,_hash);
+  if (!isCODE(_hash)) exitWith {};
+  format["%1 call p_restoreParking;", _this] call p_log_finest;
+  def(_data);
+  _data = call _hash;
+
+  OR(_data,nil) call fn_applyPlayerParking;
+};
+
+
 
 p_restoreScore = {
   ARGVX2(0,_hash);
@@ -385,8 +689,7 @@ p_restoreData = {
   _dataValid = (isARRAY(_data) && {count(_data) > 0});
 
   if (!_dataValid) exitWith {
-    format["saved data for %1 is not valid;", player] call p_log_finest;
-    playerData_resetPos = true;
+    format["Saved data for %1 is not valid;", player] call p_log_finest;
     call _exit;
   };
 
@@ -402,6 +705,18 @@ p_getScope = {
   (format["%1%2",PDB_PlayerFileID,_id])
 };
 
+p_dumpHash = {
+  ARGVX3(0,_data,[]);
+
+  def(_key);
+  def(_value);
+  {
+    _key = _x select 0;
+    _value = _x select 1;
+    diag_log (_key + " = " + str(OR(_value,nil)));
+  } forEach _data;
+};
+
 fn_requestPlayerData = {[] spawn {
   init(_player,player);
   init(_uid,getPlayerUID player);
@@ -415,12 +730,15 @@ fn_requestPlayerData = {[] spawn {
   init(_genericDataKey, "PlayerSave");
   init(_infoKey, "PlayerInfo");
   init(_scoreKey, "PlayerScore");
+  init(_storageKey, "PlayerStorage");
+  init(_parkingKey, "PlayerParking");
+
 
   def(_worldDataKey);
   _worldDataKey = format["%1_%2", _genericDataKey, worldName];
 
   def(_pData);
-  _pData = [_scope, [_genericDataKey, nil], [_worldDataKey, nil], [_infoKey, nil], [_scoreKey, nil]] call stats_get;
+  _pData = [_scope, [_genericDataKey, nil], [_worldDataKey, nil], [_infoKey, nil], [_storageKey, nil], [_parkingKey, nil], [_scoreKey, nil]] call stats_get;
   if (not(isARRAY(_pData))) exitWith {
     //player data did not load, force him back to lobby
     endMission "LOSER";
@@ -439,6 +757,12 @@ fn_requestPlayerData = {[] spawn {
       case _worldDataKey: {
         _worldData = xGet(_x,1);
       };
+      case _storageKey: {
+        [xGet(_x,1)] call p_restoreStorage;
+      };
+      case _parkingKey: {
+        [xGet(_x,1)] call p_restoreParking;
+      };
       case _infoKey: {
         [xGet(_x,1)] call p_restoreInfo;
       };
@@ -452,9 +776,6 @@ fn_requestPlayerData = {[] spawn {
   _genericData = OR(call _genericData,[]);
   _worldData = OR(call _worldData,[]);
 
-  diag_log ("_genericData = " + str(_genericData));
-  diag_log ("_worldData = " + str(_worldData));
-
   /**
    * If the world is Stratis, ignore the legacy generic "Position".
    * The legacy "Position" field should only be used for "Altis"
@@ -463,9 +784,16 @@ fn_requestPlayerData = {[] spawn {
     [_genericData, "Position"] call hash_remove_key;
   };
 
+  diag_log "#############################################";
+  diag_log "Dumping _genericData";
+  [_genericData] call p_dumpHash;
+
+  diag_log "#############################################";
+  diag_log "Dumping _worldData";
+  [_worldData] call p_dumpHash;
+
   def(_allData);
   _allData = [_genericData, _worldData] call hash_set_all;
-  diag_log ("_allData = " + str(_allData));
   [_allData] call p_restoreData;
 
 };};

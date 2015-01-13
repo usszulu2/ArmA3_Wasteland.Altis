@@ -1,4 +1,5 @@
 //	@file Author: [404] Costlyy
+//	@file Name: objectLockStateMachine.sqf
 //	@file Version: 1.0
 //  @file Date:	21/11/2012
 //	@file Description: Locks an object until the player disconnects.
