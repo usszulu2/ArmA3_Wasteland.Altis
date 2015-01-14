@@ -381,3 +381,6 @@ if (["A3W_serverMissions"] call isConfigOn) then
 
 // Start clean-up loop
 [] execVM "server\WastelandServClean.sqf";
+
+//Addons server-side config values to clients
+[] execVM "addons\UAV_Control\server.sqf";
