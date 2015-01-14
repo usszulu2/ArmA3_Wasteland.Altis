@@ -36,6 +36,8 @@ A3W_atmMaxBalance = 1000000;       // Maximum amount of money that can be stored
 A3W_atmTransferFee = 5;            // Fee in percent charged to players for money transfers to other players (0 to 50)
 A3W_atmTransferAllTeams = 0;       // Allow money transfers between players of all teams/sides (0 = same team only, 1 = all teams)
 A3W_atmEditorPlacedOnly = 0;       // Only allow access via ATMs placed from the mission editor (0 = all ATMs from towns & editor allowed, 1 = ATMs from editor only) Note: Stratis has no town ATMs, only editor ones.
+A3W_atmMapIcons = 0;               // Draw small icons on the map that indicate ATM locations (0 = no, 1 = yes)
+A3W_atmRemoveIfDisabled = 0;       // Remove all ATMs from map if A3W_atmEnabled is set to 0 (0 = no, 1 = yes)
 
 A3W_healthTime = 60*5;             //seconds till death
 A3W_hungerTime = 80*60;           //seconds till starving
