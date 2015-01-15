@@ -43,6 +43,7 @@ A3W_healthTime = 60*5;             //seconds till death
 A3W_hungerTime = 80*60;           //seconds till starving
 A3W_thirstTime = 65*60;           //seconds till dehydrated
 
+
 // Persistence settings
 A3W_playerSaving = 1;              // Save player data like position, health, inventory, etc. (0 = no, 1 = yes)
 A3W_moneySaving = 1;               // If playerSaving = 1, save player money amount (0 = no, 1 = yes)
