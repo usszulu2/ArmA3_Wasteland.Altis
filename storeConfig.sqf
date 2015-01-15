@@ -37,7 +37,7 @@ rifleArray = compileFinal str
 
 	// Assault Rifles
 	["Mk20 Carbine", "arifle_Mk20C_plain_F", 150],
-	["Mk20 Carbine (Camo)", "arifle_Mk20C_F", 175],
+	["Mk20 Carbine (Camo)", "arifle_Mk20C_F", 150],
 	["Mk20 Rifle", "arifle_Mk20_plain_F", 200],
 	["Mk20 Rifle (Camo)", "arifle_Mk20_F", 200],
 	["Mk20 EGLM Rifle", "arifle_Mk20_GL_plain_F", 250],
@@ -61,7 +61,7 @@ rifleArray = compileFinal str
 	// Markman Rifles
 	["MXM Rifle", "arifle_MXM_F", 300],
 	["MXM Rifle (Black)", "arifle_MXM_Black_F", 325],
-	["DMR Rifle", "srifle_DMR_01_F", 400],
+	["DMR Rifle", "srifle_DMR_01_F", 375],
 	["Mk18 ABR Rifle", "srifle_EBR_F", 450],
 
 	// Sniper Rifles
@@ -107,18 +107,18 @@ staticGunsArray = compileFinal str
 	["Static Titan AA 4Rnd (NATO)", "B_static_AA_F", 3000],
 	["Static Titan AA 4Rnd (CSAT)", "O_static_AA_F", 3000],
 	["Static Titan AA 4Rnd (AAF)", "I_static_AA_F", 3000],
-	["Mk30 HMG .50 Low tripod (NATO)", "B_HMG_01_F", 2500],
-	["Mk30 HMG .50 Low tripod (CSAT)", "O_HMG_01_F", 2500],
-	["Mk30 HMG .50 Low tripod (AAF)", "I_HMG_01_F", 2500],
+	["Mk30 HMG .50 Low tripod (NATO)", "B_HMG_01_F", 2000],
+	["Mk30 HMG .50 Low tripod (CSAT)", "O_HMG_01_F", 2000],
+	["Mk30 HMG .50 Low tripod (AAF)", "I_HMG_01_F", 2000],
 	// ["Mk30A HMG .50 Sentry (NATO)", "B_HMG_01_A_F", 5000], // "A" = Autonomous = Overpowered
 	// ["Mk30A HMG .50 Sentry (CSAT)", "O_HMG_01_A_F", 5000],
 	// ["Mk30A HMG .50 Sentry (AAF)", "I_HMG_01_A_F", 5000],
 	["Mk30 HMG .50 High tripod (NATO)", "B_HMG_01_high_F", 3000],
 	["Mk30 HMG .50 High tripod (CSAT)", "O_HMG_01_high_F", 3000],
 	["Mk30 HMG .50 High tripod (AAF)", "I_HMG_01_high_F", 3000],
-	["Mk32 GMG 20mm Low tripod (NATO)", "B_GMG_01_F", 5500],
-	["Mk32 GMG 20mm Low tripod (CSAT)", "O_GMG_01_F", 5500],
-	["Mk32 GMG 20mm Low tripod (AAF)", "I_GMG_01_F", 5500],
+	["Mk32 GMG 20mm Low tripod (NATO)", "B_GMG_01_F", 5000],
+	["Mk32 GMG 20mm Low tripod (CSAT)", "O_GMG_01_F", 5000],
+	["Mk32 GMG 20mm Low tripod (AAF)", "I_GMG_01_F", 5000],
 	// ["Mk32A GMG 20mm Sentry (NATO)", "B_GMG_01_A_F", 10000],
 	// ["Mk32A GMG 20mm Sentry (CSAT)", "O_GMG_01_A_F", 10000],
 	// ["Mk32A GMG 20mm Sentry (AAF)", "I_GMG_01_A_F", 10000],
@@ -667,7 +667,7 @@ helicoptersArray = compileFinal str
 	["PO-30 Orca (Black)", "O_Heli_Light_02_unarmed_F", 7000, "vehicle"], // Ka-60
 	["WY-55 Hellcat (Green)", "I_Heli_light_03_unarmed_F", 7000, "vehicle"], // AW159
 
-	["Mi-290 Taru (Ammo) [DLC]", "O_Heli_Transport_04_ammo_F", 7500, "vehicle"],
+	["Mi-290 Taru (Resupply) [DLC]", "O_Heli_Transport_04_ammo_F", 7500, "vehicle"],
 	["Mi-290 Taru (Crane) [DLC]", "O_Heli_Transport_04_F", 7500, "vehicle"], // CH-54
 	["Mi-290 Taru (Box) [DLC]", "O_Heli_Transport_04_box_F", 8000, "vehicle"],
 	["Mi-290 Taru (Fuel) [DLC]", "O_Heli_Transport_04_fuel_F", 8500, "vehicle"],
@@ -697,12 +697,12 @@ planesArray = compileFinal str
 	//["A-143 Buzzard CAS", "I_Plane_Fighter_03_CAS_F", 45000, "vehicle"],
 	//["A-164 Wipeout CAS", "B_Plane_CAS_01_F", 75000, "vehicle"],
 	//["To-199 Neophron CAS", "O_Plane_CAS_02_F", 75000, "vehicle"],
-	["MQ4A Greyhawk ATGM UAV", "B_UAV_02_F", 30000, "vehicle"],
-	["MQ4A Greyhawk Bomber UAV", "B_UAV_02_CAS_F", 12500, "vehicle"], // Bomber UAVs are a lot harder to use, hence why they are cheaper than ATGMs
-	["K40 Ababil-3 ATGM UAV (CSAT)", "O_UAV_02_F", 30000, "vehicle"],
-	["K40 Ababil-3 Bomber UAV (CSAT)", "O_UAV_02_CAS_F", 12500, "vehicle"],
-	["K40 Ababil-3 ATGM UAV (AAF)", "I_UAV_02_F", 30000, "vehicle"],
-	["K40 Ababil-3 Bomber UAV (AAF)", "I_UAV_02_CAS_F", 12500, "vehicle"]
+	["MQ4A Greyhawk ATGM UAV", "B_UAV_02_F", 25000, "vehicle"],
+	["MQ4A Greyhawk Bomber UAV", "B_UAV_02_CAS_F", 15000, "vehicle"], // Bomber UAVs are a lot harder to use, hence why they are cheaper than ATGMs
+	["K40 Ababil-3 ATGM UAV (CSAT)", "O_UAV_02_F", 25000, "vehicle"],
+	["K40 Ababil-3 Bomber UAV (CSAT)", "O_UAV_02_CAS_F", 15000, "vehicle"],
+	["K40 Ababil-3 ATGM UAV (AAF)", "I_UAV_02_F", 25000, "vehicle"],
+	["K40 Ababil-3 Bomber UAV (AAF)", "I_UAV_02_CAS_F", 15000, "vehicle"]
 ];
 
 boatsArray = compileFinal str
@@ -771,7 +771,7 @@ colorsArray = compileFinal str
 			["CSAT Brown", _texDir + "csat.jpg"], // #(argb,8,8,3)color(0.624,0.512,0.368,0.3)
 			["AAF Green", _texDir + "aaf.jpg"], // #(argb,8,8,3)color(0.546,0.59,0.363,0.2)
 			//["Trippy", _texDir + "rainbow.jpg"],
-			["Carbon", _texDir + "carbon.jpg"],
+			//["Carbon", _texDir + "carbon.jpg"],
 			["Rusty", _texDir + "rusty.jpg"],
 			//["Denim", _texDir + "denim.jpg"],
 			//["Psych", _texDir + "psych.jpg"],
@@ -779,7 +779,7 @@ colorsArray = compileFinal str
 			["'Murica", _texDir + "murica.jpg"],
 			["Confederate", _texDir + "confederate.jpg"],
 			["Union Jack", _texDir + "unionjack.jpg"],
-			["Yellow Camo", _texDir + "camo_fuel.jpg"],
+			//["Yellow Camo", _texDir + "camo_fuel.jpg"],
 			["Orange Camo", _texDir + "camo_fack.jpg"],
 			["Red Camo", _texDir + "camo_deser.jpg"]
 			//["Pink Camo", _texDir + "camo_pank.jpg"]
