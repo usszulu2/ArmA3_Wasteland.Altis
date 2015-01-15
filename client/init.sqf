@@ -132,13 +132,12 @@ A3W_scriptThreads pushBack execVM "client\systems\hud\playerHud.sqf";
 
 [] spawn playerSpawn;
 
-//A3W_scriptThreads pushBack execVM "addons\fpsFix\vehicleManager.sqf";
+A3W_scriptThreads pushBack execVM "addons\fpsFix\vehicleManager.sqf";
 A3W_scriptThreads pushBack execVM "addons\Lootspawner\LSclientScan.sqf";
 [] execVM "client\functions\drawPlayerIcons.sqf";
 [] execVM "addons\far_revive\FAR_revive_init.sqf";
 [] execVM "addons\camera\functions.sqf";
 [] execVM "addons\water_edge\functions.sqf";
-//[] execVM "addons\bank\functions.sqf";
 [] execVM "addons\cctv\functions.sqf";
 
 
