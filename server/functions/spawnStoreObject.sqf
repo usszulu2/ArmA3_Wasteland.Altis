@@ -244,7 +244,6 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					{
 						_object removeMagazineTurret ["6Rnd_LG_scalpel",[0]];
 						_object addMagazineTurret ["2Rnd_LG_scalpel",[0]];
-						_object disableTIEquipment false;
 					};
 				};
 
