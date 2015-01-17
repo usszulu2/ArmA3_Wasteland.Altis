@@ -170,7 +170,8 @@ va_get_tag = {
   
   _tag = _vehicle getVariable "A3W_vehicleID"; //iniDB, and extDB
   if (isSTRING(_tag)) exitWith {_tag};
-  
+  if (not(isNil "_tag")) exitWith {str _tag};
+
   ""
 };
 
