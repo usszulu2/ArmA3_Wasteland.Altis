@@ -25,6 +25,9 @@
 #define isPOS(x) \
 (isARRAY(x) && {count(x) == 3})
 
+#define isSCRIPT(x) \
+(not(isNil {x}) && {typeName x == typeName scriptNull})
+
 
 #define isNullable(x) (false ||{ \
   not(isNil {x}) &&{ \
