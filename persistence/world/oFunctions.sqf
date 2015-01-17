@@ -78,7 +78,7 @@ o_isLockableObject = {
 
 
 
-o_restoreObject = {_this spawn {
+o_restoreObject = {
   //diag_log format["%1 call o_restoreObject", _this];
   ARGVX3(0,_data_pair,[]);
   
@@ -201,8 +201,8 @@ o_restoreObject = {_this spawn {
     ARGVX3(1,_allowDamage,false);
     //delay the allow damage to allow the box to settle
     sleep 5;
-  _obj setVariable ["allowDamage", _allowDamage];
-  _obj allowDamage _allowDamage;
+    _obj setVariable ["allowDamage", _allowDamage];
+    _obj allowDamage _allowDamage;
   };
 
   //broadcast the spawn beacon
@@ -260,7 +260,7 @@ o_restoreObject = {_this spawn {
   //objects, warchests, and beacons
   tracked_objects_list pushBack _obj;
 
-};};
+};
 
 
 
