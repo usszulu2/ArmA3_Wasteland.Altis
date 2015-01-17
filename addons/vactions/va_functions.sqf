@@ -41,7 +41,7 @@ va_player_exit = {
   //leave engine in same state after exiting
   def(_engine_state);
   _engine_state =  isEngineOn _vehicle;
-  _player action ["Eject",_vehicle];
+  _player action ["getOut",_vehicle];
   _vehicle engineOn _engine_state;
 };
 
