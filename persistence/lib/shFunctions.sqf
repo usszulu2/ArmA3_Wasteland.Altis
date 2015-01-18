@@ -215,7 +215,6 @@ sh_isUAV = {
 };
 
 
-
 sh_getVehicleTurrets = {
   def(_default);
   _default = [nil,nil,nil];
