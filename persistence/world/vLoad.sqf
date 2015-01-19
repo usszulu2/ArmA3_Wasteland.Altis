@@ -6,8 +6,8 @@
 //	@file Author: micovery
 //	@file Description: vehicle loading
 
-diag_log "vLoad.sqf loading ...";
 if (!isServer) exitWith {};
+diag_log "vLoad.sqf loading ...";
 
 call compile preprocessFileLineNumbers "persistence\lib\normalize_config.sqf";
 call compile preprocessFileLineNumbers "persistence\lib\hash.sqf";
@@ -16,7 +16,7 @@ call compile preprocessFileLineNumbers "persistence\world\vFunctions.sqf";
 
 #include "macro.h"
   
-init(_vScope, "Vehicles" call PDB_objectFileName);
+init(_vScope, "Vehicles" call PDB_vehicleFileName);
 
 def(_vIds);
 _vIds = [_vScope] call v_loadVehicles;

@@ -51,11 +51,11 @@ o_isSaveable = {
   if ([_obj] call sh_isBeacon) exitWith {
     (cfg_spawnBeaconSaving_on)
   };
-
+  
   if ([_obj] call sh_isWarchest) exitWith {
     (cfg_warchestSaving_on)
   };
-
+  
   if ([_obj] call sh_isStaticWeapon) exitWith {
     (cfg_staticWeaponSaving_on)
   };
@@ -67,6 +67,7 @@ o_isSaveable = {
   if ([_obj] call sh_isCamera) exitWith {
     (cfg_cctvCameraSaving_on)
   };
+
 
   def(_locked);
   _locked = _obj getVariable ["objectLocked", false];
@@ -161,7 +162,7 @@ o_restoreMineVisibility = {
   } forEach _mineVisibility;
 };
 
-o_restoreObject = {_this spawn {
+o_restoreObject = {
   //diag_log format["%1 call o_restoreObject", _this];
   ARGVX3(0,_data_pair,[]);
   
@@ -190,10 +191,10 @@ o_restoreObject = {_this spawn {
   def(_cargo_ammo);
   def(_cargo_fuel);
   def(_cargo_repair);
-  def(_mineVisibility);
   def(_turret0);
   def(_turret1);
   def(_turret2);
+  def(_mineVisibility);
 
   def(_key);
   def(_value);
@@ -243,6 +244,7 @@ o_restoreObject = {_this spawn {
 
   def(_isMine);
   _isMine = [_class] call sh_isMine;
+  
   def(_obj);
   if (_isMine) then {
     _obj = createMine[_class, _pos, [], 0];
@@ -272,14 +274,11 @@ o_restoreObject = {_this spawn {
     [_obj,_variables] call o_restoreMineVisibility;
   };
 
-
   if (not([_obj] call o_isSaveable)) exitWith {
     diag_log format["%1(%2) has been deleted, it is not saveable", _object_key, _class];
     deleteVehicle _obj;
   };
 
-
-  
   _obj setPosWorld ATLtoASL _pos;
   [_obj, OR(_dir,nil)] call o_restoreDirection;
   [_obj, OR(_hours_alive,nil)] call o_restoreHoursAlive;
@@ -295,8 +294,8 @@ o_restoreObject = {_this spawn {
     ARGVX3(1,_allowDamage,false);
     //delay the allow damage to allow the box to settle
     sleep 5;
-  _obj setVariable ["allowDamage", _allowDamage];
-  _obj allowDamage _allowDamage;
+    _obj setVariable ["allowDamage", _allowDamage];
+    _obj allowDamage _allowDamage;
   };
 
   //broadcast the spawn beacon
@@ -353,7 +352,7 @@ o_restoreObject = {_this spawn {
   };
 
   //AddAi to vehicle
-  if ([_obj] call sh_isUAV) then {
+  if ([_obj] call sh_isUAV_UGV) then {
     createVehicleCrew _obj;
   };
 
@@ -362,8 +361,7 @@ o_restoreObject = {_this spawn {
     tracked_objects_list pushBack _obj;
   };
 
-
-};};
+};
 
 
 
@@ -661,7 +659,7 @@ o_saveAllObjects = {
   init(_start_time, diag_tickTime);
   init(_last_save, diag_tickTime);
 
-  private["_all_objects"];
+  def(_all_objects);
   _all_objects = tracked_objects_list + allMines;
 
   {

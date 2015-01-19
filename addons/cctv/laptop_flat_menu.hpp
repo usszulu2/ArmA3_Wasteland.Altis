@@ -18,7 +18,7 @@ class laptop_flat_menu {
 		laptop_flat_menu_button_space
 	};
 
-	class laptop_flat_menu_screen_text_tl : cctv_ui_RscText {
+	class laptop_flat_menu_screen_text_tl : gui_RscText {
 		idc = laptop_flat_menu_screen_text_tl_idc;
 		x = -10; y = -10;
 		w = 0.05; h = 0.05;
@@ -26,28 +26,28 @@ class laptop_flat_menu {
 		text = "Sample Text";
 	};
 
-	class laptop_flat_menu_background : cctv_ui_RscPictureKeepAspect {
+	class laptop_flat_menu_background : gui_RscPictureKeepAspect {
 		idc = laptop_flat_menu_background_idc;
 		x = -10; y = -10;
 		w = 0.05; h = 0.05;
 		moving = 1;
 	};
 
-	class laptop_flat_menu_screen : cctv_ui_RscPicture {
+	class laptop_flat_menu_screen : gui_RscPicture {
 		idc = laptop_flat_menu_screen_idc;
 		x = -10; y = -10;
 		w = 0.05; h = 0.05;
 		moving = 1;
 	};
 
-	class laptop_flat_menu_button_mouse : cctv_ui_RscMenuButton {
+	class laptop_flat_menu_button_mouse : gui_RscMenuButton {
 		idc = laptop_flat_menu_button_mouse_idc;
 		x = -10; y = -10;
 		w = 0.05; h = 0.05;
 		text = "";
 	};
 
-	class laptop_flat_menu_button_space : cctv_ui_RscMenuButton {
+	class laptop_flat_menu_button_space : gui_RscMenuButton {
 		idc = laptop_flat_menu_button_space_idc;
 		x = -10; y = -10;
 		w = 0.05; h = 0.05;

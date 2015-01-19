@@ -41,7 +41,7 @@ va_player_exit = {
   //leave engine in same state after exiting
   def(_engine_state);
   _engine_state =  isEngineOn _vehicle;
-  _player action ["Eject",_vehicle];
+  _player action ["getOut",_vehicle];
   _vehicle engineOn _engine_state;
 };
 
@@ -114,34 +114,40 @@ va_unflip_action_available = {
   ([_vehicle] call va_flipped)
 };
 
-va_unflip_action = { _this spawn {
-  //player groupChat format["va_unflip_action %1",_this];
-  ARGVX3(3,_this,[]);
-  ARGVX3(0,_player,objNull);
-  ARGVX3(1,_vehicle,objNull);
-  
-  if (not(alive _player)) exitWith {};
-  
-  
-  def(_display_name);
-  _display_name = [typeOf _vehicle] call generic_display_name;
-  
-  init(_sleep,cfg_va_unflip_wait_time);
-  init(_dist,cfg_va_unflip_wait_distance);
-  
-  _player groupChat format["Unflipping the %1, wait for %2 seconds nearby.", _display_name, _sleep];
-  sleep _sleep;
+va_unflip_action = {
 
-  if ((_player distance _vehicle) > _dist) exitWith {
-    _player groupChat format["Could not unflip the %1, you must stay within %2 meters.", _display_name, _dist];
+  if (isSCRIPT(va_unflip_action_script) && {not(scriptDone va_unflip_action_script)}) exitWith {
+    player groupChat format["Vehicle unflip action is already in progress, please wait"];
   };
-  
-  [[_vehicle,[0,0,1]],"A3W_fnc_unflip",true,false] call BIS_fnc_MP;
 
-  
-  _player groupChat format["The %1 has been unflipped", _display_name];
-  
-};};
+  va_unflip_action_script = _this spawn {
+   //player groupChat format["va_unflip_action %1",_this];
+    ARGVX3(3,_this,[]);
+    ARGVX3(0,_player,objNull);
+    ARGVX3(1,_vehicle,objNull);
+
+    if (not(alive _player)) exitWith {};
+
+
+    def(_display_name);
+    _display_name = [typeOf _vehicle] call generic_display_name;
+
+    init(_sleep,cfg_va_unflip_wait_time);
+    init(_dist,cfg_va_unflip_wait_distance);
+
+    _player groupChat format["Unflipping the %1, wait for %2 seconds nearby.", _display_name, _sleep];
+    sleep _sleep;
+
+    if ((_player distance _vehicle) > _dist) exitWith {
+      _player groupChat format["Could not unflip the %1, you must stay within %2 meters.", _display_name, _dist];
+    };
+
+    [[_vehicle,[0,0,1]],"A3W_fnc_unflip",true,false] call BIS_fnc_MP;
+
+
+    _player groupChat format["The %1 has been unflipped", _display_name];
+  };
+};
 
 //place-holder in case people want to modify this condition
 va_information_action_available = { 
@@ -164,7 +170,8 @@ va_get_tag = {
   
   _tag = _vehicle getVariable "A3W_vehicleID"; //iniDB, and extDB
   if (isSTRING(_tag)) exitWith {_tag};
-  
+  if (not(isNil "_tag")) exitWith {str _tag};
+
   ""
 };
 

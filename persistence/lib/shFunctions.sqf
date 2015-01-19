@@ -204,11 +204,26 @@ sh_isAPurchasedVehicle = {
   (isBOOLEAN(_purchased) && {_purchased})
 };
 
-sh_isUAV = {
+sh_isUAV_UGV = {
   ARGVX4(0,_obj,objNull,false);
   (getNumber(configFile >> "CfgVehicles" >> typeOf _obj >> "isUav") > 0)
 };
 
+sh_isUAV = {
+  ARGV2(0,_arg);
+
+  def(_class);
+  if (isOBJECT(_arg)) then {
+    _class = typeOf _arg;
+  }
+  else { if (isSTRING(_arg)) then {
+    _class = _arg;
+  }};
+
+  if (isNil "_class") exitWith {false};
+
+  (_class isKindOf "UAV_02_base_F" || {_class isKindOf "UAV_01_base_F"})
+};
 
 
 sh_getVehicleTurrets = {
@@ -453,6 +468,22 @@ sh_fsm_invoke = {
   _result = (missionNamespace getVariable _var_name);
   missionNamespace setVariable [_var_name, nil];
   OR(_result,nil)
+};
+
+sh_isFlying = {
+  ARGV2(0,_arg);
+
+  init(_flying_height,20);
+
+  if (isOBJECT(_arg)) exitWith {
+    (!isTouchingGround _arg && (getPos _arg) select 2 > _flying_height)
+  };
+
+  if (isPOS(_arg)) exitWith {
+   (_arg select 2 > _flying_height)
+  };
+
+  false
 };
 
 shFunctions_loaded = true;
