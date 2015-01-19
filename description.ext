@@ -93,3 +93,9 @@ class CfgNotifications
 {
 	#include "client\CfgNotifications.hpp"
 };
+
+class CfgSounds
+{
+	sounds[] = {};
+	#include "addons\boomerang\sounds.hpp"
+};
