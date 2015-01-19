@@ -96,6 +96,9 @@
 		<Key ID="STR_WL_ShopDescriptions_CCTV_Base">
 			<English>This is a computer terminal that receives video signals from one or more remote networked cameras via Internet Protocol (IP).</English>
 		</Key>
+		<Key ID="STR_WL_ShopDescriptions_Boomerang_Terminal">
+			<English>This is a portable terminal for the Boomerang shot detection system.</English>
+		</Key>
 	</Package>
 	<Package name="Dialogs">
 		<Key ID="STR_WL_dialog_TeamkillText">
