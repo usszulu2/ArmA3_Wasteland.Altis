@@ -77,6 +77,11 @@ sh_isCamera = {
   (_obj getVariable ["a3w_cctv_camera", false])
 };
 
+sh_isBoomerang = {
+  ARGVX4(0,_obj,objNull,false);
+  (_obj getVariable ["has_boomerang", false])
+};
+
 sh_isBox = {
   ARGVX4(0,_obj,objNull,false);
   init(_class,typeOf _obj);
