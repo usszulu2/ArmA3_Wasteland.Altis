@@ -437,6 +437,15 @@ o_fillVariables = {
     _variables pushBack ["mf_item_id", (_obj getVariable ["mf_item_id", nil])];
   };
 
+  if ([_obj] call sh_isBoomerang) then {
+    _variables pushBack ["is_boomerang", (_obj getVariable "is_boomerang")];
+    _variables pushBack ["has_boomerang", (_obj getVariable "has_boomerang")];
+    _variables pushBack ["boomerang_owner_type", (_obj getVariable "boomerang_owner_type")];
+    _variables pushBack ["boomerang_owner_value", (_obj getVariable "boomerang_owner_value")];
+    _variables pushBack ["mf_item_id", (_obj getVariable "mf_item_id")];
+  };
+
+
   if ([_obj] call sh_isMine) then {
     init(_mineVisibility,[]);
     {

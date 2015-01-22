@@ -876,7 +876,11 @@ customPlayerItems = compileFinal str
 	["Warchest", "warchest", localize "STR_WL_ShopDescriptions_Warchest", "client\icons\warchest.paa", 1000, 500],
 	//Addon items
 	["IP/Net Camera", "cctv_camera", localize "STR_WL_ShopDescriptions_CCTV_Camera", "addons\cctv\icons\camcorder.paa", 850, 500],
-  ["Camera Terminal", "cctv_base", localize "STR_WL_ShopDescriptions_CCTV_Base", "addons\cctv\icons\laptop.paa", 500, 300]
+	["Camera Terminal", "cctv_base", localize "STR_WL_ShopDescriptions_CCTV_Base", "addons\cctv\icons\laptop.paa", 500, 300],
+	["Boomerang Terminal", "boomerang_terminal", localize "STR_WL_ShopDescriptions_Boomerang_Terminal", "addons\boomerang\icons\terminal.paa", 850, 500],
+	["Boomerang Station", "boomerang_station", localize "STR_WL_ShopDescriptions_Boomerang_Station", "addons\boomerang\icons\antenna.paa", 850, 500]
+
+
 ];
 
 call compile preprocessFileLineNumbers "mapConfig\storeOwners.sqf";
