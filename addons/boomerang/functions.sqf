@@ -390,7 +390,7 @@ boomerang_add_firedNear = {
 };
 
 boomerang_remove_firedNear = {
-  diag_log format["%1 call boomerang_remove_firedNear", _this];
+  //diag_log format["%1 call boomerang_remove_firedNear", _this];
   ARGVX3(0,_vehicle,objNull);
   def(_id);
   _id = _vehicle getVariable "FiredNear_ID";
