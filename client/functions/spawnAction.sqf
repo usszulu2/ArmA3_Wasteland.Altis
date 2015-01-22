@@ -34,7 +34,7 @@ spawnActionHandle = (_this select 1) spawn
 
 		[MF_ITEMS_CANNED_FOOD, 2] call mf_inventory_add;
 		[MF_ITEMS_WATER, 2] call mf_inventory_add;
-		[MF_ITEMS_REPAIR_KIT, 2] call mf_inventory_add;
+		[MF_ITEMS_REPAIR_KIT, 1] call mf_inventory_add;
 	};
 
 	if (cbChecked ((uiNamespace getVariable "RespawnSelectionDialog") displayCtrl respawn_Preload_Checkbox)) then

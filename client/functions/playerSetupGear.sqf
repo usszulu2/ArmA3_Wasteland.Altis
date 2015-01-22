@@ -31,7 +31,7 @@ _player unlinkItem "ItemGPS";
 if (hmd _player != "") then { _player unlinkItem hmd _player };
 
 // Add NVG
-_player linkItem "NVGoggles";
+//_player linkItem "NVGoggles";
 
 _player addBackpack "B_AssaultPack_rgr";
 
@@ -41,6 +41,9 @@ _player addMagazine "9Rnd_45ACP_Mag";
 _player addMagazine "9Rnd_45ACP_Mag";
 _player addMagazine "9Rnd_45ACP_Mag";
 _player addItem "FirstAidKit";
+_player addItem "Chemlight_green";
+_player addItem "Chemlight_red";
+_player addItem "Chemlight_blue";
 _player selectWeapon "hgun_ACPC2_F";
 
 switch (true) do
