@@ -4,7 +4,7 @@
 //	@file Name: unitHandleDamage.sqf
 //	@file Author: AgentRev
 
-#define IMPACT_DAMAGE_MULTIPLIER 0.5
+#define IMPACT_DAMAGE_MULTIPLIER 0.3
 
 _unit = _this select 0;
 
