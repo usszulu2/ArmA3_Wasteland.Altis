@@ -459,6 +459,12 @@ v_setupVehicleSavedVariables = {
     _variables pushBack ["R3F_Side", str _r3fSide];
   };
 
+  if ([_obj] call sh_isBoomerang) then {
+    _variables pushBack ["has_boomerang", (_obj getVariable "has_boomerang")];
+    _variables pushBack ["boomerang_owner_type", (_obj getVariable "boomerang_owner_type")];
+    _variables pushBack ["boomerang_owner_value", (_obj getVariable "boomerang_owner_value")];
+  };
+
   _variables pushBack ["A3W_objectTextures", (_obj getVariable ["A3W_objectTextures",[]])];
 
 };
