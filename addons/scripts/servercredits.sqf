@@ -45,6 +45,8 @@ _role2 = "Server restarts every 8 hours";
 _role2names = ["5, 13, 21 EST"];
 _role3 = "Player stats, and support @";
 _role3names = ["A3Armory.com"];
+_role4 = "TS3 Server @";
+_role4names = ["TS.A3Armory.com"];
  
 {
 	sleep 2;
@@ -67,5 +69,6 @@ _role3names = ["A3Armory.com"];
 	//The list below should have exactly the same amount of roles as the list above
 	[_role1, _role1names],
 	[_role2, _role2names],
-	[_role3, _role3names]			//make SURE the last one here does NOT have a , at the end
+	[_role3, _role3names],			
+	[_role4, _role4names]   //make SURE the last one here does NOT have a , at the end
 ];
