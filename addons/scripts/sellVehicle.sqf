@@ -33,7 +33,7 @@ _checks =
 		case (vehicle player != player): { _text = "Sell Failed! You can't do that in a vehicle." };
 		case (((player distance _object) - ((sizeOf typeOf _object / 3) max 4)) > 2): {_text = "Sell Failed! You are too far away from the vehicle."};
 		case (isNull _object): { _text = "The vehicle no longer exists" };
-		case (!alive _object || {alive _x} count crew _object > 0): { _text = "Sell Failed! You are not allowed to sell this vehicle." };
+		case (!alive _object || {alive _x} count crew _object > 0 && !(_vehClass isKindOf "UGV_01_base_F") && !(_vehClass isKindOf "UAV_02_base_F")): { _text = "Sell Failed! You are not allowed to sell this vehicle." };
 		case (!isNull (_object getVariable ["R3F_LOG_est_deplace_par", objNull])): { _text = "Sell Failed! Somebody moved the vehicle." };
 		case (!isNull (_object getVariable ["R3F_LOG_est_transporte_par", objNull])): { _text = "Sell Failed! Somebody loaded or towed the vehicle." };
 		case (doCancelAction): { doCancelAction = false; _text = "Sell Cancelled!" };
