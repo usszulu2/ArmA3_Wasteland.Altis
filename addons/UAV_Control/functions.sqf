@@ -47,7 +47,9 @@ uav_control_loop = {
   private["_uav1", "_uav2"];
   while {true} do {
     waitUntil { sleep 0.1; _uav1 = getConnectedUAV player; !(isNull _uav1)};
+    _uav1 allowDamage false; //hack to prevent UAVs from blowing up
     [player, _uav1] call uav_control_check_access;
+    _uav1 spawn { sleep 5; _this allowDamage true;};
     waitUntil { sleep 0.1; _uav2 = getConnectedUAV player; (isNull _uav2 || {_uav1 != _uav2})};
   };
 };
