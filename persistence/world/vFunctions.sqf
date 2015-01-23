@@ -146,6 +146,11 @@ v_restoreVehicle = {
   // disables thermal equipment on loaded vehicles, comment out if you want thermal
   _obj disableTIEquipment true;
 
+  //enables thermal equipment on loaded vehicles for UAVs and UGVs
+  if ({_obj isKindOf _x} count ["UAV_01_base_F", "UAV_02_base_F", "UGV_01_base_F"] > 0) then {
+    _obj disableTIEquipment false;
+  };
+
   //override the lock-state for vehicles form this this
   if ({_obj isKindOf _x} count A3W_locked_vehicles_list > 0) then {
     _lock_state = 2;
