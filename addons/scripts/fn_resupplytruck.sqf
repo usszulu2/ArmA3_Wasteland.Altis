@@ -198,6 +198,9 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
     [] call fn_savePlayerData;
   };
 
+	if (not(_is_uav) && {!isNull (gunner(_vehicle))}) then {
+		gunner(_vehicle) action ["getOut", _vehicle];
+	};
 
   private["_turretCfg", "_turretsArray"];
   _turretsArray = [[_vehicleCfg, [-1]]];

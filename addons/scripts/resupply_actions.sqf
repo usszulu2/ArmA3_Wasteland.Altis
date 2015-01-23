@@ -71,11 +71,14 @@ static_weapon_resupply_watch = {
   private["_staticCheck"];
   _staticCheck = {
     private["_static"];
-    _static = cursorTarget;
-    if !(!isNull _static && { _static isKindOf "StaticWeapon" &&  {(count(nearestObjects [getPos _static, resupply_vehicles, 10]) > 0)}}) exitWith {
-      nil
+    _static = (vehicle player);
+    if (not(isNull _static) && {
+         _static isKindOf "StaticWeapon" && {
+         player == gunner(_static) && {
+         (count(nearestObjects [getPos _static, resupply_vehicles, 10]) > 0)}}}) exitWith {
+      _static
     };
-    _static
+    nil
   };
 
   private["_static", "_action_id"];
@@ -99,8 +102,9 @@ vehicle_resupply_watch = {
     _vehicle = (vehicle player);
     if !(!isNull _vehicle && {
          player != _vehicle && {
+         player == driver(_vehicle) && {
          not(_vehicle isKindOf "StaticWeapon") && {
-         (count(nearestObjects [getPos _vehicle, resupply_vehicles, 10]) > 0)}}}) exitWith {
+         (count(nearestObjects [getPos _vehicle, resupply_vehicles, 10]) > 0)}}}}) exitWith {
       nil
     };
     _vehicle
