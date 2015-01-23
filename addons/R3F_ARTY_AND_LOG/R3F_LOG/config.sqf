@@ -112,7 +112,7 @@ R3F_LOG_CFG_objets_remorquablesH =
 	"B_Heli_Light_01_armed_F",
 	"C_Heli_Light_01_civil_F",
 	"I_Heli_Transport_02_F",
-    	"Heli_Transport_04_base_F",
+	"Heli_Transport_04_base_F",
 	"B_Heli_Transport_03_base_F",
 	"Plane"
 ];
@@ -128,7 +128,7 @@ R3F_LOG_CFG_objets_remorquablesALL =
 	"Wheeled_APC_F",
 	"Tank_F",
 	"I_Heli_Transport_02_F",
-    	"Heli_Transport_04_base_F",
+	"Heli_Transport_04_base_F",
 	"B_Heli_Transport_03_base_F",
 	"I_Plane_Fighter_03_AA_F",
 	"I_Plane_Fighter_03_CAS_F",
