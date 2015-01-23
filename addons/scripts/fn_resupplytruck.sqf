@@ -304,6 +304,15 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
     } forEach _turretMagPairs;
   } forEach _turretsArray;
 
+  switch (true) do
+  {
+    case ({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0): 
+    {
+      _vehicle removeMagazineTurret ["6Rnd_LG_scalpel",[0]];
+      _vehicle addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+    };
+  }; 
+  
   //_vehicle setVehicleAmmoDef 1; // Full ammo reset just to be sure
   [[_vehicle,1],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
 
