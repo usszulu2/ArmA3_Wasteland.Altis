@@ -41,6 +41,7 @@ do_resupply = {
 };
 
 
+#define VEHICLE_NAME(x) (getText ((configFile >> "CfgVehicles" >> (typeOf x)) >> "displayName"))
 
 uav_resupply_watch = {
   diag_log format["%1 call uav_resupply_watch", _this];
@@ -55,7 +56,10 @@ uav_resupply_watch = {
     waitUntil {sleep 3; (call _uavCheck)};
     private["_uav"];
     _uav = getConnectedUAV player;
-    _action_id = _uav addAction ["<img image='client\icons\repair.paa'/>  Resupply UAV", {_this call do_resupply;}, _uav, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"];
+    _action_id = _uav addAction [
+      format["<img image='client\icons\repair.paa'/>  Resupply %1",VEHICLE_NAME(_uav)],
+      {_this call do_resupply;}, _uav, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
+    ];
     waitUntil {sleep 3; not(call _uavCheck)};
     _uav removeAction _action_id;
     sleep 3;
@@ -77,7 +81,10 @@ static_weapon_resupply_watch = {
   private["_static", "_action_id"];
   waitUntil {
     waitUntil { sleep 3; _static = call _staticCheck; !isNil "_static"};
-    _action_id = _static addAction ["<img image='client\icons\repair.paa'/>  Resupply Static Weapon", {_this call do_resupply;}, _static, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"];
+    _action_id = _static addAction [
+      format["<img image='client\icons\repair.paa'/>  Resupply %1",VEHICLE_NAME(_static)],
+      {_this call do_resupply;}, _static, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
+    ];
     waitUntil { sleep 3; isNil {call _staticCheck}};
     _static removeAction _action_id;
     sleep 3;
@@ -102,7 +109,10 @@ vehicle_resupply_watch = {
   private["_vehicle", "_action_id"];
   waitUntil {
     waitUntil { sleep 3; _vehicle = call _vehicleCheck; !isNil "_vehicle"};
-    _action_id = _vehicle addAction ["<img image='client\icons\repair.paa'/>  Resupply vehicle", {_this call do_resupply;}, _vehicle, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"];
+    _action_id = _vehicle addAction [
+      format["<img image='client\icons\repair.paa'/>  Resupply %1",VEHICLE_NAME(_vehicle)],
+      {_this call do_resupply;}, _vehicle, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
+    ];
     waitUntil { sleep 3; isNil {call _vehicleCheck}};
     _vehicle removeAction _action_id;
     sleep 3;

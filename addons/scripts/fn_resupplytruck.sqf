@@ -1,6 +1,6 @@
 //  @file Version: 1.1
 //  @file Name: fn_resupplyTruck.sqf
-//  @file Author: Wiking, AgentRev
+//  @file Author: Wiking, AgentRev, micovery
 //  @file Created: 13/07/2014 21:58
 
 #define RESUPPLY_TRUCK_DISTANCE 20
