@@ -101,13 +101,16 @@ _successExec =
 	// Mission completed
 	{ _x setVariable ["R3F_LOG_disabled", false, true] } forEach [_box1, _box2];
 
-	for "_i" from 1 to 8 do {
+	for "_i" from 4 to 16 do {
 	  private["_item"];
 	  _item = [
 	          ["lsd", "Land_WaterPurificationTablets_F"],
 	          ["marijuana", "Land_VitaminBottle_F"],
 	          ["cocaine","Land_PowderedMilk_F"],
-	          ["heroin", "Land_PainKillers_F"]
+	          ["heroin", "Land_PainKillers_F"],
+	          ["water","Land_BottlePlastic_V2_F"],
+	          ["cannedfood", "Land_BakedBeans_F"]
+			  
 	        ] call BIS_fnc_selectRandom;
 	  [_item, townInvasionDrugPos] call _drop_item;
 	};
