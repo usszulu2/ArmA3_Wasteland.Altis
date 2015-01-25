@@ -1,4 +1,4 @@
-if (!isNil "normalize_config_loaded" || {not(isServer || hasInterface)}) exitWith {};
+if (!isNil "normalize_config_loaded" || {not(isServer || !hasInterface)}) exitWith {};
 diag_log format["Loading normalize_config.sqf ... "];
 
 #include "macro.h"
