@@ -88,7 +88,12 @@ o_isLockableObject = {
   not(([_obj] call sh_isWarchest) || {[_obj] call sh_isBeacon})
 };
 
-
+o_varBroadcast = {
+  ARGVX3(0,_name,"");
+  ARGV2(1,_val);
+  missionNamespace setVariable [_name,OR(_val,nil)];
+  publicVariable _name;
+};
 
 o_getMaxLifeTime = {
   ARGV3(0,_class,"");
@@ -116,9 +121,9 @@ o_restoreHoursAlive_withVars = {
   ARGVX3(0,_obj,objNull);
   ARGVX2(1,_hours_alive,0);
 
-  _obj setVariable ["baseSaving_spawningTime", diag_tickTime];
+  _obj setVariable ["baseSaving_spawningTime", diag_tickTime, true];
   if (!isNil "_hours_alive") then {
-    _obj setVariable ["baseSaving_hoursAlive", _hours_alive];
+    _obj setVariable ["baseSaving_hoursAlive", _hours_alive, true];
   };
 };
 
@@ -130,9 +135,10 @@ o_restoreHoursAlive_withGlobals = {
   _netId = netId _obj;
   //diag_log format["_netId = %1", _netId];
 
-  missionNamespace setVariable [format["%1_spawningTime",_netId], diag_tickTime];
+  [format["%1_spawningTime",_netId], diag_tickTime] call o_varBroadcast;
+
   if (!isNil "_hours_alive") then {
-    missionNamespace setVariable [format["%1_hoursAlive",_netId], _hours_alive];
+    [format["%1_hoursAlive",_netId], _hours_alive] call o_varBroadcast;
   };
 };
 
@@ -523,12 +529,12 @@ o_getHoursAlive_withGlobals = {
 
   if (!isSCALAR(_spawnTime)) then {
     _spawnTime = diag_tickTime;
-    missionNamespace setVariable [format["%1_spawningTime", _netId], _spawnTime];
+    [format["%1_spawningTime", _netId], _spawnTime] call o_varBroadcast;
   };
 
   if (!isSCALAR(_hoursAlive)) then {
     _hoursAlive = 0;
-    missionNamespace setVariable [format["%1_hoursAlive", _netId], _hoursAlive];
+    [format["%1_hoursAlive", _netId], _hoursAlive] call o_varBroadcast;
   };
 
   def(_totalHours);
