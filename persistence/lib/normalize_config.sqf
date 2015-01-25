@@ -1,5 +1,5 @@
-if (!isNil "normalize_config_loaded" || {not(isServer)}) exitWith {};
-diag_log "normalize_config loading ...";
+if (!isNil "normalize_config_loaded" || {not(isServer || !hasInterface)}) exitWith {};
+diag_log format["Loading normalize_config.sqf ... "];
 
 #include "macro.h"
 
@@ -78,5 +78,5 @@ diag_log format["[INFO] config: A3W_hungerTime = %1", A3W_hungerTime];
 diag_log format["[INFO] config: A3W_thirstTime = %1", A3W_thirstTime];
 
 normalize_config_loaded = true;
-diag_log "normalize_config loading complete";
+diag_log format["Loading normalize_config.sqf complete"];
 
