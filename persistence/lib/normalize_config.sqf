@@ -16,7 +16,7 @@ cfg_boxSaving_on = ON_SCALAR(A3W_boxSaving);
 cfg_warchestSaving_on = ON_SCALAR(A3W_warchestSaving);
 cfg_warchestMoneySaving_on = ON_SCALAR(A3W_warchestMoneySaving);
 cfg_baseSaving_on = ON_SCALAR(A3W_baseSaving);
-cfg_MineSaving_on = ON_SCALAR(A3W_mineSaving);
+cfg_mineSaving_on = ON_SCALAR(A3W_mineSaving);
 
 
 A3W_saveable_vehicles_list = OR_ARRAY(A3W_saveable_vehicles_list,[]);
@@ -31,6 +31,7 @@ A3W_vehicleLifetime = OR_SCALAR(A3W_vehicleLifetime,0);
 A3W_vehicleMaxUnusedTime = OR_SCALAR(A3W_vehicleMaxUnusedTime,0);
 A3W_vehicle_saveInterval = OR_POSITIVE(A3W_vehicle_saveInterval,60);
 A3W_locked_vehicles_list = OR_ARRAY(A3W_locked_vehicles_list,[]);
+A3W_saveable_mines_list = OR_ARRAY(A3W_saveable_mines_list,[]);
 A3W_storageLifetime = OR_SCALAR(A3W_storageLifetime,0);
 
 
@@ -55,7 +56,7 @@ diag_log format["[INFO] config: A3W_boxSaving = %1", cfg_boxSaving_on];
 diag_log format["[INFO] config: A3W_warchestSaving = %1", cfg_warchestSaving_on];
 diag_log format["[INFO] config: A3W_warchestMoneySaving = %1", cfg_warchestMoneySaving_on];
 diag_log format["[INFO] config: A3W_baseSaving = %1", cfg_baseSaving_on];
-diag_log format["[INFO] config: A3W_mineSaving = %1", cfg_MineSaving_on];
+diag_log format["[INFO] config: A3W_mineSaving = %1", cfg_mineSaving_on];
 
 
 diag_log format["[INFO] config: A3W_objectLifetime = %1", A3W_objectLifetime];
@@ -72,6 +73,7 @@ diag_log format["[INFO] config: A3W_storageLifetime = %1", A3W_storageLifetime];
 
 diag_log ("[INFO] config: A3W_locked_vehicles_list = " + str(A3W_locked_vehicles_list));
 diag_log ("[INFO] config: A3W_saveable_vehicles_list = " + str(A3W_saveable_vehicles_list));
+diag_log ("[INFO] config: A3W_saveable_mines_list = " + str(A3W_saveable_mines_list));
 
 diag_log format["[INFO] config: A3W_healthTime = %1", A3W_healthTime];
 diag_log format["[INFO] config: A3W_hungerTime = %1", A3W_hungerTime];

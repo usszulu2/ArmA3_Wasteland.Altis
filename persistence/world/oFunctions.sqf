@@ -63,8 +63,8 @@ o_isSaveable = {
     (cfg_staticWeaponSaving_on)
   };
 
-  if (([_obj] call sh_isMine)&&([_obj] call sh_isSaveableMine)) exitWith {
-    (cfg_MineSaving_on)
+  if (([_obj] call sh_isMine)&& {[_obj] call sh_isSaveableMine}) exitWith {
+    (cfg_mineSaving_on)
   };
 
   if ([_obj] call sh_isCamera) exitWith {
@@ -388,7 +388,7 @@ o_saveList = [];
   if ((o_saveList find _obj) >= 0) exitWith {};
   
   o_saveList pushBack _obj;
-};} forEach [OR(objectList,[]), OR(call genObjectsArray,[]),OR(minesList,[])];
+};} forEach [OR(objectList,[]), OR(call genObjectsArray,[])];
 
 
 o_isInSaveList = {
@@ -557,14 +557,13 @@ o_getHoursAlive = {
 };
 
 o_addSaveObject = {
+
   ARGVX3(0,_list,[]);
   ARGVX3(1,_obj,objNull);
-  
 
   if (not([_obj] call o_isSaveable)) exitWith {};
   if (!(alive _obj)) exitWith {};
 
-  //diag_log format["will save %1", _obj];
   def(_class);
   def(_netId);
   def(_pos);
@@ -681,6 +680,7 @@ o_saveAllObjects = {
 
   def(_all_objects);
   _all_objects = tracked_objects_list + allMines;
+  //diag_log format["_all_objects = %1", _all_objects];
 
   {
     if (!isNil{[_request, _x] call o_addSaveObject}) then {
@@ -853,7 +853,7 @@ o_loadInfo = {
   _info_pairs = [OR(_info,nil)] call stats_hash_pairs;
   
   diag_log "_info_pairs";
-  diag_log _info_pairs;
+  diag_log str(_info_pairs);
   
   def(_name);
   def(_value);
