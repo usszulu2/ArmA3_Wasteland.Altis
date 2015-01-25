@@ -57,7 +57,7 @@ uav_resupply_watch = {
     private["_uav"];
     _uav = getConnectedUAV player;
     _action_id = _uav addAction [
-      format["<img image='client\icons\repair.paa'/>  Resupply %1",VEHICLE_NAME(_uav)],
+      format["<img image='client\icons\repair.paa'/> Resupply %1",VEHICLE_NAME(_uav)],
       {_this call do_resupply;}, _uav, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
     ];
     waitUntil {sleep 3; not(call _uavCheck)};
@@ -85,7 +85,7 @@ static_weapon_resupply_watch = {
   waitUntil {
     waitUntil { sleep 3; _static = call _staticCheck; !isNil "_static"};
     _action_id = _static addAction [
-      format["<img image='client\icons\repair.paa'/>  Resupply %1",VEHICLE_NAME(_static)],
+      format["<img image='client\icons\repair.paa'/> Resupply %1",VEHICLE_NAME(_static)],
       {_this call do_resupply;}, _static, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
     ];
     waitUntil { sleep 3; isNil {call _staticCheck}};
@@ -114,7 +114,7 @@ vehicle_resupply_watch = {
   waitUntil {
     waitUntil { sleep 3; _vehicle = call _vehicleCheck; !isNil "_vehicle"};
     _action_id = _vehicle addAction [
-      format["<img image='client\icons\repair.paa'/>  Resupply %1",VEHICLE_NAME(_vehicle)],
+      format["<img image='client\icons\repair.paa'/> Resupply %1",VEHICLE_NAME(_vehicle)],
       {_this call do_resupply;}, _vehicle, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
     ];
     waitUntil { sleep 3; isNil {call _vehicleCheck}};
