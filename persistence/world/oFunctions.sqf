@@ -6,7 +6,7 @@
 diag_log "oFunctions.sqf loading ...";
 
 
-call compile preProcessFileLineNumbers "persistence\lib\shFunctions.sqf";
+call compile preprocessFileLineNumbers "persistence\lib\shFunctions.sqf";
 
 #include "macro.h";
 
@@ -63,8 +63,8 @@ o_isSaveable = {
     (cfg_staticWeaponSaving_on)
   };
 
-  if (([_obj] call sh_isMine)&&([_obj] call sh_isSaveableMine)) exitWith {
-    (cfg_MineSaving_on)
+  if (([_obj] call sh_isMine)&& {[_obj] call sh_isSaveableMine}) exitWith {
+    (cfg_mineSaving_on)
   };
 
   if ([_obj] call sh_isCamera) exitWith {
@@ -88,7 +88,12 @@ o_isLockableObject = {
   not(([_obj] call sh_isWarchest) || {[_obj] call sh_isBeacon})
 };
 
-
+o_varBroadcast = {
+  ARGVX3(0,_name,"");
+  ARGV2(1,_val);
+  missionNamespace setVariable [_name,OR(_val,nil)];
+  publicVariable _name;
+};
 
 o_getMaxLifeTime = {
   ARGV3(0,_class,"");
@@ -116,9 +121,9 @@ o_restoreHoursAlive_withVars = {
   ARGVX3(0,_obj,objNull);
   ARGVX2(1,_hours_alive,0);
 
-  _obj setVariable ["baseSaving_spawningTime", diag_tickTime];
+  _obj setVariable ["baseSaving_spawningTime", diag_tickTime, true];
   if (!isNil "_hours_alive") then {
-    _obj setVariable ["baseSaving_hoursAlive", _hours_alive];
+    _obj setVariable ["baseSaving_hoursAlive", _hours_alive, true];
   };
 };
 
@@ -130,9 +135,10 @@ o_restoreHoursAlive_withGlobals = {
   _netId = netId _obj;
   //diag_log format["_netId = %1", _netId];
 
-  missionNamespace setVariable [format["%1_spawningTime",_netId], diag_tickTime];
+  [format["%1_spawningTime",_netId], diag_tickTime] call o_varBroadcast;
+
   if (!isNil "_hours_alive") then {
-    missionNamespace setVariable [format["%1_hoursAlive",_netId], _hours_alive];
+    [format["%1_hoursAlive",_netId], _hours_alive] call o_varBroadcast;
   };
 };
 
@@ -197,7 +203,6 @@ o_restoreObject = {
   def(_turret0);
   def(_turret1);
   def(_turret2);
-  def(_mineVisibility);
 
   def(_key);
   def(_value);
@@ -277,15 +282,17 @@ o_restoreObject = {
     [_obj,_variables] call o_restoreMineVisibility;
   };
 
+
   if (not([_obj] call o_isSaveable)) exitWith {
     diag_log format["%1(%2) has been deleted, it is not saveable", _object_key, _class];
     deleteVehicle _obj;
   };
 
+
+  
   _obj setPosWorld ATLtoASL _pos;
   [_obj, OR(_dir,nil)] call o_restoreDirection;
   [_obj, OR(_hours_alive,nil)] call o_restoreHoursAlive;
-
 
   if (isSCALAR(_damage)) then {
     _obj setDamage _damage;
@@ -381,7 +388,7 @@ o_saveList = [];
   if ((o_saveList find _obj) >= 0) exitWith {};
   
   o_saveList pushBack _obj;
-};} forEach [OR(objectList,[]), OR(call genObjectsArray,[]),OR(minesList,[])];
+};} forEach [OR(objectList,[]), OR(call genObjectsArray,[])];
 
 
 o_isInSaveList = {
@@ -523,12 +530,12 @@ o_getHoursAlive_withGlobals = {
 
   if (!isSCALAR(_spawnTime)) then {
     _spawnTime = diag_tickTime;
-    missionNamespace setVariable [format["%1_spawningTime", _netId], _spawnTime];
+    [format["%1_spawningTime", _netId], _spawnTime] call o_varBroadcast;
   };
 
   if (!isSCALAR(_hoursAlive)) then {
     _hoursAlive = 0;
-    missionNamespace setVariable [format["%1_hoursAlive", _netId], _hoursAlive];
+    [format["%1_hoursAlive", _netId], _hoursAlive] call o_varBroadcast;
   };
 
   def(_totalHours);
@@ -550,13 +557,13 @@ o_getHoursAlive = {
 };
 
 o_addSaveObject = {
+
   ARGVX3(0,_list,[]);
   ARGVX3(1,_obj,objNull);
-  
+
   if (not([_obj] call o_isSaveable)) exitWith {};
   if (!(alive _obj)) exitWith {};
 
-  //diag_log format["will save %1", _obj];
   def(_class);
   def(_netId);
   def(_pos);
@@ -673,6 +680,7 @@ o_saveAllObjects = {
 
   def(_all_objects);
   _all_objects = tracked_objects_list + allMines;
+  //diag_log format["_all_objects = %1", _all_objects];
 
   {
     if (!isNil{[_request, _x] call o_addSaveObject}) then {
@@ -783,12 +791,42 @@ o_saveLoop_iteration = {
   diag_log format["o_saveLoop: Saving all objects complete"];
 };
 
+
+o_saveLoop_iteration_hc = {
+  ARGVX3(0,_scope,"");
+
+  call o_trackedObjectsListCleanup;
+
+  init(_hc_id,owner HeadlessClient);
+  diag_log format["o_saveLoop: Offloading objects saving to headless client (id = %1)", _hc_id];
+
+  _hc_id publicVariableClient "tracked_objects_list";
+
+  o_saveLoop_iteration_hc_handler = [_scope];
+  _hc_id publicVariableClient "o_saveLoop_iteration_hc_handler";
+};
+
+if (!(hasInterface || isDedicated)) then {
+  diag_log format["Setting up HC handler for objects"];
+  "o_saveLoop_iteration_hc_handler" addPublicVariableEventHandler {
+    //diag_log format["o_saveLoop_iteration_hc_handler = %1", _this];
+    ARGVX3(1,_this,[]);
+    ARGVX3(0,_scope,"");
+    _this spawn o_saveLoop_iteration;
+  };
+};
+
 o_saveLoop = {
   ARGVX3(0,_scope,"");
   while {true} do {
     sleep A3W_object_saveInterval;
     if (not(isBOOLEAN(o_saveLoopActive) && {!o_saveLoopActive})) then {
-      [_scope] call o_saveLoop_iteration;
+      if (call sh_hc_ready) then {
+        [_scope] call o_saveLoop_iteration_hc;
+      }
+      else {
+        [_scope] call o_saveLoop_iteration;
+      };
     };
   };
 };
@@ -818,7 +856,7 @@ o_loadInfo = {
   _info_pairs = [OR(_info,nil)] call stats_hash_pairs;
   
   diag_log "_info_pairs";
-  diag_log _info_pairs;
+  diag_log str(_info_pairs);
   
   def(_name);
   def(_value);

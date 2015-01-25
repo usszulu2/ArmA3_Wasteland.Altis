@@ -105,6 +105,7 @@ sh_mineAmmo2Vehicle = {
 };
 
 
+
 sh_isSaveableMine ={
   ARGVX2(0,_arg);
 
@@ -116,7 +117,7 @@ sh_isSaveableMine ={
     _class = _arg;
   };};
 
-  (!(isNil "_class") && {_class in minesList})
+  (!(isNil "_class") && {_class in A3W_saveable_mines_list})
 };
 
 
