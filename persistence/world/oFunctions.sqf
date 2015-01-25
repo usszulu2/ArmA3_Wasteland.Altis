@@ -6,7 +6,7 @@
 diag_log "oFunctions.sqf loading ...";
 
 
-call compile preProcessFileLineNumbers "persistence\lib\shFunctions.sqf";
+call compile preprocessFileLineNumbers "persistence\lib\shFunctions.sqf";
 
 #include "macro.h";
 
@@ -203,7 +203,6 @@ o_restoreObject = {
   def(_turret0);
   def(_turret1);
   def(_turret2);
-  def(_mineVisibility);
 
   def(_key);
   def(_value);
@@ -283,15 +282,17 @@ o_restoreObject = {
     [_obj,_variables] call o_restoreMineVisibility;
   };
 
+
   if (not([_obj] call o_isSaveable)) exitWith {
     diag_log format["%1(%2) has been deleted, it is not saveable", _object_key, _class];
     deleteVehicle _obj;
   };
 
+
+  
   _obj setPosWorld ATLtoASL _pos;
   [_obj, OR(_dir,nil)] call o_restoreDirection;
   [_obj, OR(_hours_alive,nil)] call o_restoreHoursAlive;
-
 
   if (isSCALAR(_damage)) then {
     _obj setDamage _damage;
@@ -559,6 +560,7 @@ o_addSaveObject = {
   ARGVX3(0,_list,[]);
   ARGVX3(1,_obj,objNull);
   
+
   if (not([_obj] call o_isSaveable)) exitWith {};
   if (!(alive _obj)) exitWith {};
 
