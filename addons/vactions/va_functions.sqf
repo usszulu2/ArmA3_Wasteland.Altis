@@ -142,7 +142,7 @@ va_unflip_action = {
       _player groupChat format["Could not unflip the %1, you must stay within %2 meters.", _display_name, _dist];
     };
 
-    [[_vehicle,[0,0,1]],"A3W_fnc_unflip",true,false] call BIS_fnc_MP;
+    [[_vehicle,surfaceNormal (getPos _vehicle)],"A3W_fnc_unflip",_vehicle] call BIS_fnc_MP;
 
 
     _player groupChat format["The %1 has been unflipped", _display_name];
