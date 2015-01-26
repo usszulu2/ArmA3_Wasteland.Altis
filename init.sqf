@@ -31,7 +31,6 @@ A3W_scriptThreads = [];
 [DEBUG] call compile preprocessFileLineNumbers "globalCompile.sqf";
 [] spawn compile preprocessFileLineNumbers "addons\spawn\functions.sqf";
 
-
 //init Wasteland Core
 [] execVM "config.sqf";
 [] execVM "storeConfig.sqf"; // Separated as its now v large
@@ -71,21 +70,22 @@ if (isServer) then
 	diag_log format ["############################# %1 #############################", missionName];
 	diag_log "WASTELAND SERVER - Initializing Server";
 	[] execVM "server\init.sqf";
-
 };
 
-//init 3rd Party Scripts
-[] execVM "addons\vactions\functions.sqf";
-[] execVM "addons\parking\functions.sqf";
-[] execVM "addons\storage\functions.sqf";
-[] execVM "addons\R3F_ARTY_AND_LOG\init.sqf";
-[] execVM "addons\proving_ground\init.sqf";
-[] execVM "addons\scripts\DynamicWeatherEffects.sqf";
-[] execVM "addons\JumpMF\init.sqf";
-[] execVM "addons\Explosives-To-Vehicle\init.sqf";
-[] execVM "addons\JTS_PM\Functions.sqf";
-[] execVM "addons\scripts\servercredits.sqf";
-[] execVM "addons\scripts\zlt_fastrope.sqf";
-[] execVM "addons\outlw_magRepack\MagRepack_init_sv.sqf";
-[] execVM "addons\scripts\resupply_actions.sqf";
-
+//init 3rd Party Scripts (not supposed to run on HC)
+if (hasInterface || isServer) then
+{
+	[] execVM "addons\vactions\functions.sqf";
+  [] execVM "addons\parking\functions.sqf";
+  [] execVM "addons\storage\functions.sqf";
+  [] execVM "addons\R3F_ARTY_AND_LOG\init.sqf";
+  [] execVM "addons\proving_ground\init.sqf";
+  [] execVM "addons\scripts\DynamicWeatherEffects.sqf";
+  [] execVM "addons\JumpMF\init.sqf";
+  [] execVM "addons\Explosives-To-Vehicle\init.sqf";
+  [] execVM "addons\JTS_PM\Functions.sqf";
+  [] execVM "addons\scripts\servercredits.sqf";
+  [] execVM "addons\scripts\zlt_fastrope.sqf";
+  [] execVM "addons\outlw_magRepack\MagRepack_init_sv.sqf";
+  [] execVM "addons\scripts\resupply_actions.sqf";
+};
