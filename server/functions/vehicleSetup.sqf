@@ -122,11 +122,6 @@ switch (true) do
 		// Add quadbike horn to karts
 		_vehicle addWeaponTurret ["MiniCarHorn", [-1]];
 	};
-	case ({_class isKindOf _x} count ["UAV_02_base_F", "UGV_01_base_F"] > 0):
-	{
-		// Add thermal and nv to uav and ugv
-		_vehicle disableTIEquipment false;
-	};
 };
 
 
