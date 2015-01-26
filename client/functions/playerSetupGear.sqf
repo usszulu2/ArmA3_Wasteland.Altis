@@ -41,9 +41,6 @@ _player addMagazine "9Rnd_45ACP_Mag";
 _player addMagazine "9Rnd_45ACP_Mag";
 _player addMagazine "9Rnd_45ACP_Mag";
 _player addItem "FirstAidKit";
-_player addItem "Chemlight_green";
-_player addItem "Chemlight_red";
-_player addItem "Chemlight_blue";
 _player selectWeapon "hgun_ACPC2_F";
 
 switch (true) do
@@ -61,6 +58,22 @@ switch (true) do
 	case (["_sniper_", typeOf _player] call fn_findString != -1):
 	{
 		_player addWeapon "Rangefinder";
+	};
+};
+
+switch (side _player) do
+{
+	case west:
+	{
+		_player addItem "Chemlight_blue";
+	};
+	case east:
+	{
+		_player addItem "Chemlight_red";
+	};
+	case resistance:
+	{
+		_player addItem "Chemlight_green";
 	};
 };
 
