@@ -71,7 +71,7 @@ class Mission
 		"a3_characters_f_beta",
 		"a3_characters_f_gamma",
 		"a3_characters_f",
-		"A3_Structures_F_EPC_Civ_Accessories"
+		"A3_Structures_F_EPC_Civ_Accessories",
 		"A3_Structures_F_EPA_Mil_Scrapyard"
 	};
 	addOnsAuto[]=
