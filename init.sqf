@@ -75,7 +75,7 @@ if (isServer) then
 //init 3rd Party Scripts (not supposed to run on HC)
 if (hasInterface || isServer) then
 {
-	[] execVM "addons\vactions\functions.sqf";
+  [] execVM "addons\vactions\functions.sqf";
   [] execVM "addons\parking\functions.sqf";
   [] execVM "addons\storage\functions.sqf";
   [] execVM "addons\R3F_ARTY_AND_LOG\init.sqf";
