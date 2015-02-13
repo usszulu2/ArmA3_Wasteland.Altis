@@ -298,7 +298,12 @@ o_restoreObject = {
     _obj setDamage _damage;
   };
   
-  _allowDamage = if(isSCALAR(_allowDamage) && {_allowDamage <= 0}) then { false } else { true };
+  _allowDamage = true;
+
+  if (_class isKindOf "Box_NATO_Wps_F" || _class isKindOf "Box_NATO_WpsSpecial_F" || _class isKindOf "Box_East_Wps_F" || _class isKindOf "Box_East_WpsSpecial_F" || _class isKindOf "Box_IND_Wps_F" || _class isKindOf "Box_IND_WpsSpecial_F") then {
+	_allowDamage = false;
+  };
+
   [_obj, _allowDamage] spawn {
     ARGVX3(0,_obj,objNull);
     ARGVX3(1,_allowDamage,false);
