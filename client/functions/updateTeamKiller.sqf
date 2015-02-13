@@ -6,11 +6,6 @@
 //	@file Author: [404] Deadbeat
 //	@file Created: 20/11/2012 05:19
 
-if (_this < 2) exitWith
-{
-	call teamkillMessage;
-};
-
 setPlayerRespawnTime 1e11;
 player setDamage 1;
 sleep 1;
