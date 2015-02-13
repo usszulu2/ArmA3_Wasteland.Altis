@@ -83,12 +83,12 @@ launcherArray = compileFinal str
 [
 	["RPG-42 Alamut", "launch_RPG32_F", 400],
 	["PCML", "launch_NLAW_F", 500],
-	["Titan MPRL Compact (Tan)", "launch_Titan_short_F", 1000],
-	["Titan MPRL Compact (Brown)", "launch_O_Titan_short_F", 1000],
-	["Titan MPRL Compact (Olive)", "launch_I_Titan_short_F", 1000],
-	["Titan MPRL AA (Desert)", "launch_Titan_F", 750],
-	["Titan MPRL AA (Hex)", "launch_O_Titan_F", 750],
-	["Titan MPRL AA (Digi)", "launch_I_Titan_F", 750]
+	["Titan MPRL Compact (Tan)", "launch_Titan_short_F", 2000],
+	["Titan MPRL Compact (Brown)", "launch_O_Titan_short_F", 2000],
+	["Titan MPRL Compact (Olive)", "launch_I_Titan_short_F", 2000],
+	["Titan MPRL AA (Desert)", "launch_Titan_F", 1750],
+	["Titan MPRL AA (Hex)", "launch_O_Titan_F", 1750],
+	["Titan MPRL AA (Digi)", "launch_I_Titan_F", 1750]
 ];
 
 allGunStoreFirearms = compileFinal str (call pistolArray + call smgArray + call rifleArray + call lmgArray + call launcherArray);
@@ -120,9 +120,9 @@ staticGunsArray = compileFinal str
 	["Mk32 GMG 20mm High tripod (NATO)", "B_GMG_01_high_F", 6000],
 	["Mk32 GMG 20mm High tripod (CSAT)", "O_GMG_01_high_F", 6000],
 	["Mk32 GMG 20mm High tripod (AAF)", "I_GMG_01_high_F", 6000],
-	["Mk6 Mortar (NATO)", "B_Mortar_01_F", 15000],
-	["Mk6 Mortar (CSAT)", "O_Mortar_01_F", 15000],
-	["Mk6 Mortar (AAF)", "I_Mortar_01_F", 15000]
+	["Mk6 Mortar (NATO)", "B_Mortar_01_F", 25000],
+	["Mk6 Mortar (CSAT)", "O_Mortar_01_F", 25000],
+	["Mk6 Mortar (AAF)", "I_Mortar_01_F", 25000]
 ];
 
 throwputArray = compileFinal str
@@ -180,9 +180,9 @@ ammoArray = compileFinal str
 	["RPG-42 Anti-Tank Rocket", "RPG32_F", 250],              // Direct damage: high      | Splash damage: low    | Guidance: none
 	["RPG-42 High-Explosive Rocket", "RPG32_HE_F", 250],      // Direct damage: medium    | Splash damage: medium | Guidance: none
 	["PCML Anti-Tank Missile", "NLAW_F", 350],                // Direct damage: very high | Splash damage: low    | Guidance: laser, ground vehicles
-	["Titan Anti-Tank Missile", "Titan_AT", 600],             // Direct damage: high      | Splash damage: low    | Guidance: mouse, laser, ground vehicles
-	["Titan Anti-Personnel Missile", "Titan_AP", 450],        // Direct damage: low       | Splash damage: high   | Guidance: mouse, laser
-	["Titan Anti-Air Missile", "Titan_AA", 500],              // Direct damage: low       | Splash damage: medium | Guidance: aircraft
+	["Titan Anti-Tank Missile", "Titan_AT", 750],             // Direct damage: high      | Splash damage: low    | Guidance: mouse, laser, ground vehicles
+	["Titan Anti-Personnel Missile", "Titan_AP", 550],        // Direct damage: low       | Splash damage: high   | Guidance: mouse, laser
+	["Titan Anti-Air Missile", "Titan_AA", 700],              // Direct damage: low       | Splash damage: medium | Guidance: aircraft
 	["40mm HE Grenade Round", "1Rnd_HE_Grenade_shell", 125],
 	["40mm 3Rnd HE Grenades", "3Rnd_HE_Grenade_shell", 250],
 	["40mm Smoke Round (White)", "1Rnd_Smoke_Grenade_shell", 50],
