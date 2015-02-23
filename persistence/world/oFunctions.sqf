@@ -370,7 +370,15 @@ o_restoreObject = {
   if ([_obj] call sh_isUAV_UGV) then {
     createVehicleCrew _obj;
   };
+  
+  //Remove money 
+  private["_max_money"];
+  _max_money = 1000000;
 
+  if (_obj getVariable ["cmoney", 0] > _max_money) then {
+    _obj setVariable ["cmoney", _max_money, true];
+  };
+  
   if (not([_obj] call sh_isMine)) exitWith { //don't put mines in the tracked objects list (we use allMines)
     //objects, warchests, and beacons
     tracked_objects_list pushBack _obj;
