@@ -82,10 +82,10 @@ lmgArray = compileFinal str
 launcherArray = compileFinal str
 [
 	["RPG-42 Alamut", "launch_RPG32_F", 400],
-	["PCML", "launch_NLAW_F", 500],
-	["Titan MPRL Compact (Tan)", "launch_Titan_short_F", 2000],
-	["Titan MPRL Compact (Brown)", "launch_O_Titan_short_F", 2000],
-	["Titan MPRL Compact (Olive)", "launch_I_Titan_short_F", 2000],
+	["PCML", "launch_NLAW_F", 1000],
+	["Titan MPRL Compact (Tan)", "launch_Titan_short_F", 1750],
+	["Titan MPRL Compact (Brown)", "launch_O_Titan_short_F", 1750],
+	["Titan MPRL Compact (Olive)", "launch_I_Titan_short_F", 1750],
 	["Titan MPRL AA (Desert)", "launch_Titan_F", 1750],
 	["Titan MPRL AA (Hex)", "launch_O_Titan_F", 1750],
 	["Titan MPRL AA (Digi)", "launch_I_Titan_F", 1750]
@@ -177,11 +177,11 @@ ammoArray = compileFinal str
 	[".408 7Rnd Cheetah Mag", "7Rnd_408_Mag", 100],
 	["12.7mm 5Rnd Mag", "5Rnd_127x108_Mag", 100],
 	["12.7mm 5Rnd Armor-Piercing Mag", "5Rnd_127x108_APDS_Mag", 150],
-	["RPG-42 Anti-Tank Rocket", "RPG32_F", 250],              // Direct damage: high      | Splash damage: low    | Guidance: none
-	["RPG-42 High-Explosive Rocket", "RPG32_HE_F", 250],      // Direct damage: medium    | Splash damage: medium | Guidance: none
-	["PCML Anti-Tank Missile", "NLAW_F", 350],                // Direct damage: very high | Splash damage: low    | Guidance: laser, ground vehicles
-	["Titan Anti-Tank Missile", "Titan_AT", 750],             // Direct damage: high      | Splash damage: low    | Guidance: mouse, laser, ground vehicles
-	["Titan Anti-Personnel Missile", "Titan_AP", 550],        // Direct damage: low       | Splash damage: high   | Guidance: mouse, laser
+	["RPG-42 Anti-Tank Rocket", "RPG32_F", 400],              // Direct damage: high      | Splash damage: low    | Guidance: none
+	["RPG-42 High-Explosive Rocket", "RPG32_HE_F", 350],      // Direct damage: medium    | Splash damage: medium | Guidance: none
+	["PCML Anti-Tank Missile", "NLAW_F", 500],                // Direct damage: very high | Splash damage: low    | Guidance: laser, ground vehicles
+	["Titan Anti-Tank Missile", "Titan_AT", 500],             // Direct damage: high      | Splash damage: low    | Guidance: mouse, laser, ground vehicles
+	["Titan Anti-Personnel Missile", "Titan_AP", 450],        // Direct damage: low       | Splash damage: high   | Guidance: mouse, laser
 	["Titan Anti-Air Missile", "Titan_AA", 700],              // Direct damage: low       | Splash damage: medium | Guidance: aircraft
 	["40mm HE Grenade Round", "1Rnd_HE_Grenade_shell", 125],
 	["40mm 3Rnd HE Grenades", "3Rnd_HE_Grenade_shell", 250],
