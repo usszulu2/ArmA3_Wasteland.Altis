@@ -3,7 +3,7 @@
 // ******************************************************************************************
 //	@file Version: 1.0
 //	@file Name: onMouseButtonDown.sqf
-//	@file Author: micovery, Gigatek
+//	@file Author: micovery
 //	@file Created: 23/2/2015
 //	@file Args:
 
@@ -19,15 +19,14 @@ _control = _this select 5;
 
 
 if (!_handled && (inputAction "LockTarget" > 0 || inputAction "LockTargets" > 0)) then {
-  private["_cweapon"];
-  _cweapon = currentWeapon player;
-  if (_cweapon == "launch_Titan_short_F" || {
-      _cweapon == "launch_I_Titan_short_F" || {
-      _cweapon == "launch_O_Titan_short_F"}}) then {
-	  player action ["WeaponOnBack", player];
-	  _handled = true;
-  };
+	private["_cweapon"];
+	_cweapon = currentWeapon player;
+	if (_cweapon == "launch_Titan_short_F" || {
+		_cweapon == "launch_I_Titan_short_F" || {
+		_cweapon == "launch_O_Titan_short_F"}}) then {
+		player groupChat format["Locking Disabled for Titan Compact AT"];
+		_handled = true;
+	};
 };
-
 
 _handled
