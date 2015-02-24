@@ -106,10 +106,10 @@ at_loadout = {
   _unit addMagazine "30Rnd_45ACP_Mag_SMG_01";
   _unit addWeapon "SMG_01_Holo_pointer_snds_F";
   _unit addBackpack "B_Carryall_oli";
-  _unit addMagazine "Titan_AT";
-  _unit addWeapon "launch_Titan_short_F";
-  _unit addMagazine "Titan_AT";
-  _unit addMagazine "Titan_AT";
+  _unit addMagazine "NLAW_F";
+  _unit addWeapon "launch_NLAW_F";
+  _unit addMagazine "NLAW_F";
+  _unit addMagazine "NLAW_F";
   _unit addItem "NVGoggles";
   _unit assignItem "NVGoggles";
 };
@@ -125,9 +125,9 @@ leader_loadout = {
   _unit addMagazine "30Rnd_65x39_caseless_green_mag_Tracer";
   _unit addWeapon "arifle_Katiba_ARCO_pointer_F";
   _unit addBackpack "B_Carryall_oli";
-  _unit addMagazine "Titan_AT";
-  _unit addWeapon "launch_Titan_short_F";
-  _unit addMagazine "Titan_AT";
+  _unit addMagazine "NLAW_F";
+  _unit addWeapon "launch_NLAW_F";
+  _unit addMagazine "NLAW_F";
   _unit addItem "ItemGps";
   _unit assignItem "ItemGps";
   _unit addItem "ItemCompass";
