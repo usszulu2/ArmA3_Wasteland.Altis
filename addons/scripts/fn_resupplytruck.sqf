@@ -51,7 +51,7 @@ if (_vehicle == player) exitWith {};
 private["_vehClass", "_price"];
 //set up prices
 _vehClass = typeOf _vehicle;
-_price = 3000; // price = 1000 for vehicles not found in vehicle store. (e.g. Static Weapons)
+_price = 5000; // price = 1000 for vehicles not found in vehicle store. (e.g. Static Weapons)
 
 {
   if (_vehClass == _x select 1) then {
@@ -113,7 +113,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
   scopeName "fn_resupplyTruck";
 
   private["_price"];
-  _price = 3000; // price = 1000 for vehicles not found in vehicle store (e.g. static weapons)
+  _price = 5000; // price = 1000 for vehicles not found in vehicle store (e.g. static weapons)
   {
     if (_vehClass == _x select 1) then {
       _price = _x select 2;
