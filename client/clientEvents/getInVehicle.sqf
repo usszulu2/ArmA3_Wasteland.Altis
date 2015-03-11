@@ -30,7 +30,18 @@ if (isNil {_veh getVariable "A3W_engineEH"}) then
 {
 	_veh setVariable ["A3W_engineEH", _veh addEventHandler ["Engine", vehicleEngineEvent]];
 };
-
+ 
+if (vehicle player != player) then {
+        [_veh] spawn {
+                _veh = _this select 0;
+                if (_veh getVariable ["allowDamage", true]) then {
+                        _veh allowDamage false;
+                        sleep 0.5;
+                        _veh allowDamage true;
+                };
+        };
+};
+ 
 if (_veh isKindOf "Offroad_01_repair_base_F" && isNil {_veh getVariable "A3W_serviceBeaconActions"}) then
 {
 	_veh setVariable ["A3W_serviceBeaconActions",
