@@ -27,7 +27,7 @@ uav_control_check_access = {
   _player = _this select 0;
   _uav = _this select 1;
 
-  if (_uav isKindOf "UAV_01_base_F") exitWith {}; //allow quad-rotors
+  //if (_uav isKindOf "UAV_01_base_F") exitWith {}; //allow quad-rotors
 
   private["_uid", "_owner_uid"];
   _owner_uid = _uav getVariable ["ownerUID",""];
