@@ -113,7 +113,8 @@ R3F_LOG_CFG_objets_remorquablesH =
 	"C_Heli_Light_01_civil_F",
 	"I_Heli_Transport_02_F",
 	"Heli_Transport_04_base_F",
-	"B_Heli_Transport_03_base_F",
+	"B_Heli_Transport_03_unarmed_F",
+	"B_Heli_Transport_03_F",
 	"Plane"
 ];
 
@@ -129,7 +130,8 @@ R3F_LOG_CFG_objets_remorquablesALL =
 	"Tank_F",
 	"I_Heli_Transport_02_F",
 	"Heli_Transport_04_base_F",
-	"B_Heli_Transport_03_base_F",
+	"B_Heli_Transport_03_unarmed_F",
+	"B_Heli_Transport_03_F",
 	"I_Plane_Fighter_03_AA_F",
 	"I_Plane_Fighter_03_CAS_F",
 	"B_Plane_CAS_01_F",
@@ -162,7 +164,8 @@ R3F_LOG_CFG_heliporteursH =
 [
 	"I_Heli_Transport_02_F",
     "Heli_Transport_04_base_F",
-	"B_Heli_Transport_03_base_F"
+	"B_Heli_Transport_03_unarmed_F",
+	"B_Heli_Transport_03_F"
 ];
 
 /**
@@ -234,7 +237,8 @@ R3F_LOG_CFG_transporteurs =
 	["I_Heli_light_03_base_F", 20],
 	["Heli_Transport_01_base_F", 25],
 	["Heli_Transport_02_base_F", 100],
-	["B_Heli_Transport_03_base_F", 100],
+	["B_Heli_Transport_03_unarmed_F", 100],
+	["B_Heli_Transport_03_F", 100],
 	["Heli_Transport_04_base_F", 100],
 	["Heli_Attack_01_base_F", 10],
 	["Heli_Attack_02_base_F", 20]
