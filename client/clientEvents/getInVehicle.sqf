@@ -36,7 +36,7 @@ if (vehicle player != player) then {
                 _veh = _this select 0;
                 if (_veh getVariable ["allowDamage", true]) then {
                         _veh allowDamage false;
-                        sleep 0.5;
+                        sleep 2;
                         _veh allowDamage true;
                 };
         };
