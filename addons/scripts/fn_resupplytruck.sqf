@@ -314,7 +314,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
   }; 
   
   //_vehicle setVehicleAmmoDef 1; // Full ammo reset just to be sure
-  [[_vehicle,1],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
+  //[[_vehicle,1],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
 
   if (damage _vehicle > 0.001) then {
     call _checkAbortConditions;
