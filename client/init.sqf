@@ -25,7 +25,6 @@ player setVariable ["respawnDialogActive", false, true];
 groupManagmentActive = false;
 pvar_PlayerTeamKiller = objNull;
 doCancelAction = false;
-enableCamShake false;
 
 //AJ Beacondetector
 BeaconScanInProgress = false;
