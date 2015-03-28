@@ -46,3 +46,5 @@ _input ctrlSetText (_amount call fn_numToStr);
 
 pvar_processTransaction = ["atm", player, _amount];
 publicVariableServer "pvar_processTransaction";
+
+closeDialog 0;

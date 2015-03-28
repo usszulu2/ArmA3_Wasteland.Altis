@@ -103,3 +103,5 @@ format [MSG_CONFIRM_LINE3, [_total] call fn_numbersText];
 
 	{ if (!ctrlEnabled _x) then { _x ctrlEnable true } } forEach _controls;
 };
+
+closeDialog 0;

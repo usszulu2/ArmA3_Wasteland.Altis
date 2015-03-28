@@ -29,3 +29,5 @@ if (player getVariable ["bmoney", 0] < _amount) exitWith
 
 pvar_processTransaction = ["atm", player, -_amount];
 publicVariableServer "pvar_processTransaction";
+
+closeDialog 0;
