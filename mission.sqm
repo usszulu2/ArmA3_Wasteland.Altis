@@ -86,15 +86,13 @@ class Mission
 		"A3_Structures_F_Mil_Cargo",
 		"A3_Structures_F_Households_Slum",
 		"A3_Structures_F_Civ_Market",
-		"A3_Structures_F_Civ_Camping",
 		"A3_Structures_F_EPC_Civ_Accessories",
-		"A3_Structures_F_EPA_Mil_Scrapyard",
 		"a3_map_altis"
 	};
 	randomSeed=14957468;
 	class Intel
 	{
-		briefingName="A3Wasteland Altis v1.1"; // it would be great if you could keep "A3" in the name, like "ABC A3Wasteland" instead of "ABC Wasteland" :)
+		briefingName="A3Wasteland Altis v1.1";
 		overviewText="Wasteland survival sandbox by Team Wasteland - visit A3Wasteland.com for more details";
 		resistanceWest=0;
 		timeOfChanges=3e+038;
@@ -2090,7 +2088,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=35;
+		items=28;
 		class Item0
 		{
 			position[]={5892.3325,225.05762,20124.521};
@@ -2333,124 +2331,68 @@ class Mission
 		};
 		class Item22
 		{
-			position[]={24678.867,2.3929932,18970.639};
-			id=183;
-			side="EMPTY";
-			vehicle="Land_Scrap_MRAP_01_F";
-			skill=0.60000002;
-		};
-		class Item23
-		{
-			position[]={17484.883,45.786415,16465.258};
-			id=184;
-			side="EMPTY";
-			vehicle="Land_Scrap_MRAP_01_F";
-			skill=0.60000002;
-		};
-		class Item24
-		{
-			position[]={14860.01,8.8866749,11057.159};
-			id=185;
-			side="EMPTY";
-			vehicle="Land_Scrap_MRAP_01_F";
-			skill=0.60000002;
-		};
-		class Item25
-		{
-			position[]={21318.879,5.5621166,10468.235};
-			id=186;
-			side="EMPTY";
-			vehicle="Land_Scrap_MRAP_01_F";
-			skill=0.60000002;
-		};
-		class Item26
-		{
-			position[]={5630.6445,204.18716,19540.102};
-			id=187;
-			side="EMPTY";
-			vehicle="Land_Scrap_MRAP_01_F";
-			skill=0.60000002;
-		};
-		class Item27
-		{
-			position[]={11725.468,54.069294,18284.35};
-			id=188;
-			side="EMPTY";
-			vehicle="Land_Scrap_MRAP_01_F";
-			skill=0.60000002;
-		};
-		class Item28
-		{
-			position[]={5947.2061,101.94163,12468.482};
-			id=189;
-			side="EMPTY";
-			vehicle="Land_Scrap_MRAP_01_F";
-			skill=0.60000002;
-		};
-		class Item29
-		{
 			position[]={3574.9937,11.526847,12800.598};
 			azimut=302.65201;
 			offsetY=0.15000001;
-			id=190;
+			id=183;
 			side="EMPTY";
 			vehicle="Land_Atm_02_F";
 			skill=0.60000002;
 			init="[this] call A3W_fnc_setupMissionATM";
 			description="DO NOT MODIFY IN EDITOR";
 		};
-		class Item30
+		class Item23
 		{
 			position[]={14492,18.768188,16383.846};
 			azimut=185.51801;
-			id=191;
+			id=184;
 			side="EMPTY";
 			vehicle="Land_Atm_01_F";
 			skill=0.60000002;
 			init="[this] call A3W_fnc_setupMissionATM";
 			description="DO NOT MODIFY IN EDITOR";
 		};
-		class Item31
+		class Item24
 		{
 			position[]={25618.682,20.873209,21353.275};
 			azimut=136.1844;
 			offsetY=0.15000001;
-			id=192;
+			id=185;
 			side="EMPTY";
 			vehicle="Land_Atm_02_F";
 			skill=0.60000002;
 			init="[this] call A3W_fnc_setupMissionATM";
 			description="DO NOT MODIFY IN EDITOR";
 		};
-		class Item32
+		class Item25
 		{
 			position[]={16774.646,18.403027,12594.591};
 			azimut=270.28101;
 			offsetY=0.15000001;
-			id=193;
+			id=186;
 			side="EMPTY";
 			vehicle="Land_Atm_02_F";
 			skill=0.60000002;
 			init="[this] call A3W_fnc_setupMissionATM";
 			description="DO NOT MODIFY IN EDITOR";
 		};
-		class Item33
+		class Item26
 		{
 			position[]={9507.4814,118.30473,15937.552};
 			azimut=4.3656998;
 			offsetY=0.15000001;
-			id=194;
+			id=187;
 			side="EMPTY";
 			vehicle="Land_Atm_02_F";
 			skill=0.60000002;
 			init="[this] call A3W_fnc_setupMissionATM";
 			description="DO NOT MODIFY IN EDITOR";
 		};
-		class Item34
+		class Item27
 		{
 			position[]={21647.465,14.035986,7676.2676};
 			azimut=230.96605;
-			id=195;
+			id=188;
 			side="EMPTY";
 			vehicle="Land_Atm_02_F";
 			skill=0.60000002;
@@ -2460,7 +2402,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=184;
+		items=177;
 		class Item0
 		{
 			position[]={3612.1487,12.11851,13020.892};
@@ -3794,62 +3736,6 @@ class Mission
 			colorName="ColorBlack";
 		};
 		class Item176
-		{
-			position[]={24673.639,2.5595996,18967.119};
-			name="Sell_Vehicle_Pad_Icon";
-			text="Sell Vehicle";
-			type="mil_dot";
-			colorName="ColorGreen";
-		};
-		class Item177
-		{
-			position[]={17479.654,45.452381,16461.738};
-			name="Sell_Vehicle_Pad_Icon_1";
-			text="Sell Vehicle";
-			type="mil_dot";
-			colorName="ColorGreen";
-		};
-		class Item178
-		{
-			position[]={14854.781,8.6214705,11053.64};
-			name="Sell_Vehicle_Pad_Icon_2";
-			text="Sell Vehicle";
-			type="mil_dot";
-			colorName="ColorGreen";
-		};
-		class Item179
-		{
-			position[]={21313.65,5.7161169,10464.716};
-			name="Sell_Vehicle_Pad_Icon_3";
-			text="Sell Vehicle";
-			type="mil_dot";
-			colorName="ColorGreen";
-		};
-		class Item180
-		{
-			position[]={5627.0688,204.00546,19542.371};
-			name="Sell_Vehicle_Pad_Icon_4";
-			text="Sell Vehicle";
-			type="mil_dot";
-			colorName="ColorGreen";
-		};
-		class Item181
-		{
-			position[]={11720.239,54.827972,18280.83};
-			name="Sell_Vehicle_Pad_Icon_5";
-			text="Sell Vehicle";
-			type="mil_dot";
-			colorName="ColorGreen";
-		};
-		class Item182
-		{
-			position[]={5941.9775,101.78477,12464.963};
-			name="Sell_Vehicle_Pad_Icon_6";
-			text="Sell Vehicle";
-			type="mil_dot";
-			colorName="ColorGreen";
-		};
-		class Item183
 		{
 			position[]={12412.868,24.364281,15579.608};
 			name="GunStore5_objSpawn";
