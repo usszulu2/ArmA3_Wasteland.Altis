@@ -9,7 +9,7 @@
 
 // General settings
 A3W_startHour = 4;                // In-game hour at mission start (0 to 23)
-A3W_timeMultiplierDay = 2.1;       // Sets the speed of time between 5 AM and 8 PM (for example, 6.0 means 6 hours in-game will pass in 1 real hour)
+A3W_timeMultiplierDay = 2.0;       // Sets the speed of time between 5 AM and 8 PM (for example, 6.0 means 6 hours in-game will pass in 1 real hour)
 A3W_timeMultiplierNight = 4.0;     // Sets the speed of time between 8 PM and 5 AM
 A3W_moonLight = 1;                 // Moon light during night (0 = no, 1 = yes)
 A3W_teamPlayersMap = 1;            // Show all friendly players on the map at all times, regardless of difficulty level (0 = no, 1 = yes)
@@ -32,7 +32,7 @@ A3W_bleedingTime = 60;             // Time in seconds for which to allow revive 
 
 // ATM settings
 A3W_atmEnabled = 1;
-A3W_atmMaxBalance = 250000;       // Maximum amount of money that can be stored in a bank account (recommended: 1 million)
+A3W_atmMaxBalance = 300000;       // Maximum amount of money that can be stored in a bank account (recommended: 1 million)
 A3W_atmTransferFee = 10;            // Fee in percent charged to players for money transfers to other players (0 to 50)
 A3W_atmTransferAllTeams = 0;       // Allow money transfers between players of all teams/sides (0 = same team only, 1 = all teams)
 A3W_atmEditorPlacedOnly = 0;       // Only allow access via ATMs placed from the mission editor (0 = all ATMs from towns & editor allowed, 1 = ATMs from editor only) Note: Stratis has no town ATMs, only editor ones.
@@ -78,7 +78,7 @@ PDB_PlayersListFileID = "A3W_";    // PlayerList savefile prefix (change this in
 A3W_vehicle_saveInterval = 1200;    // Number of seconds between vehicle saves
 A3W_object_saveInterval = 1200;     // Number of seconds between object saves
 A3W_player_saveInterval = 1200;     // Number of seconds between player saves
-A3W_playersList_saveInterval = 120; // Number of seconds between player list saves
+A3W_playersList_saveInterval = 300; // Number of seconds between player list saves
 
 A3W_saveable_vehicles_list = ["StaticWeapon", "C_Kart_01_F", "Quadbike_01_base_F", "Hatchback_01_base_F", "SUV_01_base_F", "Offroad_01_base_F", "Van_01_base_F", "MRAP_01_base_F", "MRAP_02_base_F", "MRAP_03_base_F", "Truck_01_base_F", "Truck_02_base_F", "Truck_03_base_F", "Wheeled_APC_F", "Tank_F", "Rubber_duck_base_F", "SDV_01_base_F", "Boat_Civil_01_base_F", "Boat_Armed_01_base_F", "Helicopter_Base_F", "Plane", "UGV_01_base_F"];		// List of classes for vehicles that are saveable
 A3W_locked_vehicles_list = [];		// List of class names for vehicles that should be automatically locked upon restore
@@ -109,7 +109,7 @@ A3W_payrollAmount = 400;           // Amount of money rewarded per territory on 
 // Mission settings
 A3W_serverMissions = 1;            // Enable server missions (0 = no, 1 = yes)
 A3W_missionsDifficulty = 0;        // Missions difficulty (0 = normal, 1 = hard)
-A3W_missionsQuantity = 4;          // Number of missions running at the same time (0 to 6)
+A3W_missionsQuantity = 5;          // Number of missions running at the same time (0 to 6)
 A3W_missionFarAiDrawLines = 1;     // Draw small red lines on the map from mission markers to individual units & vehicles which are further away than 75m from the objective (0 = no, 1 = yes)
 A3W_heliPatrolMissions = 1;        // Enable missions involving flying helicopters piloted by AI (0 = no, 1 = yes)
 A3W_underWaterMissions = 1;        // Enable underwater missions which require diving gear (0 = no, 1 = yes)
@@ -117,5 +117,5 @@ A3W_mainMissionDelay = 5*60;       // Time in seconds between Main Missions
 A3W_mainMissionTimeout = 60*60;    // Time in seconds that a Main Mission will run for, unless completed
 A3W_sideMissionDelay = 5*60;       // Time in seconds between Side Missions
 A3W_sideMissionTimeout = 60*60;    // Time in seconds that a Side Mission will run for, unless completed
-A3W_moneyMissionDelay = 5*60;      // Time in seconds between Money Missions
+A3W_moneyMissionDelay = 10*60;      // Time in seconds between Money Missions
 A3W_moneyMissionTimeout = 60*60;   // Time in seconds that a Money Mission will run for, unless completed
