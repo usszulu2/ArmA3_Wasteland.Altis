@@ -51,14 +51,14 @@ if (_vehicle == player) exitWith {};
 private["_vehClass", "_price"];
 //set up prices
 _vehClass = typeOf _vehicle;
-_price = 5000; // price = 1000 for vehicles not found in vehicle store. (e.g. Static Weapons)
+_price = 1000; // price = 1000 for vehicles not found in vehicle store. (e.g. Static Weapons)
 
 {
   if (_vehClass == _x select 1) then {
     _price = _x select 2;
     _price = round (_price / PRICE_RELATIONSHIP);
   };
-} forEach (call allVehStoreVehicles);
+} forEach (call allVehStoreVehicles + call staticGunsArray);
 
 private["_service_cancelled"];
 _service_cancelled = false;
@@ -113,13 +113,13 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
   scopeName "fn_resupplyTruck";
 
   private["_price"];
-  _price = 5000; // price = 1000 for vehicles not found in vehicle store (e.g. static weapons)
+  _price = 1000; // price = 1000 for vehicles not found in vehicle store (e.g. static weapons)
   {
     if (_vehClass == _x select 1) then {
       _price = _x select 2;
       _price = round (_price / PRICE_RELATIONSHIP);
     };
-  } forEach (call allVehStoreVehicles);
+  } forEach (call allVehStoreVehicles + call staticGunsArray);
 
   private["_titleText"];
   _titleText = {
@@ -185,7 +185,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
   }
   else  {
     private["_msg"];
-    _msg = format["It will cost you %1 to resupply the %2. Do you want to proceed?", _price, getText ((configFile >> "CfgVehicles" >> (typeOf _vehicle)) >> "displayName")];
+    _msg = format["It will cost you $%1 to resupply the %2. Do you want to proceed?", _price, getText ((configFile >> "CfgVehicles" >> (typeOf _vehicle)) >> "displayName")];
     if (not([_msg, "Vehicle Resupply", true,true] call BIS_fnc_guiMessage)) then {
       mutexScriptInProgress = false;
       breakOut "fn_resupplyTruck";
@@ -304,18 +304,20 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
     } forEach _turretMagPairs;
   } forEach _turretsArray;
 
+  _vehicle setVehicleAmmoDef 1; // Full ammo reset just to be sure
+  //[[_vehicle,1],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
+
   switch (true) do
   {
     case ({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0): 
     {
       _vehicle removeMagazineTurret ["6Rnd_LG_scalpel",[0]];
+      _vehicle removeMagazineTurret ["2Rnd_LG_scalpel",[0]];
+      _vehicle removeMagazineTurret ["2Rnd_LG_scalpel",[0]];
       _vehicle addMagazineTurret ["2Rnd_LG_scalpel",[0]];
     };
   }; 
   
-  //_vehicle setVehicleAmmoDef 1; // Full ammo reset just to be sure
-  //[[_vehicle,1],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
-
   if (damage _vehicle > 0.001) then {
     call _checkAbortConditions;
     while {damage _vehicle > 0.001} do {
