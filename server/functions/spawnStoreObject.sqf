@@ -129,7 +129,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 			_objectID = netId _object;
 			_object setVariable ["A3W_purchasedStoreObject", true];
 
-			[_object] call v_trackVehicle;
+      [_object] call v_trackVehicle;
 
 			if (getNumber (configFile >> "CfgVehicles" >> _class >> "isUav") > 0) then
 			{
@@ -162,25 +162,29 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 				breakOut "spawnStoreObject";
 			};
 
-<<<<<<< HEAD
-			// Spawn remaining calls to speed up delivery confirmation
-			[_object, _safePos, _marker, _player] spawn
-			{
-				_object = _this select 0;
-				_safePos = _this select 1;
-				_marker = _this select 2;
-				_player = _this select 3;
-=======
 			if (_object isKindOf "AllVehicles" && !(_object isKindOf "StaticWeapon")) then
 			{
 				_object setPosATL [_safePos select 0, _safePos select 1, 0.05];
 				_object setVelocity [0,0,0.01];
 				// _object spawn cleanVehicleWreck;
-				_object setVariable ["A3W_purchasedVehicle", true, true];
+
+        if ({_object isKindOf _x} count ["UAV_02_base_F", "UGV_01_base_F"] > 0) then {
+					_object setVariable ["A3W_purchasedVehicle", true];
+					_object setVariable ["ownerUID", getPlayerUID _player, true];
+					_object setVariable ["ownerN", name _player, true];
+				};
+
+				if ({_object isKindOf _x} count A3W_autosave_vehicles_list > 0) then {
+          [[netId _object, 2], "A3W_fnc_setLockState", _object] call A3W_fnc_MP; // Lock
+          _object setVariable ["objectLocked", true, true];
+          _object setVariable ["R3F_LOG_disabled", true, true];
+          _object setVariable ["A3W_purchasedVehicle", true];
+          _object setVariable ["ownerUID", getPlayerUID _player, true];
+          _object setVariable ["ownerN", name _player, true];
+				};
 			};
 
 			_object setDir (if (_object isKindOf "Plane") then { markerDir _marker } else { random 360 });
->>>>>>> ArmA3_Wasteland.Altis/Development_main
 
 			_isDamageable = !(_object isKindOf "ReammoBox_F"); // ({_object isKindOf _x} count ["AllVehicles", "Lamps_base_F", "Cargo_Patrol_base_F", "Cargo_Tower_base_F"] > 0);
 
@@ -192,62 +196,18 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 			{
 				case ({_object isKindOf _x} count ["Box_NATO_AmmoVeh_F", "Box_East_AmmoVeh_F", "Box_IND_AmmoVeh_F"] > 0):
 				{
-<<<<<<< HEAD
-					_object setPosATL [_safePos select 0, _safePos select 1, 0.05];
-					_object setVelocity [0,0,0.01];
-					// _object spawn cleanVehicleWreck;
-          
-					if ({_object isKindOf _x} count ["UAV_02_base_F", "UGV_01_base_F"] > 0) then {
-						_object setVariable ["A3W_purchasedVehicle", true];
-						_object setVariable ["ownerUID", getPlayerUID _player, true];
-						_object setVariable ["ownerN", name _player, true];
-					};
-
-					if ({_object isKindOf _x} count A3W_autosave_vehicles_list > 0) then {
-						[[netId _object, 2], "A3W_fnc_setLockState", _object] call A3W_fnc_MP; // Lock
-						_object setVariable ["objectLocked", true, true];
-						_object setVariable ["R3F_LOG_disabled", true, true];
-						_object setVariable ["A3W_purchasedVehicle", true];
-						_object setVariable ["ownerUID", getPlayerUID _player, true];
-						_object setVariable ["ownerN", name _player, true];
-					};
-          
-=======
-					_object setAmmoCargo 5;
->>>>>>> ArmA3_Wasteland.Altis/Development_main
+					_object setAmmoCargo 0;
 				};
 
 				case (_object isKindOf "O_Heli_Transport_04_ammo_F"):
 				{
-					_object setAmmoCargo 10;
+					_object setAmmoCargo 0;
 				};
 
 				case ({_object isKindOf _x} count ["B_Truck_01_ammo_F", "O_Truck_02_Ammo_F", "O_Truck_03_ammo_F", "I_Truck_02_ammo_F"] > 0):
 				{
-<<<<<<< HEAD
-					case ({_object isKindOf _x} count ["Box_NATO_AmmoVeh_F", "Box_East_AmmoVeh_F", "Box_IND_AmmoVeh_F"] > 0):
-					{
-						_object setAmmoCargo 5;
-					};
-
-					case (_object isKindOf "O_Heli_Transport_04_ammo_F"):
-					{
-						_object setAmmoCargo 0;
-					};
-
-					case ({_object isKindOf _x} count ["B_Truck_01_ammo_F", "O_Truck_02_Ammo_F", "O_Truck_03_ammo_F", "I_Truck_02_ammo_F"] > 0):
-					{
-						_object setAmmoCargo 0;
-					};
-
-					case ({_object isKindOf _x} count ["C_Van_01_fuel_F", "I_G_Van_01_fuel_F", "O_Heli_Transport_04_fuel_F"] > 0):
-					{
-						_object setFuelCargo 10;
-					};
-=======
-					_object setAmmoCargo 25;
+					_object setAmmoCargo 0;
 				};
->>>>>>> ArmA3_Wasteland.Altis/Development_main
 
 				case ({_object isKindOf _x} count ["C_Van_01_fuel_F", "I_G_Van_01_fuel_F", "O_Heli_Transport_04_fuel_F"] > 0):
 				{
@@ -264,29 +224,22 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object setRepairCargo 5;
 				};
 
-<<<<<<< HEAD
-					case ({_object isKindOf _x} count ["B_Truck_01_Repair_F", "O_Truck_02_box_F", "O_Truck_03_repair_F", "I_Truck_02_box_F"] > 0):
-					{
-						_object setRepairCargo 25;
-					};
-
-					case ({_object isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0):
-					{
-						_object removeMagazineTurret ["6Rnd_LG_scalpel",[0]];
-						_object addMagazineTurret ["2Rnd_LG_scalpel",[0]];
-					};
-=======
 				case (_object isKindOf "O_Heli_Transport_04_repair_F"):
 				{
 					_object setRepairCargo 10;
->>>>>>> ArmA3_Wasteland.Altis/Development_main
 				};
 
 				case ({_object isKindOf _x} count ["B_Truck_01_Repair_F", "O_Truck_02_box_F", "O_Truck_03_repair_F", "I_Truck_02_box_F"] > 0):
 				{
 					_object setRepairCargo 25;
 				};
-			};
+
+				case ({_object isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0):
+				{
+					_object removeMagazineTurret ["6Rnd_LG_scalpel",[0]];
+					_object addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+				};
+      };
 
 			if (_object getVariable ["A3W_purchasedVehicle", false] && !isNil "fn_manualVehicleSave") then
 			{
