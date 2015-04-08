@@ -16,7 +16,7 @@ A3W_teamPlayersMap = 1;            // Show all friendly players on the map at al
 A3W_globalVoiceWarnTimer = 1;      // Number of seconds for which global voice chat must be active before triggering a warning (0 = disabled)
 A3W_globalVoiceMaxWarns = 3;       // Number of global voice warnings after which the player will be killed and crashed (0 = disabled)
 A3W_antiHackMinRecoil = 1.0;       // Mininum recoil coefficient enforced by the antihack (recommended values: default = 1.0, TMR Mod = 0.5, VTS Weapon Resting = 0.25) (minimum: 0.02)
-A3W_spawnBeaconCooldown = 5*60;    // Number of seconds to wait between each use of an individual spawn beacon (0 = disabled)
+A3W_spawnBeaconCooldown = 15*60;    // Number of seconds to wait between each use of an individual spawn beacon (0 = disabled)
 A3W_spawnBeaconSpawnHeight = 1500; // Altitude in meters at which players will spawn when using spawn beacons (0 = ground/sea)
 
 // Store settings
@@ -42,7 +42,6 @@ A3W_atmRemoveIfDisabled = 0;       // Remove all ATMs from map if A3W_atmEnabled
 A3W_healthTime = 60*5;             //seconds till death
 A3W_hungerTime = 80*60;           //seconds till starving
 A3W_thirstTime = 65*60;           //seconds till dehydrated
-
 
 // Persistence settings
 A3W_playerSaving = 1;              // Save player data like position, health, inventory, etc. (0 = no, 1 = yes)
