@@ -42,7 +42,7 @@ switch (_lockState) do
 				case (!isNull (_object getVariable ["R3F_LOG_est_transporte_par", objNull])): { _text = "Action failed! Somebody moved the object" };
 				case (_object getVariable ["objectLocked", false]): { _text = "Somebody else locked it before you" };
 				case (count (nearestObjects [player, ["Land_Cashdesk_F"], 50]) > 0): { _text = "You are not allowed to lock objects within 50m of shops"};
-        default
+				default
 				{
 					_failed = false;
 					_text = format ["Locking %1%2 complete", floor (_progress * 100), "%"];
