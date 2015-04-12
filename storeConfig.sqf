@@ -194,8 +194,8 @@ ammoArray = compileFinal str
 	["6.5mm 200Rnd Tracer (Yellow) Belt Case", "200Rnd_65x39_cased_Box_Tracer", 125],
 	["7.62mm 10Rnd Mag", "10Rnd_762x54_Mag", 20],
 	["7.62mm 20Rnd Mag", "20Rnd_762x51_Mag", 25],
-	["7.62mm 150Rnd Box", "150Rnd_762x51_Box", 150],
-	["7.62mm 150Rnd Tracer (Green) Box", "150Rnd_762x51_Box_Tracer", 125],
+	["7.62mm 150Rnd Box", "150Rnd_762x54_Box", 125],
+	["7.62mm 150Rnd Tracer (Green) Box", "150Rnd_762x54_Box_Tracer", 150],
 	[".338 LM 10Rnd Mag", "10Rnd_338_Mag", 150], //DLC Ammo
 	[".338 NM 130Rnd Belt", "130Rnd_338_Mag", 300], //DLC Ammo
 	[".408 7Rnd Cheetah Mag", "7Rnd_408_Mag", 100],
