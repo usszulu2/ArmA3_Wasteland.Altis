@@ -148,7 +148,7 @@ A3W_scriptThreads pushBack execVM "addons\Lootspawner\LSclientScan.sqf";
 call compile preprocessFileLineNumbers "client\functions\generateAtmArray.sqf";
 [] execVM "client\functions\drawPlayerMarkers.sqf";
 
-// update player's spawn beaoon
+// update player's spawn beacon
 {
 	if (_x getVariable ["ownerUID",""] == getPlayerUID player) then
 	{
@@ -157,7 +157,6 @@ call compile preprocessFileLineNumbers "client\functions\generateAtmArray.sqf";
 	};
 } forEach pvar_spawn_beacons;
 
-{ _x call A3W_fnc_setupAntiExplode } forEach allMissionObjects "Air";
 { _x call A3W_fnc_setupAntiExplode } forEach allMissionObjects "UGV_01_base_F";
 
 {
