@@ -67,10 +67,10 @@ _vehicle addEventHandler ["Killed",
 	};
 }];
 
-if (_class isKindOf "UGV_01_base_F") then
+/*if (_class isKindOf "UGV_01_base_F") then
 {
 	[netId _vehicle, "A3W_fnc_setupAntiExplode", true] call A3W_fnc_MP;
-};
+};*/
 
 // Vehicle customization
 switch (true) do
