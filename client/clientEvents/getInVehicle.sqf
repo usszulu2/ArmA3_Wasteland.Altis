@@ -32,14 +32,18 @@ if (isNil {_veh getVariable "A3W_engineEH"}) then
 };
  
 if (vehicle player != player) then {
-        [_veh] spawn {
-                _veh = _this select 0;
-                if (_veh getVariable ["allowDamage", true]) then {
-                        _veh allowDamage false;
-                        sleep 2;
-                        _veh allowDamage true;
-                };
-        };
+	[_veh] spawn {
+	_veh = _this select 0;
+		if (_veh getVariable ["allowDamage", true]) then {
+			_veh allowDamage false;
+			_pos = getPos _veh;
+			_pos set [2,0.1];
+			_veh setPos _pos;
+			_veh enableSimulation true;
+			sleep 5;
+			_veh allowDamage true;
+		};
+	};
 };
  
 if (_veh isKindOf "Offroad_01_repair_base_F" && isNil {_veh getVariable "A3W_serviceBeaconActions"}) then
