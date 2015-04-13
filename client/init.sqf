@@ -157,7 +157,9 @@ call compile preprocessFileLineNumbers "client\functions\generateAtmArray.sqf";
 	};
 } forEach pvar_spawn_beacons;
 
-//{ _x call A3W_fnc_setupAntiExplode } forEach allMissionObjects "UGV_01_base_F";
+{ _x call A3W_fnc_setupAntiExplode } forEach allMissionObjects "LandVehicle";
+{ _x call A3W_fnc_setupAntiExplode } forEach allMissionObjects "Ship";
+{ _x call A3W_fnc_setupAntiExplode } forEach allMissionObjects "Air";
 
 {
 	{
