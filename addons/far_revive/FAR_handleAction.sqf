@@ -36,4 +36,9 @@ switch (toLower _action) do
 	{
 		[] spawn FAR_Release;
 	};
+	
+	case "action_kill":
+	{
+		[cursorTarget] spawn FAR_Kill;
+	};
 };
