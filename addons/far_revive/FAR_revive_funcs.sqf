@@ -289,7 +289,7 @@ call mf_compile;
 ////////////////////////////////////////////////
 FAR_Kill =
 {
-	_target = _this select 0; 
+  _target = _this select 0; 
   
   call FAR_Check_Dragging;
   _target allowDamage true;
