@@ -22,6 +22,7 @@ class list_simple_menu {
     x = -10; y = -10;
     w = 0.05; h = 0.05;
     style = ST_CENTER;
+    font = "PuristaBold";
     SizeEX = 0.03;
     colorBackground[] = GUI_BCG_RGB;
     text = "list_simple";
@@ -39,6 +40,8 @@ class list_simple_menu {
     idc = list_simple_menu_submit_button_idc;
     x = -10; y = -10;
     w = 0.05; h = 0.05;
+    font = "PuristaBold";
+    SizeEX = 0.03;
     text = "Select";
   };
 
@@ -46,6 +49,8 @@ class list_simple_menu {
     idc = list_simple_menu_close_button_idc;
     x = -10; y = -10;
     w = 0.05; h = 0.05;
+    font = "PuristaBold";
+    SizeEX = 0.03;
     text = "Close";
     action = "closedialog 0;";
   };
