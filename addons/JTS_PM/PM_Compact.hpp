@@ -36,6 +36,7 @@ class JTS_RscButton
 	style = "0x02 + 0xC0";
 	default = 0;
 	shadow = 0;
+	font = JTS_FontM_PM;
 
 	animTextureNormal = "#(argb,8,8,3)color(1,1,1,1)";
 	animTextureDisabled = "#(argb,8,8,3)color(1,1,1,1)";
@@ -141,8 +142,8 @@ class JTS_PMText
 	style = JTS_ST_LEFT_PM;
 	colorText[] = {1,1,1,1};
 	colorBackground[] = {0, 0, 0, 0};
-	font = JTS_FontM_PM;
-	sizeEx = 0.03;
+	font = "PuristaBold";
+	sizeEx = 0.04;
 };
 
 class JTS_PMlite: JTS_PMText
