@@ -28,14 +28,17 @@ SideMissions =
 	["mission_TownInvasion", 2],
 	//["mission_AirWreck", 1.5],
 	//["mission_WepCache", 1.5],
-	["mission_Outpost", 2],
-	["mission_Truck", 0.5]
+	["mission_Outpost", 1.5],
+	["mission_Truck", 0.5],
+	["mission_Smugglers", 2],
+	["mission_drugsRunners", 1]
 ];
 
 MoneyMissions =
 [
 	["mission_MoneyShipment", 1],
-	["mission_SunkenTreasure", 0.5]
+	["mission_SunkenTreasure", 0.5],
+	["mission_militaryPatrol", 1]
 ];
 
 MainMissions = [MainMissions, [["A3W_heliPatrolMissions", ["mission_Coastal_Convoy", "mission_HostileHeliFormation"]], ["A3W_underWaterMissions", ["mission_ArmedDiversquad"]]]] call removeDisabledMissions;
@@ -71,3 +74,8 @@ CoastalConvoyPaths = [];
 {
 	CoastalConvoyPaths pushBack [_x, false];
 } forEach (call compile preprocessFileLineNumbers "mapConfig\convoys\coastalConvoysList.sqf");
+
+PatrolConvoyPaths = [];
+{
+	PatrolConvoyPaths pushBack [_x, false];
+} forEach (call compile preprocessFileLineNumbers "mapConfig\convoys\patrolConvoysList.sqf");
