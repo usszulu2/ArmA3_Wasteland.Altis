@@ -320,7 +320,8 @@ cctv_camera_use = {
   _camera setVariable ["camera_name", _camera_name, true];
   _camera setVariable ["camera_owner_type", _owner_type, true];
   _camera setVariable ["camera_owner_value", _owner_value, true];
-
+  _camera setVariable ["R3F_LOG_disabled", false, true]; // Added for locking and saving.
+  
   [_player, _owner_type] call cctv_enforce_limits;
   cctv_cameras pushBack _camera;
   publicVariable "cctv_cameras";
