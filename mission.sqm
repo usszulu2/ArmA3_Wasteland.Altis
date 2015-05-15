@@ -2402,7 +2402,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=177;
+		items=197;
 		class Item0
 		{
 			position[]={3612.1487,12.11851,13020.892};
@@ -3741,6 +3741,146 @@ class Mission
 			name="GunStore5_objSpawn";
 			type="Empty";
 			colorName="ColorBlack";
+		};
+		class Item177
+		{
+			position[]={11709.138,54.848961,18224.15};
+			name="Mission_21";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item178
+		{
+			position[]={18755.395,208.82076,10202.748};
+			name="Mission_22";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item179
+		{
+			position[]={19436.357,23.452351,14351.174};
+			name="Mission_23";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item180
+		{
+			position[]={16657.51,16.230467,12689.979};
+			name="Mission_24";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item181
+		{
+			position[]={11327.046,138.86478,8257.0918};
+			name="Mission_25";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item182
+		{
+			position[]={8454.9404,96.900978,25174.967};
+			name="Mission_26";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item183
+		{
+			position[]={8196.7402,74.394363,22541.352};
+			name="Mission_27";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item184
+		{
+			position[]={12363.744,77.006287,21894.768};
+			name="Mission_28";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item185
+		{
+			position[]={16155.725,33.545872,19367.801};
+			name="Mission_29";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item186
+		{
+			position[]={20955.344,15.493174,19268.236};
+			name="Mission_30";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item187
+		{
+			position[]={22472.322,18.29957,20019.885};
+			name="Mission_31";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item188
+		{
+			position[]={22614.143,20.432728,21617.762};
+			name="Mission_32";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item189
+		{
+			position[]={25432.072,9.7850418,20345.178};
+			name="Mission_33";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item190
+		{
+			position[]={28192.398,28.236439,25684.068};
+			name="Mission_34";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item191
+		{
+			position[]={27495.762,18.622601,21483.043};
+			name="Mission_35";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item192
+		{
+			position[]={3814.7158,189.58923,21497.254};
+			name="Mission_36";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item193
+		{
+			position[]={2312.7026,74.332687,22269.027};
+			name="Mission_37";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item194
+		{
+			position[]={3814.9829,13.853227,17497.141};
+			name="Mission_38";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item195
+		{
+			position[]={12820.76,46.35466,19690.66};
+			name="Mission_39";
+			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item196
+		{
+			position[]={14096.81,19.359612,18465.543};
+			name="Mission_40";
+			type="Empty";
+			colorName="ColorOrange";
 		};
 	};
 };
