@@ -46,7 +46,7 @@ _setupObjects =
 	_box2 setVariable ["R3F_LOG_disabled", true, true];
 	
 	_aiGroup = createGroup CIVILIAN;
-	[_aiGroup,_missionPos] spawn createsmugglerGroup;
+	[_aiGroup, _missionPos, _nbUnits] call createCustomGroup;
 
 	_aiGroup setCombatMode "RED";
 	_aiGroup setBehaviour "COMBAT";
