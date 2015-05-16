@@ -8,7 +8,7 @@
 // This file is overriden by the external file "A3Wasteland_settings\main_config.sqf" if present
 
 // General settings
-A3W_startHour = 4;                // In-game hour at mission start (0 to 23)
+A3W_startHour = 4;                 // In-game hour at mission start (0 to 23)
 A3W_timeMultiplierDay = 2.0;       // Sets the speed of time between 5 AM and 8 PM (for example, 6.0 means 6 hours in-game will pass in 1 real hour)
 A3W_timeMultiplierNight = 4.0;     // Sets the speed of time between 8 PM and 5 AM
 A3W_moonLight = 1;                 // Moon light during night (0 = no, 1 = yes)
@@ -16,7 +16,8 @@ A3W_teamPlayersMap = 1;            // Show all friendly players on the map at al
 A3W_globalVoiceWarnTimer = 1;      // Number of seconds for which global voice chat must be active before triggering a warning (0 = disabled)
 A3W_globalVoiceMaxWarns = 3;       // Number of global voice warnings after which the player will be killed and crashed (0 = disabled)
 A3W_antiHackMinRecoil = 1.0;       // Mininum recoil coefficient enforced by the antihack (recommended values: default = 1.0, TMR Mod = 0.5, VTS Weapon Resting = 0.25) (minimum: 0.02)
-A3W_spawnBeaconCooldown = 15*60;    // Number of seconds to wait between each use of an individual spawn beacon (0 = disabled)
+A3W_townSpawnCooldown = 5*60;      // Number of seconds to wait between each use of a spawn on friends in towns (0 = disabled)
+A3W_spawnBeaconCooldown = 15*60;   // Number of seconds to wait between each use of an individual spawn beacon (0 = disabled)
 A3W_spawnBeaconSpawnHeight = 1500; // Altitude in meters at which players will spawn when using spawn beacons (0 = ground/sea)
 A3W_maxSpawnBeacons = 5;		   // Maxmimum number of spawn beacons (0 = disabled)
 A3W_uavControl = "group";          // Restrict connection to UAVs based on ownership ("owner", "group", "side")
