@@ -250,13 +250,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 			if (_object getVariable ["A3W_purchasedVehicle", false] && !isNil "fn_manualVehicleSave") then
 			{
 				_object call fn_manualVehicleSave;
-			};
-
-			if (_object isKindOf "AllVehicles") then
-			{
-				_object allowDamage false;
-				_object spawn { sleep 60; _this allowDamage true;};
-			};    
+			};   
 		};
 	};
 };
