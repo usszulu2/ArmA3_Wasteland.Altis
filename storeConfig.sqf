@@ -871,19 +871,29 @@ colorsArray = compileFinal str
 			["NATO Tan", _texDir + "nato.jpg"], // #(argb,8,8,3)color(0.584,0.565,0.515,0.3)
 			["CSAT Brown", _texDir + "csat.jpg"], // #(argb,8,8,3)color(0.624,0.512,0.368,0.3)
 			["AAF Green", _texDir + "aaf.jpg"], // #(argb,8,8,3)color(0.546,0.59,0.363,0.2)
-			//["Trippy", _texDir + "rainbow.jpg"],
-			//["Carbon", _texDir + "carbon.jpg"],
+			["Trippy", _texDir + "rainbow.jpg"],
+			["Carbon", _texDir + "carbon.jpg"],
 			["Rusty", _texDir + "rusty.jpg"],
-			//["Denim", _texDir + "denim.jpg"],
-			//["Psych", _texDir + "psych.jpg"],
-			//["Leopard", _texDir + "leopard.jpg"],
+			["Denim", _texDir + "denim.jpg"],
+			["Psych", _texDir + "psych.jpg"],
+			["Leopard", _texDir + "leopard.jpg"],
+			["Holland!", _texDir + "holland.jpg"], //GoT addition (dutch flag)
 			["'Murica", _texDir + "murica.jpg"],
 			["Confederate", _texDir + "confederate.jpg"],
 			["Union Jack", _texDir + "unionjack.jpg"],
-			//["Yellow Camo", _texDir + "camo_fuel.jpg"],
+			["Green Camo", _texDir + "camo_fuel.jpg"],
 			["Orange Camo", _texDir + "camo_fack.jpg"],
-			["Red Camo", _texDir + "camo_deser.jpg"]
-			//["Pink Camo", _texDir + "camo_pank.jpg"]
+			["Red Camo", _texDir + "redcamo.jpg"],
+			["Pink Camo", _texDir + "camo_pank.jpg"],
+			["Red Digi Camo", _texDir + "dmr.jpg"],
+			["Ice Camo", _texDir + "icecamo.jpg"],
+			["Digital Camo", _texDir + "digicam.jpg"],
+			["Snakeskin Camo", _texDir + "snake.jpg"],
+			["Yellow Camo", _texDir + "clothcamo.jpg"],
+			["Sierra Whiskey Wild Dogs", _texDir + "swwd.jpg"],
+			["Skulls", _texDir + "skulls.jpg"],
+			["Zebra", _texDir + "zebra.jpg"],
+			["Hello Kitty", _texDir + "kitty.jpg"]
 		]
 	],
 	[ // Kart colors
