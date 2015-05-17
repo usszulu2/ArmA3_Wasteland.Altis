@@ -876,6 +876,7 @@ colorsArray = compileFinal str
 			["Rusty", _texDir + "rusty.jpg"],
 			["Denim", _texDir + "denim.jpg"],
 			["Psych", _texDir + "psych.jpg"],
+			["Weed", _texDir + "weed.jpg"],
 			["Leopard", _texDir + "leopard.jpg"],
 			["Holland!", _texDir + "holland.jpg"], //GoT addition (dutch flag)
 			["'Murica", _texDir + "murica.jpg"],
