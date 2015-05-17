@@ -184,7 +184,15 @@ class playerSettings {
 			w = 0.125; h = 0.033 * safezoneH;
 		};
 
-		/*class btnDistanceInsane : w_RscButton {
+		class btnDistanceEffects : w_RscButton {
+			idc = -1;
+			text = "Effects";
+			onButtonClick = "[] execVM 'addons\disableEnvironment\disableEnvironment.sqf'";
+			x = 0.02; y = 0.48;
+			w = 0.125; h = 0.033 * safezoneH;
+		};		
+    
+    /*class btnDistanceInsane : w_RscButton {
 			text = "Insane";
 			onButtonClick = "setViewDistance 5000;";
 			x = 0.02; y = 0.60;
