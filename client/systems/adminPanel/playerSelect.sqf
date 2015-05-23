@@ -51,7 +51,7 @@ if (_uid call isAdmin) then
 					};
 
 					[player, _target] call camera_attach_to_target;
-					if (!isNil "notifyAdminMenu") then { ["spectate", name _target] spawn notifyAdminMenu };
+					if (!isNil "notifyAdminMenu") then { ["spectate", (name _target) + (getPlayerUID _target)] spawn notifyAdminMenu };
 					player commandChat format ["Viewing %1.", name _target];
 					_spectateButton ctrlSetText "Spectating";
 				} else {
