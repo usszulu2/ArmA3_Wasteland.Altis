@@ -59,11 +59,9 @@ loadScreen = "mapConfig\Loading.paa";
 #include "addons\taw_vd\dialog.hpp"
 #include "addons\gui\gui.hpp"
 #include "addons\parking\list_simple_menu.hpp"
-
 #include "addons\cctv\laptop_flat_menu.hpp"
 #include "addons\cctv\cctv_menu.hpp"
-
-
+#include "addons\infiSTAR\infiSTAR_AdminMenu.hpp"
 
 class RscTitles
 {
