@@ -19,13 +19,13 @@ if ([_uid, 3] call isAdmin) then {
 	_adminSelect = _displayAdmin displayCtrl adminMenu_option;
 
 	_panelOptions = ["Player Management",
+					"Show Server FPS",
+	        "Debug Menu",
 					"Vehicle Management",
-					"Player Markers",
-					"Teleport",
-	                "Money",
-	                "Debug Menu",
+					"Access Vehicle Store",
 					"Object Search",
-	                "Toggle God-mode"
+					"Teleport",
+	        "God-mode"
 	];
 
 	{

@@ -8,7 +8,8 @@
 
 // This function was created with the purpose of letting players know when an admin is abusing his powers
 
-if !([getPlayerUID player, 3] call isAdmin) exitWith {};
+_uid = getPlayerUID player;
+if !(_uid call isAdmin) exitWith {};
 
 private ["_action", "_value", "_cfg", "_displayStr", "_message"];
 
@@ -24,7 +25,21 @@ switch (toLower _action) do
 			_message = format ["[NOTICE] %1 used the admin menu to obtain $%2", name player, _value];
 		};
 	};
+	case "godmode":
+		{
+		if (_value) then {
+		_message = format ["[NOTICE] %1 ENABLED GodMode", name player];
+		}else{
+		_message = format ["[NOTICE] %1 DISABLED GodMode", name player];
+		};
+	};
 	case "teleport":
+	{
+		_value resize 2;
+		{ _value set [_forEachIndex, round _x] } forEach _value;
+    _message = format ["[NOTICE] %1 used the admin menu to teleport.", name player];
+	};
+  	case "teleport2":
 	{
 		_value resize 2;
 		{ _value set [_forEachIndex, round _x] } forEach _value;
@@ -54,7 +69,7 @@ if (!isNil "_cfg" && {isClass _cfg}) then
 if (!isNil "_message" && {_message != ""}) then
 {
 	[[_message, getPlayerUID player, _flagChecksum, true], "A3W_fnc_chatBroadcast", true] call A3W_fnc_MP;
-	systemChat format ["Now everyone knows about: %1. What a shame.",_message];
+	systemChat format ["Server notified about: %1 This is for administrative use only.",_message];
 };
 
 [[profileName, getPlayerUID player, _action, _value, _flagChecksum], "A3W_fnc_adminMenuLog", false] call A3W_fnc_MP;
