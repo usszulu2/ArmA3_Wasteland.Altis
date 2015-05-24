@@ -69,7 +69,7 @@ if (!isNil "_cfg" && {isClass _cfg}) then
 if (!isNil "_message" && {_message != ""}) then
 {
 	[[_message, getPlayerUID player, _flagChecksum, true], "A3W_fnc_chatBroadcast", true] call A3W_fnc_MP;
-	systemChat format ["Server notified about: %1 This is for administrative use only.",_message];
+	systemChat format ["Server notified about: %1. Use this for admin duties only.",_message];
 };
 
 [[profileName, getPlayerUID player, _action, _value, _flagChecksum], "A3W_fnc_adminMenuLog", false] call A3W_fnc_MP;
