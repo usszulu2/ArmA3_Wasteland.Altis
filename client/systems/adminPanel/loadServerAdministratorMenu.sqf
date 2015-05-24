@@ -20,12 +20,12 @@ if ([_uid, 3] call isAdmin) then {
 
 	_panelOptions = ["Player Management",
 					"Show Server FPS",
-	        "Debug Menu",
+					"Debug Menu",
 					"Vehicle Management",
 					"Access Vehicle Store",
 					"Object Search",
 					"Teleport",
-	        "God-mode"
+					"God-mode"
 	];
 
 	{

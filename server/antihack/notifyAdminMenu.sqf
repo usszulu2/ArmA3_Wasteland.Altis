@@ -37,7 +37,7 @@ switch (toLower _action) do
 	{
 		_value resize 2;
 		{ _value set [_forEachIndex, round _x] } forEach _value;
-    _message = format ["[NOTICE] %1 used the admin menu to teleport.", name player];
+		_message = format ["[NOTICE] %1 used the admin menu to teleport.", name player];
 	};
   	case "teleport2":
 	{

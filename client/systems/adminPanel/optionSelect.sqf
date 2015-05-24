@@ -56,7 +56,7 @@ if (_uid call isAdmin) then
 					closeDialog 0;
 					execVM "client\systems\adminPanel\loadObjectSearch.sqf";
 				};
-        case 6: //Teleport
+				case 6: //Teleport
 				{
 					closeDialog 0;
 					["A3W_teleport", "onMapSingleClick",
@@ -106,19 +106,19 @@ if (_uid call isAdmin) then
 				{
 					closeDialog 0;
 					[] call loadGunStore;
-          if (!isNil "notifyAdminMenu") then { ["gunstore"] spawn notifyAdminMenu };
+					if (!isNil "notifyAdminMenu") then { ["gunstore"] spawn notifyAdminMenu };
 				};
 				case 4: //Access General Store
 				{
 					closeDialog 0;
 					[] call loadGeneralStore;
-          if (!isNil "notifyAdminMenu") then { ["generalstore"] spawn notifyAdminMenu };
+					if (!isNil "notifyAdminMenu") then { ["generalstore"] spawn notifyAdminMenu };
 				};
 				case 5: //Access ATM Dialog
 				{
 					closeDialog 0;
 					call mf_items_atm_access;
-          if (!isNil "notifyAdminMenu") then { ["atm"] spawn notifyAdminMenu };
+					if (!isNil "notifyAdminMenu") then { ["atm"] spawn notifyAdminMenu };
 				};
 			};
 		};

@@ -20,8 +20,8 @@ if (_uid call isAdmin) then
 	_debugSelect = _displayDebug displayCtrl debugMenu_option;
 
 	_panelOptions = ["Teleport - Displays Use!",
-	        "Money - Displays Use!",
-	        "God-mode - Displays Use!",				
+					"Money - Displays Use!",
+					"God-mode - Displays Use!",				
 					"Access Gun Store",
 					"Access General Store",
 					"Access ATM Dialog"
