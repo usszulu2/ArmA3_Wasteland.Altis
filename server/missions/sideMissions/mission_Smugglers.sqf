@@ -137,11 +137,11 @@ _successExec =
 	          ["marijuana", "Land_VitaminBottle_F"],
 	          ["cocaine","Land_PowderedMilk_F"],
 	          ["heroin", "Land_PainKillers_F"]
-	        ] call BIS_fnc_selectRandom;
+			  ] call BIS_fnc_selectRandom;
 	  [_item, _lastPos] call _drop_item;
 	};
 	
-	_successHintMessage = format ["The smugglers are dead, the weapons, drugs and money are yours!"];
+	_successHintMessage = format ["The smugglers are dead. The weapons, drugs, and money are yours!"];
 };
 
 _this call sideMissionProcessor;
