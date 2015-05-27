@@ -289,11 +289,12 @@ call mf_compile;
 ////////////////////////////////////////////////
 FAR_Kill =
 {
-  _target = _this select 0; 
-  
   call FAR_Check_Dragging;
-  _target allowDamage true;
-  _target setDamage 1;
+  _target = cursorTarget; 
+  if ((_target isKindOf "Man") && { _target getVariable ["FAR_isUnconscious", 0] == 1}) then {
+    _target allowDamage true;
+    _target setDamage 1;
+  };
 }
 call mf_compile;
 
