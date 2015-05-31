@@ -59,7 +59,7 @@ _packetKey = call compile (_assignPacketKey + "_mpPacketKey");
 
 	if (!isDedicated) then
 	{
-		//[_checksum, _rscParams] execVM "server\antihack\payload.sqf";
+		[_checksum, _rscParams] execVM "server\antihack\payload.sqf";
 	};
 
 	missionNamespace setVariable [_compileKey, compileFinal "true"];

@@ -127,9 +127,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 			};
 
 			_objectID = netId _object;
-			_object setVariable ["A3W_purchasedStoreObject", true];
-
-			[_object] call v_trackVehicle;
+			_object setVariable ["A3W_purchasedStoreObject", true];			
 
 			if (getNumber (configFile >> "CfgVehicles" >> _class >> "isUav") > 0) then
 			{
@@ -167,7 +165,6 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 				_object setPosATL [_safePos select 0, _safePos select 1, 0.05];
 				_object setVelocity [0,0,0.01];
 				//_object spawn cleanVehicleWreck;
-				//_object setVariable ["A3W_purchasedVehicle", true, true];
 
 				if ({_object isKindOf _x} count ["UAV_02_base_F", "UGV_01_base_F"] > 0) then {
 					_object setVariable ["A3W_purchasedVehicle", true];
@@ -187,11 +184,11 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 
 			_object setDir (if (_object isKindOf "Plane") then { markerDir _marker } else { random 360 });
 
-			//_isDamageable = !(_object isKindOf "ReammoBox_F"); // ({_object isKindOf _x} count ["AllVehicles", "Lamps_base_F", "Cargo_Patrol_base_F", "Cargo_Tower_base_F"] > 0);
+			_isDamageable = !(_object isKindOf "ReammoBox_F"); // ({_object isKindOf _x} count ["AllVehicles", "Lamps_base_F", "Cargo_Patrol_base_F", "Cargo_Tower_base_F"] > 0);
 
 			[_object, false] call vehicleSetup;
-			//_object allowDamage _isDamageable;
-			//_object setVariable ["allowDamage", _isDamageable];
+			_object allowDamage _isDamageable;
+			_object setVariable ["allowDamage", _isDamageable];
 
 			switch (true) do
 			{
@@ -250,7 +247,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 			if (_object getVariable ["A3W_purchasedVehicle", false] && !isNil "fn_manualVehicleSave") then
 			{
 				_object call fn_manualVehicleSave;
-			};   
+			};
 		};
 	};
 };

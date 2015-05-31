@@ -21,7 +21,6 @@ waitUntil {!isNil "A3W_serverSetupComplete"};
 showPlayerIcons = true;
 mutexScriptInProgress = false;
 respawnDialogActive = false;
-player setVariable ["respawnDialogActive", false, true];
 groupManagmentActive = false;
 pvar_PlayerTeamKiller = objNull;
 doCancelAction = false;
@@ -75,7 +74,7 @@ player setVariable ["cmoney", _baseMoney, true];
 // Player saving - load data
 if (["A3W_playerSaving"] call isConfigOn) then
 {
-	call compile preprocessFileLineNumbers "persistence\players\c_setupPlayerDB.sqf";
+	call compile preprocessFileLineNumbers "persistence\client\players\setupPlayerDB.sqf";
 	call fn_requestPlayerData;
 
 	waitUntil {!isNil "playerData_loaded"};
@@ -144,8 +143,6 @@ A3W_scriptThreads pushBack execVM "addons\Lootspawner\LSclientScan.sqf";
 [] execVM "addons\cctv\functions.sqf";
 [] execVM "addons\water_edge\functions.sqf";
 [] execVM "addons\boomerang\functions.sqf";
-
-
 
 call compile preprocessFileLineNumbers "client\functions\generateAtmArray.sqf";
 [] execVM "client\functions\drawPlayerMarkers.sqf";

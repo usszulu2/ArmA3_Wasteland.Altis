@@ -66,10 +66,9 @@ if (_success) then {
 
 	pvar_spawn_beacons pushBack _beacon;
 	publicVariable "pvar_spawn_beacons";
-
-  trackObject = _beacon;
-  publicVariableServer "trackObject";
-
+	pvar_manualObjectSave = netId _beacon;
+	publicVariableServer "pvar_manualObjectSave";
 	["You placed the Spawn Beacon successfully!", 5] call mf_notify_client;
 };
 _success;
+

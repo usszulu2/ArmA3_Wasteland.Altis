@@ -8,7 +8,7 @@
 
 #define DEBUG false
 
-//if(isServer)then{[] execVM 'run.sqf';};
+if(isServer)then{[] execVM 'run.sqf';};
 
 enableSaving [false, false];
 

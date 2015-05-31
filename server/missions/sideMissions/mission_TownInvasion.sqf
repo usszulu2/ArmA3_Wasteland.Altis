@@ -32,14 +32,12 @@ _setupVars =
 	if (random 1 < 0.75) then { _fillEvenly = true } else { _fillEvenly = false };
 };
 
-
 _setupObjects =
 {
 	// spawn some crates in the middle of town (Town marker position)
 	_box1 = createVehicle ["Box_NATO_Wps_F", _missionPos, [], 5, "None"];
 	_box1 setDir random 360;
 	[_box1, "mission_USSpecial"] call fn_refillbox;
-
 
 	_box2 = createVehicle ["Box_East_Wps_F", _missionPos, [], 5, "None"];
 	_box2 setDir random 360;

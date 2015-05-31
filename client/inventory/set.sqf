@@ -33,6 +33,3 @@ _done = false;
 if (!_done) then { _new pushBack _this };
 
 mf_inventory = _new;
-
-trackMyInventory = [player, mf_inventory];
-publicVariableServer "trackMyInventory";

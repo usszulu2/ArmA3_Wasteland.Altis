@@ -8,12 +8,14 @@
 //	@file Args:
 
 #define TIME_DELTA 1 //seconds between each "check"
-#define HEALTH_DELTA TIME_DELTA*(100/A3W_healthTime)/100
-#define HUNGER_DELTA TIME_DELTA*(100/A3W_hungerTime)
-#define THIRST_DELTA TIME_DELTA*(100/A3W_thirstTime)
+#define HEALTH_TIME (60*5) //seconds till death
+#define HUNGER_TIME (80*60) //seconds till starving
+#define THIRST_TIME (65*60) //seconds till dehydrated
+#define HEALTH_DELTA TIME_DELTA*(100/HEALTH_TIME)/100
+#define HUNGER_DELTA TIME_DELTA*(100/HUNGER_TIME)
+#define THIRST_DELTA TIME_DELTA*(100/THIRST_TIME)
 #define STARVATION "<t size='2' color='#ffff00'> R.I.P.</t><br/><br/>You have died from: <br/><t size='2' color='#ff0000'>starvation</t><br/><br/>You need to eat to survive here!<br/>"
 #define DEHYDRATION "<t size='2' color='#ffff00'> R.I.P.</t><br/><br/>You have died from: <br/><t size='2' color='#ff0000'>dehydration</t><br/><br/>You need to drink to survive here!<br/>"
-
 
 private["_warnf1","_warnf2","_warnf3","_warnf4","_warnd1","_warnd2","_warnd3","_warnd4"];
 
