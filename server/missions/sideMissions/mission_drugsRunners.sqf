@@ -141,7 +141,7 @@ _drop_item =
 _successExec =
 {
 	// Mission completed
-	_drugpilerandomizer = [4,8,12];
+	_drugpilerandomizer = [2,4,8];
 	_drugpile = _drugpilerandomizer call BIS_fnc_SelectRandom;
 	
 	for "_i" from 1 to _drugpile do 
