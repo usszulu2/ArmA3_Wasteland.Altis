@@ -52,15 +52,15 @@ _packetKey = call compile (_assignPacketKey + "_mpPacketKey");
 		["notifyAdminMenu", _assignChecksum, "server\antihack\notifyAdminMenu.sqf"]
 	];
 
-	if (isServer) then
+	/*if (isServer) then
 	{
 		[_checksum] execVM "server\antihack\serverSide.sqf"; // COMMENT THIS LINE IF YOU HAVE ISSUES WITH CUSTOM UNIT SCRIPTS, LIKE AI RECRUITMENT
-	};
+	};*/
 
-	if (!isDedicated) then
+	/*if (!isDedicated) then
 	{
-		//[_checksum, _rscParams] execVM "server\antihack\payload.sqf";
-	};
+		[_checksum, _rscParams] execVM "server\antihack\payload.sqf";
+	};*/
 
 	missionNamespace setVariable [_compileKey, compileFinal "true"];
 //};
