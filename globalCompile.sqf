@@ -71,6 +71,8 @@ _clientFunc = "client\functions";
 _serverFunc = "server\functions";
 
 A3W_fnc_setLockState = { (objectFromNetId (_this select 0)) lock (_this select 1) } call mf_compile;
+A3W_fnc_isBleeding = [_serverFunc, "fn_isBleeding.sqf"] call mf_compile;
+A3W_fnc_isUnconscious = [_serverFunc, "fn_isUnconscious.sqf"] call mf_compile;
 A3W_fnc_pushVehicle = [_serverFunc, "pushVehicle.sqf"] call mf_compile;
 A3W_fnc_setName = [_clientFunc, "fn_setName.sqf"] call mf_compile;
 A3W_fnc_setupAntiExplode = [_clientFunc, "fn_setupAntiExplode.sqf"] call mf_compile;
@@ -112,6 +114,7 @@ getFwdVelocity = [_serverFunc, "getFwdVelocity.sqf"] call mf_compile;
 getHitPoints = [_serverFunc, "getHitPoints.sqf"] call mf_compile;
 getMagAmmoCount = [_serverFunc, "getMagAmmoCount.sqf"] call mf_compile;
 getMoveWeapon = [_clientFunc, "getMoveWeapon.sqf"] call mf_compile;
+fn_getPlayerData = "persistence\client\players\getPlayerData.sqf" call mf_compile;
 getPublicVar = [_serverFunc, "getPublicVar.sqf"] call mf_compile;
 getTeamMarkerColor = "territory\client\getTeamMarkerColor.sqf" call mf_compile;
 isConfigOn = [_serverFunc, "isConfigOn.sqf"] call mf_compile;
