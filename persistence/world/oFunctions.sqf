@@ -300,7 +300,7 @@ o_restoreObject = {
   
   _allowDamage = true;
 
-  if (_class isKindOf "Box_NATO_Wps_F" || _class isKindOf "Box_NATO_WpsSpecial_F" || _class isKindOf "Box_East_Wps_F" || _class isKindOf "Box_East_WpsSpecial_F" || _class isKindOf "Box_IND_Wps_F" || _class isKindOf "Box_IND_WpsSpecial_F" || _class isKindOf "Box_NATO_Ammo_F") then {
+  if (_class isKindOf "Box_NATO_Wps_F" || _class isKindOf "Box_NATO_WpsSpecial_F" || _class isKindOf "Box_East_Wps_F" || _class isKindOf "Box_East_WpsSpecial_F" || _class isKindOf "Box_IND_Wps_F" || _class isKindOf "Box_IND_WpsSpecial_F" || _class isKindOf "Box_NATO_Ammo_F" || _class isKindOf "Box_FIA_Support_F" || _class isKindOf "Box_FIA_Wps_F" || _class isKindOf "Box_FIA_Ammo_F") then {
 	_allowDamage = false;
   };
 
