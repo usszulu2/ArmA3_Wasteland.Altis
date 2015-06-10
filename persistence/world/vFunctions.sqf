@@ -299,7 +299,7 @@ fn_manualVehicleSave = {
   };
 
   if (!isOBJECT(_object)) exitWith {};
-  if (diag_tickTime - (_object getVariable ["vehSaving_lastSave", 0]) <= MANUAL_VEH_SAVE_COOLDOWN) exitWith {};
+  if (diag_tickTime - (_object getVariable ["vehSaving_lastSave", 0]) <= 5) exitWith {};
 
   _object setVariable ["vehSaving_lastUse", diag_tickTime, true];
   _object setVariable ["vehSaving_lastSave", diag_tickTime, true];

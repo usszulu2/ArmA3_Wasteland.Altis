@@ -291,7 +291,7 @@ FAR_Kill =
 {
   call FAR_Check_Dragging;
   _target = cursorTarget; 
-  if ((_target isKindOf "Man") && { _target getVariable ["FAR_isUnconscious", 0] == 1}) then {
+  if ((_target isKindOf "Man") && { _target call A3W_fnc_isUnconscious}) then {
     _target allowDamage true;
     _target setDamage 1;
   };
