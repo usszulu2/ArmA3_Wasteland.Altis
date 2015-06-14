@@ -39,8 +39,6 @@ waitUntil {time > 0.1};
 removeAllWeapons player;
 player switchMove "";
 
-enableEnvironment false; // Temporary fix for client side FPS problems. Disables all wildlife and environment sounds
-
 // initialize actions and inventory
 "client\actions" call mf_init;
 "client\inventory" call mf_init;
