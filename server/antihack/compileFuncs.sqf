@@ -57,10 +57,10 @@ _packetKey = call compile (_assignPacketKey + "_mpPacketKey");
 		[_checksum] execVM "server\antihack\serverSide.sqf"; // COMMENT THIS LINE IF YOU HAVE ISSUES WITH CUSTOM UNIT SCRIPTS, LIKE AI RECRUITMENT
 	};
 
-	if (!isDedicated) then
+	/*if (!isDedicated) then
 	{
 		[_checksum, _rscParams] execVM "server\antihack\payload.sqf";
-	};
+	};*/
 
 	missionNamespace setVariable [_compileKey, compileFinal "true"];
 //};
