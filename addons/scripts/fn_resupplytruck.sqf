@@ -289,7 +289,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
             } forEach getArray (_turretCfg >> "weapons");
           };
           
-          if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F"] > 0) then {
+          if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F", "B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F"] > 0) then {
             private["_text"];
             _vehicle setVehicleAmmoDef 0;
             _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
@@ -309,7 +309,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
     } forEach _turretMagPairs;
   } forEach _turretsArray;
 
-  if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F"] > 0) then {
+  if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F", "B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F"] > 0) then {
     _vehicle setVehicleAmmoDef 1; // Full ammo reset just to be sure
   };
     
@@ -328,7 +328,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
       _vehicle removeWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
       _vehicle removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];         
       _vehicle removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];     
-	    _vehicle removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];
+	  _vehicle removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];
       _vehicle addWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
       _vehicle addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
       _vehicle addWeaponTurret ["missiles_SCALPEL",[-1]];
@@ -354,7 +354,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
       _vehicle removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];
       _vehicle removeWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];       
       _vehicle removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];    
-	    _vehicle removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]]; 
+	  _vehicle removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]]; 
       _vehicle addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];	
       _vehicle addWeaponTurret ["missiles_SCALPEL",[-1]];
       _vehicle addMagazineTurret ["2Rnd_LG_scalpel",[-1]];  
@@ -382,6 +382,26 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
       sleep (REARM_TIME_SLICE / 2);
       call _checkAbortConditions;    
     };
+  
+    case ({_vehicle isKindOf _x} count ["B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F"] > 0): 
+    {
+      private["_text"];
+      _vehicle setVehicleAmmoDef 0;
+      _text = format ["Reloading %1...", _vehName];
+      _text call _titleText;
+
+      sleep (REARM_TIME_SLICE / 2);
+      call _checkAbortConditions;    
+      
+      _vehicle addMagazineTurret ["8Rnd_82mm_Mo_shells",[-1]];
+      _vehicle addMagazineTurret ["8Rnd_82mm_Mo_shells",[-1]];
+	  _vehicle addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[-1]];
+      _vehicle addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[-1]];     
+      _vehicle addMagazineTurret ["8Rnd_82mm_Mo_Smoke_white",[-1]];   
+      
+	  sleep (REARM_TIME_SLICE / 2);
+      call _checkAbortConditions;    
+    };  
   }; 
   
   if (damage _vehicle > 0.001) then {

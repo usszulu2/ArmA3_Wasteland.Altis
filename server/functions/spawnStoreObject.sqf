@@ -277,6 +277,16 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 				{
 					_object allowDamage false;
 				};			
+			
+				case ({_object isKindOf _x} count ["B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F"] > 0):
+				{
+					_object setVehicleAmmoDef 0;	
+					_object addMagazineTurret ["8Rnd_82mm_Mo_shells",[-1]];
+					_object addMagazineTurret ["8Rnd_82mm_Mo_shells",[-1]];
+					_object addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[-1]];
+					_object addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[-1]];
+					_object addMagazineTurret ["8Rnd_82mm_Mo_Smoke_white",[-1]];
+				};			
 			};
 
 			if (_object getVariable ["A3W_purchasedVehicle", false] && !isNil "fn_manualVehicleSave") then
