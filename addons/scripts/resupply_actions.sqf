@@ -49,7 +49,7 @@ uav_resupply_watch = {
   _uavCheck = {
     private["_uav", "_action_id"];
     _uav = getConnectedUAV player;
-    (!(isNull _uav) && {(count(nearestObjects [getPos _uav, resupply_vehicles, 10]) > 0)})
+    (!(isNull _uav) && {(count(nearestObjects [getPos _uav, resupply_vehicles, 15]) > 0)})
   };
 
   waitUntil {
@@ -58,7 +58,7 @@ uav_resupply_watch = {
     _uav = getConnectedUAV player;
     _action_id = _uav addAction [
       format["<img image='client\icons\repair.paa'/> Resupply %1",VEHICLE_NAME(_uav)],
-      {_this call do_resupply;}, _uav, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
+      {_this call do_resupply;}, _uav, 15,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
     ];
     waitUntil {sleep 3; not(call _uavCheck)};
     _uav removeAction _action_id;
@@ -75,7 +75,7 @@ static_weapon_resupply_watch = {
     if (not(isNull _static) && {
          _static isKindOf "StaticWeapon" && {
          player == gunner(_static) && {
-         (count(nearestObjects [getPos _static, resupply_vehicles, 10]) > 0)}}}) exitWith {
+         (count(nearestObjects [getPos _static, resupply_vehicles, 15]) > 0)}}}) exitWith {
       _static
     };
     nil
@@ -86,7 +86,7 @@ static_weapon_resupply_watch = {
     waitUntil { sleep 3; _static = call _staticCheck; !isNil "_static"};
     _action_id = _static addAction [
       format["<img image='client\icons\repair.paa'/> Resupply %1",VEHICLE_NAME(_static)],
-      {_this call do_resupply;}, _static, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
+      {_this call do_resupply;}, _static, 15,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
     ];
     waitUntil { sleep 3; isNil {call _staticCheck}};
     _static removeAction _action_id;
@@ -104,7 +104,7 @@ vehicle_resupply_watch = {
          player != _vehicle && {
          player == driver(_vehicle) && {
          not(_vehicle isKindOf "StaticWeapon") && {
-         (count(nearestObjects [getPos _vehicle, resupply_vehicles, 10]) > 0)}}}}) exitWith {
+         (count(nearestObjects [getPos _vehicle, resupply_vehicles, 15]) > 0)}}}}) exitWith {
       nil
     };
     _vehicle
@@ -115,7 +115,7 @@ vehicle_resupply_watch = {
     waitUntil { sleep 3; _vehicle = call _vehicleCheck; !isNil "_vehicle"};
     _action_id = _vehicle addAction [
       format["<img image='client\icons\repair.paa'/> Resupply %1",VEHICLE_NAME(_vehicle)],
-      {_this call do_resupply;}, _vehicle, 10,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
+      {_this call do_resupply;}, _vehicle, 15,false,true,"", "(isNil 'mutexScriptInProgress' || {not(mutexScriptInProgress)})"
     ];
     waitUntil { sleep 3; isNil {call _vehicleCheck}};
     _vehicle removeAction _action_id;

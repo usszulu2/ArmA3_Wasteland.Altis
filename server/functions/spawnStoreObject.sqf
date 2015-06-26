@@ -237,10 +237,42 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 
 				case ({_object isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0):
 				{
-					_object removeMagazineTurret ["6Rnd_LG_scalpel",[0]];
-					_object addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+				  _object setVehicleAmmoDef 0;	
+				  _object addMagazineTurret ["Laserbatteries",[0]];     
+				  _object addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+				  _object addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];	   
 				};
 				
+				case (_object isKindOf "B_Plane_CAS_01_F"):
+				{
+				  _object setVehicleAmmoDef 0;			
+				  _object removeWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
+				  _object removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];          
+				  _object removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];        
+				  _object removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];   
+				  _object addWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
+				  _object addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
+				  _object addWeaponTurret ["missiles_SCALPEL",[-1]];
+				  _object addMagazineTurret ["2Rnd_LG_scalpel",[-1]];		
+				  _object addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
+				  _object addMagazineTurret ["7Rnd_Rocket_04_AP_F",[-1]];  ;				
+				  _object addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];	
+				};
+
+				case (_object isKindOf "O_Plane_CAS_02_F"):
+				{
+				  _object setVehicleAmmoDef 0;			
+				  _object removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];
+				  _object removeWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];          
+				  _object removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];        
+				  _object removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]];   
+				  _object addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];		
+				  _object addWeaponTurret ["missiles_SCALPEL",[-1]];   
+				  _object addMagazineTurret ["2Rnd_LG_scalpel",[-1]];	   
+				  _object addMagazineTurret ["2Rnd_Missile_AA_03_F",[-1]];			
+				  _object addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];	
+				};
+
 				case (_object isKindOf "Box_NATO_Ammo_F"):
 				{
 					_object allowDamage false;

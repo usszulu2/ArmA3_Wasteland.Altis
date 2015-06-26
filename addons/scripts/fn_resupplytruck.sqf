@@ -199,7 +199,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
   };
 
 	if (not(_is_uav) && {!isNull (gunner(_vehicle))}) then {
-		gunner(_vehicle) action ["getOut", _vehicle];
+	  gunner(_vehicle) action ["getOut", _vehicle];
 	};
 
   private["_turretCfg", "_turretsArray"];
@@ -239,6 +239,8 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
     _engineOn = isEngineOn _vehicle;
     player action ["EngineOff", _vehicle];
   };
+
+  _vehicle setFuel 0;
 
   {
     private["_turretCfg", "_turretPath", "_turretMags", "_turretMagPairs"];
@@ -286,35 +288,99 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
               };
             } forEach getArray (_turretCfg >> "weapons");
           };
+          
+          if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F"] > 0) then {
+            private["_text"];
+            _vehicle setVehicleAmmoDef 0;
+            _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
+            _text call _titleText;
 
-          private["_text"];
-          _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
-          _text call _titleText;
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
 
-          sleep (REARM_TIME_SLICE / 2);
-          call _checkAbortConditions;
+            //_vehicle addMagazineTurret [_mag, _turretPath];
+            [[_vehicle, [_mag, _turretPath]], "A3W_fnc_addMagazineTurret", _vehicle, false] call BIS_fnc_MP;
 
-          //_vehicle addMagazineTurret [_mag, _turretPath];
-          [[_vehicle, [_mag, _turretPath]], "A3W_fnc_addMagazineTurret", _vehicle, false] call BIS_fnc_MP;
-
-          sleep (REARM_TIME_SLICE / 2);
-          call _checkAbortConditions;
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
+          };
         };
       };
     } forEach _turretMagPairs;
   } forEach _turretsArray;
 
-  _vehicle setVehicleAmmoDef 1; // Full ammo reset just to be sure
-  //[[_vehicle,1],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
-
+  if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F"] > 0) then {
+    _vehicle setVehicleAmmoDef 1; // Full ammo reset just to be sure
+  };
+    
   switch (true) do
-  {
+  {	
+	  case (_vehicle isKindOf "B_Plane_CAS_01_F"):
+	  {			
+      private["_text"];
+      _vehicle setVehicleAmmoDef 0;
+      _text = format ["Reloading %1...", _vehName];
+      _text call _titleText;
+
+      sleep (REARM_TIME_SLICE / 2);
+      call _checkAbortConditions;
+      
+      _vehicle removeWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
+      _vehicle removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];         
+      _vehicle removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];     
+	    _vehicle removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];
+      _vehicle addWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
+      _vehicle addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
+      _vehicle addWeaponTurret ["missiles_SCALPEL",[-1]];
+      _vehicle addMagazineTurret ["2Rnd_LG_scalpel",[-1]];
+      _vehicle addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
+      _vehicle addMagazineTurret ["7Rnd_Rocket_04_AP_F",[-1]];
+      _vehicle addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];	
+
+      sleep (REARM_TIME_SLICE / 2);
+      call _checkAbortConditions;    
+    };
+
+	  case (_vehicle isKindOf "O_Plane_CAS_02_F"):
+	  {				
+      private["_text"];
+      _vehicle setVehicleAmmoDef 0;
+      _text = format ["Reloading %1...", _vehName];
+      _text call _titleText;
+
+      sleep (REARM_TIME_SLICE / 2);
+      call _checkAbortConditions;     
+      
+      _vehicle removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];
+      _vehicle removeWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];       
+      _vehicle removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];    
+	    _vehicle removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]]; 
+      _vehicle addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];	
+      _vehicle addWeaponTurret ["missiles_SCALPEL",[-1]];
+      _vehicle addMagazineTurret ["2Rnd_LG_scalpel",[-1]];  
+      _vehicle addMagazineTurret ["2Rnd_Missile_AA_03_F",[-1]];
+      _vehicle addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+
+      sleep (REARM_TIME_SLICE / 2);
+      call _checkAbortConditions;    
+    };
+    
     case ({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0): 
     {
-      _vehicle removeMagazineTurret ["6Rnd_LG_scalpel",[0]];
-      _vehicle removeMagazineTurret ["2Rnd_LG_scalpel",[0]];
-      _vehicle removeMagazineTurret ["2Rnd_LG_scalpel",[0]];
+      private["_text"];
+      _vehicle setVehicleAmmoDef 0;
+      _text = format ["Reloading %1...", _vehName];
+      _text call _titleText;
+
+      sleep (REARM_TIME_SLICE / 2);
+      call _checkAbortConditions;    
+      
+      _vehicle addMagazineTurret ["Laserbatteries",[0]];
       _vehicle addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+      _vehicle addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];     
+
+      sleep (REARM_TIME_SLICE / 2);
+      call _checkAbortConditions;    
     };
   }; 
   
