@@ -27,6 +27,52 @@ A3W_fnc_addMagazineTurret = {
   _left addMagazineTurret _right;
 };
 
+A3W_fnc_addMagazineTurretMortar = {
+  private["_mortar"];
+  _mortar = _this select 0;
+  _mortar addMagazineTurret ["8Rnd_82mm_Mo_shells",[0]];
+  _mortar addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[0]];
+  _mortar addMagazineTurret ["8Rnd_82mm_Mo_Smoke_white",[0]];
+};
+
+A3W_fnc_addMagazineTurretBcas = {
+  private["_bcas"];
+  _bcas = _this select 0;
+  _bcas removeWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
+  _bcas removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];
+  _bcas removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];
+  _bcas removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];
+  _bcas addWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
+  _bcas addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
+  _bcas addWeaponTurret ["missiles_SCALPEL",[-1]];
+  _bcas addMagazineTurret ["2Rnd_LG_scalpel",[-1]];
+  _bcas addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
+  _bcas addMagazineTurret ["7Rnd_Rocket_04_AP_F",[-1]];
+  _bcas addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];	
+};
+
+A3W_fnc_addMagazineTurretOcas = {
+  private["_ocas"];
+  _ocas = _this select 0;
+  _ocas removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];
+  _ocas removeWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];
+  _ocas removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];
+  _ocas removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]];
+  _ocas addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
+  _ocas addWeaponTurret ["missiles_SCALPEL",[-1]];
+  _ocas addMagazineTurret ["2Rnd_LG_scalpel",[-1]];
+  _ocas addMagazineTurret ["2Rnd_Missile_AA_03_F",[-1]];
+  _ocas addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+};
+
+A3W_fnc_addMagazineTurretUav2 = {
+  private["_uav2"];
+  _uav2 = _this select 0;
+  _uav2 addMagazineTurret ["Laserbatteries",[0]];
+  _uav2 addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+  _uav2 addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+};
+
 if (isServer) exitWith {};
 
 resupply_vehicles = [
