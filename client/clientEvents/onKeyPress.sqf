@@ -56,18 +56,6 @@ switch (true) do
 
 // ********** Action keys **********
 
-// Remove Titan compact lock
-if (!_handled && (inputAction "LockTarget" > 0 || inputAction "LockTargets" > 0)) then {
-	private["_cweapon"];
-	_cweapon = currentWeapon player;
-	if (_cweapon == "launch_Titan_short_F" || {
-		_cweapon == "launch_I_Titan_short_F" || {
-		_cweapon == "launch_O_Titan_short_F"}}) then {
-		player groupChat format["Lock Disabled for Titan Compact AT"];
-		_handled = true;
-	};
-};
-
 // Parachute
 if (!_handled && _key in actionKeys "GetOver") then
 {
