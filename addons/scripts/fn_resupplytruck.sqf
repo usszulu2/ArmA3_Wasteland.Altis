@@ -334,7 +334,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
             call _checkAbortConditions;
           };
 
-		  if ({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0) then {
+	  if ({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0) then {
             private["_text"];
             [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
             _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
