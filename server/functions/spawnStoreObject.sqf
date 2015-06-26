@@ -183,12 +183,6 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object setVariable ["ownerUID", getPlayerUID _player, true];
 					_object setVariable ["ownerN", name _player, true];
 				};
-				
-				if ({_object isKindOf _x} count ["B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F"] > 0) then {
-					_object setVariable ["A3W_purchasedVehicle", true];
-					_object setVariable ["ownerUID", getPlayerUID _player, true];
-					_object setVariable ["ownerN", name _player, true];
-				};
 			};
 
 			_object setDir (if (_object isKindOf "Plane") then { markerDir _marker } else { random 360 });
@@ -284,6 +278,9 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["8Rnd_82mm_Mo_shells",[0]];
 					_object addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[0]];
 					_object addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
+					_object setVariable ["A3W_purchasedVehicle", true];
+					_object setVariable ["ownerUID", getPlayerUID _player, true];
+					_object setVariable ["ownerN", name _player, true];
 				};			
 			};
 
