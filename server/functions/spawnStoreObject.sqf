@@ -246,31 +246,25 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 				case (_object isKindOf "B_Plane_CAS_01_F"):
 				{
 					_object setVehicleAmmoDef 0;			
-					_object removeWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
-					_object removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];          
-					_object removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];        
-					_object removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];   
-					_object addWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
-					_object addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
-					_object addWeaponTurret ["missiles_SCALPEL",[-1]];
-					_object addMagazineTurret ["2Rnd_LG_scalpel",[-1]];		
+					_object removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];
+					_object removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];
+					_object removeWeaponTurret ["Rocket_04_AP_Plane_CAS_01_F",[-1]];
+					_object removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];
+					_object addMagazineTurret ["1000Rnd_Gatling_30mm_Plane_CAS_01_F",[-1]];
 					_object addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
-					_object addMagazineTurret ["7Rnd_Rocket_04_AP_F",[-1]];  ;				
-					_object addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];	
+					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];	
 				};
 
 				case (_object isKindOf "O_Plane_CAS_02_F"):
 				{
 					_object setVehicleAmmoDef 0;			
 					_object removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];
-					_object removeWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];          
-					_object removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];        
-					_object removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]];   
-					_object addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];		
-					_object addWeaponTurret ["missiles_SCALPEL",[-1]];   
-					_object addMagazineTurret ["2Rnd_LG_scalpel",[-1]];	   
-					_object addMagazineTurret ["2Rnd_Missile_AA_03_F",[-1]];			
-					_object addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];	
+					_object removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];
+					_object removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]];
+					_object addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
+					_object addMagazineTurret ["20Rnd_Rocket_03_HE_F",[-1]];
+					_object addMagazineTurret ["2Rnd_Missile_AA_03_F",[-1]];
+					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
 				};
 
 				case (_object isKindOf "Box_NATO_Ammo_F"):
@@ -283,7 +277,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object setVehicleAmmoDef 0;	
 					_object addMagazineTurret ["8Rnd_82mm_Mo_shells",[0]];
 					_object addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[0]];
-					_object addMagazineTurret ["8Rnd_82mm_Mo_Smoke_white",[0]];
+					_object addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
 				};			
 			};
 
