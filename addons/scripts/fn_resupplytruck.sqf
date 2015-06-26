@@ -327,8 +327,8 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
       
       _vehicle removeWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
       _vehicle removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];         
-      _vehicle removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];     
-	  _vehicle removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];
+      _vehicle removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];
+      _vehicle removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];
       _vehicle addWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
       _vehicle addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
       _vehicle addWeaponTurret ["missiles_SCALPEL",[-1]];
@@ -353,8 +353,8 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
       
       _vehicle removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];
       _vehicle removeWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];       
-      _vehicle removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];    
-	  _vehicle removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]]; 
+      _vehicle removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];
+      _vehicle removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]]; 
       _vehicle addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];	
       _vehicle addWeaponTurret ["missiles_SCALPEL",[-1]];
       _vehicle addMagazineTurret ["2Rnd_LG_scalpel",[-1]];  
@@ -395,7 +395,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
       
       _vehicle addMagazineTurret ["8Rnd_82mm_Mo_shells",[-1]];
       _vehicle addMagazineTurret ["8Rnd_82mm_Mo_shells",[-1]];
-	  _vehicle addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[-1]];
+      _vehicle addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[-1]];
       _vehicle addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[-1]];     
       _vehicle addMagazineTurret ["8Rnd_82mm_Mo_Smoke_white",[-1]];   
       
