@@ -152,8 +152,8 @@ v_restoreVehicle = {
   };
 
   if (_obj isKindOf "O_Heli_Light_02_F") then {
-	  _obj removeWeaponTurret ["missiles_DAGR",[-1]];
-	  _obj addWeaponTurret ["missiles_DAR",[-1]];
+    _obj removeWeaponTurret ["missiles_DAGR",[-1]];
+    _obj addWeaponTurret ["missiles_DAR",[-1]];
   };  
   
   //override the lock-state for vehicles form this this
