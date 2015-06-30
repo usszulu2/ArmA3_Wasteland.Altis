@@ -28,9 +28,9 @@ switch (toLower _action) do
 	case "godmode":
 		{
 		if (_value) then {
-		_message = format ["[NOTICE] %1 ENABLED GodMode", name player];
+		_message = format ["[NOTICE] %1 used the admin menu to ENABLED GodMode", name player];
 		}else{
-		_message = format ["[NOTICE] %1 DISABLED GodMode", name player];
+		_message = format ["[NOTICE] %1 used the admin menu to DISABLED GodMode", name player];
 		};
 	};
 	case "teleport":
