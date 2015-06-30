@@ -22,7 +22,7 @@ ps_marker_create = {
   _marker setMarkerTypeLocal _type;
   _marker setMarkerColorLocal _color;
   _marker setMarkerSizeLocal _size;
-  _marker setMarkerTextLocal _text;
+  //_marker setMarkerTextLocal _text;
   (_marker)
 };
 

@@ -164,7 +164,7 @@ if (isClient) then {
     _marker setMarkerTypeLocal "waypoint";
     _marker setMarkerPosLocal _pos;
     _marker setMarkerColorLocal "ColorBlue";
-    _marker setMarkerTextLocal _name;
+    //_marker setMarkerTextLocal _name;
 
     [_marker] spawn {
       ARGVX3(0,_marker,"");

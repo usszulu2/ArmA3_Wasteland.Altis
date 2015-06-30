@@ -2402,7 +2402,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=197;
+		items=202;
 		class Item0
 		{
 			position[]={3612.1487,12.11851,13020.892};
@@ -3723,14 +3723,14 @@ class Mission
 		};
 		class Item174
 		{
-			position[]={5921.7031,224.43871,20139.104};
+			position[]={5862.7539,223.64549,20136.576};
 			name="VehStore6_heliSpawn";
 			type="Empty";
 			colorName="ColorBlack";
 		};
 		class Item175
 		{
-			position[]={5861.2695,223.71884,20135.684};
+			position[]={5860.1025,224.68323,20118.383};
 			name="VehStore6_landSpawn";
 			type="Empty";
 			colorName="ColorBlack";
@@ -3880,6 +3880,46 @@ class Mission
 			position[]={14096.81,19.359612,18465.543};
 			name="Mission_40";
 			type="Empty";
+			colorName="ColorOrange";
+		};
+		class Item197
+		{
+			position[]={24139,0,6025};
+			name="General Store";
+			text="General Store";
+			type="mil_dot";
+			colorName="ColorBlue";
+		};
+		class Item198
+		{
+			position[]={24139,0,5330};
+			name="Gun Store";
+			text="Gun Store";
+			type="mil_dot";
+			colorName="ColorYellow";
+		};
+		class Item199
+		{
+			position[]={24139,0,4635};
+			name="Parking";
+			text="Parking";
+			type="mil_dot";
+			colorName="ColorKhaki";
+		};
+		class Item200
+		{
+			position[]={24139,0,3940};
+			name="Storage";
+			text="Storage";
+			type="mil_dot";
+			colorName="ColorUNKNOWN";
+		};
+		class Item201
+		{
+			position[]={24139,0,3245};
+			name="Vehicle Store";
+			text="Vehicle Store";
+			type="mil_dot";
 			colorName="ColorOrange";
 		};
 	};
