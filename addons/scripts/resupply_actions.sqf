@@ -59,6 +59,27 @@ A3W_fnc_addMagazineTurretOcas = {
   _ocas addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
 };
 
+A3W_fnc_addMagazineTurretIcas = {
+  private["_Icas"];
+  _Icas = _this select 0;
+  _Icas removeWeaponTurret ["missiles_SCALPEL",[-1]];
+  _Icas addMagazineTurret ["300Rnd_20mm_shells",[-1]];
+  _Icas addMagazineTurret ["300Rnd_20mm_shells",[-1]];
+  _Icas addMagazineTurret ["2Rnd_AAA_missiles",[-1]];
+  _Icas addMagazineTurret ["2Rnd_GBU12_LGB_MI10",[-1]];
+  _Icas addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+};
+
+A3W_fnc_addMagazineTurretHorca = {
+  private["_Horca"];
+  _Horca = _this select 0;
+  _Horca removeWeaponTurret ["missiles_DAGR",[-1]];
+  _Horca addWeaponTurret ["missiles_DAR",[-1]];
+  _Horca addMagazineTurret ["2000Rnd_65x39_Belt_Tracer_Green_Splash",[-1]];
+  _Horca addMagazineTurret ["12Rnd_missiles",[-1]];
+  _Horca addMagazineTurret ["168Rnd_CMFlare_Chaff_Magazine",[-1]];
+};
+
 A3W_fnc_addMagazineTurretUav2 = {
   private["_uav2"];
   _uav2 = _this select 0;

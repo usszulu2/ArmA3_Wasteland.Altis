@@ -266,6 +266,27 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["2Rnd_Missile_AA_03_F",[-1]];
 					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
 				};
+				
+				case (_object isKindOf "I_Plane_Fighter_03_CAS_F"):
+				{
+					_object setVehicleAmmoDef 0;			
+					_object removeWeaponTurret ["missiles_SCALPEL",[-1]];
+					_object addMagazineTurret ["300Rnd_20mm_shells",[-1]];
+					_object addMagazineTurret ["300Rnd_20mm_shells",[-1]];
+					_object addMagazineTurret ["2Rnd_AAA_missiles",[-1]];
+					_object addMagazineTurret ["2Rnd_GBU12_LGB_MI10",[-1]];
+					_object addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+				};
+
+				case (_object isKindOf "O_Heli_Light_02_F"):
+				{
+					_object setVehicleAmmoDef 0;			
+					_object removeWeaponTurret ["missiles_DAGR",[-1]];
+					_object addWeaponTurret ["missiles_DAR",[-1]];
+					_object addMagazineTurret ["2000Rnd_65x39_Belt_Tracer_Green_Splash",[-1]];
+					_object addMagazineTurret ["12Rnd_missiles",[-1]];
+					_object addMagazineTurret ["168Rnd_CMFlare_Chaff_Magazine",[-1]];
+				};				
 
 				case (_object isKindOf "Box_NATO_Ammo_F"):
 				{

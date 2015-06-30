@@ -334,6 +334,36 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
             call _checkAbortConditions;
           };
 
+          if (_vehicle isKindOf "I_Plane_Fighter_03_CAS_F") then {
+            private["_text"];
+            [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
+            _text = format ["Reloading %1...", _vehName];
+            _text call _titleText;
+
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
+
+            [[_vehicle, [_mag, _turretPath]], "A3W_fnc_addMagazineTurretIcas", _vehicle, false] call BIS_fnc_MP;
+
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
+          };		  
+
+          if (_vehicle isKindOf "O_Heli_Light_02_F") then {
+            private["_text"];
+            [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
+            _text = format ["Reloading %1...", _vehName];
+            _text call _titleText;
+
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
+
+            [[_vehicle, [_mag, _turretPath]], "A3W_fnc_addMagazineTurretHorca", _vehicle, false] call BIS_fnc_MP;
+
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
+          };
+		  
           if ({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0) then {
             private["_text"];
             [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
