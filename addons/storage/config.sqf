@@ -1,6 +1,6 @@
 
 //List of cities where private storage boxes are available (empty or unset means all cities)
-ps_cities_whitelist = ["Lakka", "Kavala", "Athira", "Paros", "Chalkeia"];
+ps_cities_whitelist = [];
 
 //List of models to use for private storage boxes (must have at least one)
 ps_box_models = ["Land_PaperBox_open_full_F", "Land_Pallet_MilBoxes_F", "Land_PaperBox_open_empty_F", "Land_PaperBox_closed_F"];
