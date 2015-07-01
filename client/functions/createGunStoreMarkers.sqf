@@ -68,11 +68,11 @@ _setStatus =
 {
 	if(_status select (_this select 0) == (_this select 1)) exitWith {};
 
-  _markerName = format ["marker_shop_desc_%1",_x];
-  _markerNameZone = format ["marker_shop_zone_%1", _gunStores select (_this select 0)];
-  _markerNameDescription = format ["marker_shop_desc_%1", _gunStores select (_this select 0)];
-  _npcPos = getPosATL _x;
-  switch(_this select 1) do {
+  	_markerName = format ["marker_shop_desc_%1",_x];
+  	_markerNameZone = format ["marker_shop_zone_%1", _gunStores select (_this select 0)];
+  	_markerNameDescription = format ["marker_shop_desc_%1", _gunStores select (_this select 0)];
+  	_npcPos = getPosATL _x;
+  	switch(_this select 1) do {
 		case "EMPTY": {
 			_markerNameZone setmarkerColorLocal _col_empty;
 			_markerNameDescription setmarkerColorLocal _col_empty;
