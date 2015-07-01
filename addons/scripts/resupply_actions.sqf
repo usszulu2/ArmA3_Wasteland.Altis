@@ -30,6 +30,7 @@ A3W_fnc_addMagazineTurret = {
 A3W_fnc_addMagazineTurretMortar = {
   private["_mortar"];
   _mortar = _this select 0;
+  _mortar setVehicleAmmoDef 0;
   _mortar addMagazineTurret ["8Rnd_82mm_Mo_shells",[0]];
   _mortar addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[0]];
   _mortar addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
@@ -38,6 +39,7 @@ A3W_fnc_addMagazineTurretMortar = {
 A3W_fnc_addMagazineTurretBcas = {
   private["_bcas"];
   _bcas = _this select 0;
+  _bcas setVehicleAmmoDef 0;
   _bcas removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];
   _bcas removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];
   _bcas removeWeaponTurret ["Rocket_04_AP_Plane_CAS_01_F",[-1]];
@@ -50,6 +52,7 @@ A3W_fnc_addMagazineTurretBcas = {
 A3W_fnc_addMagazineTurretOcas = {
   private["_ocas"];
   _ocas = _this select 0;
+  _ocas setVehicleAmmoDef 0;  
   _ocas removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];
   _ocas removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];
   _ocas removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]];
@@ -62,6 +65,7 @@ A3W_fnc_addMagazineTurretOcas = {
 A3W_fnc_addMagazineTurretIcas = {
   private["_Icas"];
   _Icas = _this select 0;
+  _Icas setVehicleAmmoDef 0;  
   _Icas removeWeaponTurret ["missiles_SCALPEL",[-1]];
   _Icas addMagazineTurret ["300Rnd_20mm_shells",[-1]];
   _Icas addMagazineTurret ["300Rnd_20mm_shells",[-1]];
@@ -73,6 +77,7 @@ A3W_fnc_addMagazineTurretIcas = {
 A3W_fnc_addMagazineTurretHorca = {
   private["_Horca"];
   _Horca = _this select 0;
+  _Horca setVehicleAmmoDef 0;  
   _Horca removeWeaponTurret ["missiles_DAGR",[-1]];
   _Horca addWeaponTurret ["missiles_DAR",[-1]];
   _Horca addMagazineTurret ["2000Rnd_65x39_Belt_Tracer_Green_Splash",[-1]];
@@ -83,6 +88,7 @@ A3W_fnc_addMagazineTurretHorca = {
 A3W_fnc_addMagazineTurretUav2 = {
   private["_uav2"];
   _uav2 = _this select 0;
+  _uav2 setVehicleAmmoDef 0; 
   _uav2 addMagazineTurret ["Laserbatteries",[0]];
   _uav2 addMagazineTurret ["2Rnd_LG_scalpel",[0]];
   _uav2 addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];

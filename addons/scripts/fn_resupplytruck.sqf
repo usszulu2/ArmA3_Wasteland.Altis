@@ -291,7 +291,6 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
           
           if ({_vehicle isKindOf _x} count ["B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F"] > 0) then {
             private["_text"];
-            [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
             _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
             _text call _titleText;
 
@@ -306,7 +305,6 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
           
           if (_vehicle isKindOf "B_Plane_CAS_01_F") then {
             private["_text"];
-            [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
             _text = format ["Reloading %1...", _vehName];
             _text call _titleText;
 
@@ -321,7 +319,6 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
 
           if (_vehicle isKindOf "O_Plane_CAS_02_F") then {
             private["_text"];
-            [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
             _text = format ["Reloading %1...", _vehName];
             _text call _titleText;
 
@@ -336,7 +333,6 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
 
           if (_vehicle isKindOf "I_Plane_Fighter_03_CAS_F") then {
             private["_text"];
-            [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
             _text = format ["Reloading %1...", _vehName];
             _text call _titleText;
 
@@ -351,7 +347,6 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
 
           if (_vehicle isKindOf "O_Heli_Light_02_F") then {
             private["_text"];
-            [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
             _text = format ["Reloading %1...", _vehName];
             _text call _titleText;
 
@@ -366,7 +361,6 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
 		  
           if ({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0) then {
             private["_text"];
-            [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
             _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
             _text call _titleText;
 
@@ -381,7 +375,6 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
 		  
           if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F", "B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F", "O_Heli_Light_02_F", "I_Plane_Fighter_03_CAS_F"] > 0) then {
             private["_text"];
-            [[_vehicle,0],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP;
             _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
             _text call _titleText;
 
@@ -399,8 +392,14 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
   } forEach _turretsArray;
 
   if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F", "B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F", "O_Heli_Light_02_F", "I_Plane_Fighter_03_CAS_F"] > 0) then {
-    _vehicle setVehicleAmmoDef 1; // Full ammo reset just to be sure
+    [[_vehicle,1],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP; // Full ammo reset just to be sure
   };
+  
+  if ({_vehicle isKindOf _x} count ["B_Heli_Light_01_F", "B_Heli_Light_01_armed_F", "O_Heli_Light_02_unarmed_F"] > 0) then {
+    // Add flares to those poor helis
+    _vehicle addWeaponTurret ["CMFlareLauncher", [-1]];
+    _vehicle addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine", [-1]];
+  };  
   
   if (damage _vehicle > 0.001) then {
     call _checkAbortConditions;
