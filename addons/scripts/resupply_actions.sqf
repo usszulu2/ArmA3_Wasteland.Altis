@@ -71,7 +71,7 @@ A3W_fnc_addMagazineTurretIcas = {
   _Icas addMagazineTurret ["300Rnd_20mm_shells",[-1]];
   _Icas addMagazineTurret ["2Rnd_AAA_missiles",[-1]];
   _Icas addMagazineTurret ["2Rnd_GBU12_LGB_MI10",[-1]];
-  _Icas addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+  _Icas addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
 };
 
 A3W_fnc_addMagazineTurretHorca = {

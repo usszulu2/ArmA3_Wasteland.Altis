@@ -275,7 +275,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["300Rnd_20mm_shells",[-1]];
 					_object addMagazineTurret ["2Rnd_AAA_missiles",[-1]];
 					_object addMagazineTurret ["2Rnd_GBU12_LGB_MI10",[-1]];
-					_object addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
 				};
 
 				case (_object isKindOf "O_Heli_Light_02_F"):
