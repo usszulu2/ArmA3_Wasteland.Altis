@@ -107,6 +107,9 @@ player setVariable ["playerSpawning", false, true];
 private["_max_money"];
 _max_money = 300000;
 
+player hideObjectGlobal false;        
+player allowDamage true;
+
 if (player getVariable ["bmoney", 0] > _max_money) then {
   player setVariable ["bmoney", _max_money, true];
 };

@@ -36,8 +36,9 @@ if (!isServer) then {
       _pos2 = getPos _player;
       if ((_pos1 distance _pos2) > 50) exitWith {
         [[_player,false], "A3W_fnc_hideObjectGlobal",false, false] call BIS_fnc_MP;
-        _player allowDamage true;
-        enableEnvironment true;
+        _player hideObjectGlobal false;        
+		_player allowDamage true;
+		enableEnvironment true;
         0 fadeSound 1;
         true
       };
