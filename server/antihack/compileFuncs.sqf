@@ -57,7 +57,7 @@ _packetKey = call compile (_assignPacketKey + "_mpPacketKey");
 		[_checksum] execVM "server\antihack\serverSide.sqf";
 	};
 
-	if (!isDedicated && ["A3W_antiHackCheck"] call isConfigOn) then
+	if (!isDedicated) then
 	{
 		[_checksum, _rscParams] execVM "server\antihack\payload.sqf";
 	};
