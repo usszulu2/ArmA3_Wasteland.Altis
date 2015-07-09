@@ -94,6 +94,14 @@ A3W_fnc_addMagazineTurretUav2 = {
   _uav2 addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
 };
 
+A3W_fnc_addMagazineTurretLheli = {
+  private["_Lheli"];
+  _Lheli = _this select 0;
+  _Lheli removeMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine", [-1]];
+  _Lheli addWeaponTurret ["CMFlareLauncher", [-1]];
+  _Lheli addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine", [-1]];
+};
+
 if (isServer) exitWith {};
 
 resupply_vehicles = [

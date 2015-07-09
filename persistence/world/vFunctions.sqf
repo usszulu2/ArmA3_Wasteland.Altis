@@ -156,6 +156,11 @@ v_restoreVehicle = {
     _obj addWeaponTurret ["missiles_DAR",[-1]];
   };  
   
+  if ({_obj isKindOf _x} count ["B_Heli_Light_01_F", "B_Heli_Light_01_armed_F", "O_Heli_Light_02_unarmed_F", "C_Heli_Light_01_civil_F"] > 0) then {
+    _obj removeWeaponTurret ["CMFlareLauncher",[-1]];
+    _obj addWeaponTurret ["CMFlareLauncher",[-1]];
+  };    
+  
   //override the lock-state for vehicles form this this
   if ({_obj isKindOf _x} count A3W_locked_vehicles_list > 0) then {
     _lock_state = 2;
