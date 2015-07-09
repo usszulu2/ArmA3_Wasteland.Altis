@@ -171,6 +171,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 
 				if ({_object isKindOf _x} count ["UAV_02_base_F", "UGV_01_base_F"] > 0) then {
 					_object setVariable ["A3W_purchasedVehicle", true];
+					_object setVariable ["A3W_missionVehicle", false];
 					_object setVariable ["ownerUID", getPlayerUID _player, true];
 					_object setVariable ["ownerN", name _player, true];
 				};
@@ -180,6 +181,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object setVariable ["objectLocked", true, true];
 					_object setVariable ["R3F_LOG_disabled", true, true];
 					_object setVariable ["A3W_purchasedVehicle", true];
+					_object setVariable ["A3W_missionVehicle", false];
 					_object setVariable ["ownerUID", getPlayerUID _player, true];
 					_object setVariable ["ownerN", name _player, true];
 				};
@@ -300,6 +302,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[0]];
 					_object addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
 					_object setVariable ["A3W_purchasedVehicle", true];
+					_object setVariable ["A3W_missionVehicle", false];
 					_object setVariable ["ownerUID", getPlayerUID _player, true];
 					_object setVariable ["ownerN", name _player, true];
 				};			
