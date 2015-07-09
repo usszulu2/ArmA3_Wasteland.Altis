@@ -54,13 +54,13 @@ _packetKey = call compile (_assignPacketKey + "_mpPacketKey");
 
 	if (isServer) then
 	{
-		[_checksum] execVM "server\antihack\serverSide.sqf"; // COMMENT THIS LINE IF YOU HAVE ISSUES WITH CUSTOM UNIT SCRIPTS, LIKE AI RECRUITMENT
+		[_checksum] execVM "server\antihack\serverSide.sqf";
 	};
 
-	/*if (!isDedicated) then
+	if (!isDedicated && ["A3W_antiHackCheck"] call isConfigOn) then
 	{
 		[_checksum, _rscParams] execVM "server\antihack\payload.sqf";
-	};*/
+	};
 
 	missionNamespace setVariable [_compileKey, compileFinal "true"];
 //};

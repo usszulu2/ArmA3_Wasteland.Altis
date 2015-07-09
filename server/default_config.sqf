@@ -15,6 +15,8 @@ A3W_moonLight = 1;                 // Moon light during night (0 = no, 1 = yes)
 A3W_teamPlayersMap = 1;            // Show all friendly players on the map at all times, regardless of difficulty level (0 = no, 1 = yes)
 A3W_globalVoiceWarnTimer = 1;      // Number of seconds for which global voice chat must be active before triggering a warning (0 = disabled)
 A3W_globalVoiceMaxWarns = 3;       // Number of global voice warnings after which the player will be killed and crashed (0 = disabled)
+A3W_antiHackUnitCheck = 1;		   // Detect players who spawn unauthorized AI units (0 = no, 1 = yes) - disable if you have custom unit scripts/mods like AI recruitment or ALiVE
+A3W_antiHackCheck = 1;			   // Disable anti hack payload
 A3W_antiHackMinRecoil = 1.0;       // Mininum recoil coefficient enforced by the antihack (recommended values: default = 1.0, TMR Mod = 0.5, VTS Weapon Resting = 0.25) (minimum: 0.02)
 A3W_townSpawnCooldown = 5*60;      // Number of seconds to wait between each use of a spawn on friends in towns (0 = disabled)
 A3W_spawnBeaconCooldown = 15*60;   // Number of seconds to wait between each use of an individual spawn beacon (0 = disabled)
@@ -29,22 +31,22 @@ A3W_remoteBombStoreRadius = 75;    // Prevent players from placing remote explos
 A3W_vehiclePurchaseCooldown = 45;  // Number of seconds to wait before allowing someone to purchase another vehicle, don't bother setting it too high because it can be bypassed by rejoining
 
 // Player settings
-A3W_startingMoney = 1500;           // Amount of money that players start with
+A3W_startingMoney = 1500;          // Amount of money that players start with
 A3W_unlimitedStamina = 1;          // Allow unlimited sprinting, jumping, etc. (0 = no, 1 = yes) - this also removes energy drinks from the mission
 A3W_bleedingTime = 60;             // Time in seconds for which to allow revive after a critical injury (minimum 10 seconds)
 
 // ATM settings
 A3W_atmEnabled = 1;
-A3W_atmMaxBalance = 300000;       // Maximum amount of money that can be stored in a bank account (recommended: 1 million)
-A3W_atmTransferFee = 10;            // Fee in percent charged to players for money transfers to other players (0 to 50)
+A3W_atmMaxBalance = 300000;        // Maximum amount of money that can be stored in a bank account (recommended: 1 million)
+A3W_atmTransferFee = 10;           // Fee in percent charged to players for money transfers to other players (0 to 50)
 A3W_atmTransferAllTeams = 0;       // Allow money transfers between players of all teams/sides (0 = same team only, 1 = all teams)
 A3W_atmEditorPlacedOnly = 0;       // Only allow access via ATMs placed from the mission editor (0 = all ATMs from towns & editor allowed, 1 = ATMs from editor only) Note: Stratis has no town ATMs, only editor ones.
 A3W_atmMapIcons = 0;               // Draw small icons on the map that indicate ATM locations (0 = no, 1 = yes)
 A3W_atmRemoveIfDisabled = 0;       // Remove all ATMs from map if A3W_atmEnabled is set to 0 (0 = no, 1 = yes)
 
 A3W_healthTime = 60*5;             //seconds till death
-A3W_hungerTime = 80*60;           //seconds till starving
-A3W_thirstTime = 65*60;           //seconds till dehydrated
+A3W_hungerTime = 80*60;            //seconds till starving
+A3W_thirstTime = 65*60;            //seconds till dehydrated
 
 // Persistence settings
 A3W_playerSaving = 1;              // Save player data like position, health, inventory, etc. (0 = no, 1 = yes)
@@ -61,7 +63,7 @@ A3W_warchestMoneySaving = 0;       // Save warchest team money between server re
 A3W_spawnBeaconSaving = 1;         // Save spawn beacons between server restarts (0 = no, 1 = yes)
 A3W_objectLifetime = 7*24;         // Maximum lifetime in hours for saved objects (baseparts, crates, etc. except vehicles) across server restarts (0 = no time limit)
 A3W_cctvCameraSaving = 1;          // Save cctv cameras between restarts (0 = no, 1 = yes)
-A3W_mineSaving = 1;         	     // Save mines between server restarts (0 = no, 1 = yes)
+A3W_mineSaving = 1;         	   // Save mines between server restarts (0 = no, 1 = yes)
                                    // List of mine ammo classes that can be saved
 A3W_saveable_mines_list = ["APERSTripMine_Wire_Ammo", "APERSBoundingMine_Range_Ammo", "APERSMine_Range_Ammo", "ATMine_Range_Ammo", "SLAMDirectionalMine_Wire_Ammo" ];
 A3W_mineLifetime = 2*24;           // Maximum lifetime in hours for mines across server restarts (0 = no time limit)
@@ -77,10 +79,10 @@ PDB_AdminLogFileID = "A3W_";       // Admin log savefile prefix (change this in 
 PDB_HackerLogFileID = "A3W_";      // Hacker log savefile prefix (change this in case you run multiple servers from the same folder)
 PDB_PlayersListFileID = "A3W_";    // PlayerList savefile prefix (change this in case you run multiple servers from the same folder)
 
-A3W_vehicle_saveInterval = 1200;    // Number of seconds between vehicle saves
-A3W_object_saveInterval = 1200;     // Number of seconds between object saves
-A3W_player_saveInterval = 1200;     // Number of seconds between player saves
-A3W_playersList_saveInterval = 300; // Number of seconds between player list saves
+A3W_vehicle_saveInterval = 1200;     // Number of seconds between vehicle saves
+A3W_object_saveInterval = 1200;      // Number of seconds between object saves
+A3W_player_saveInterval = 1200;      // Number of seconds between player saves
+A3W_playersList_saveInterval = 1200; // Number of seconds between player list saves
 
 A3W_saveable_vehicles_list = ["StaticWeapon", "C_Kart_01_F", "Quadbike_01_base_F", "Hatchback_01_base_F", "SUV_01_base_F", "Offroad_01_base_F", "Van_01_base_F", "MRAP_01_base_F", "MRAP_02_base_F", "MRAP_03_base_F", "Truck_01_base_F", "Truck_02_base_F", "Truck_03_base_F", "Wheeled_APC_F", "Tank_F", "Rubber_duck_base_F", "SDV_01_base_F", "Boat_Civil_01_base_F", "Boat_Armed_01_base_F", "Helicopter_Base_F", "Plane", "UGV_01_base_F"];		// List of classes for vehicles that are saveable
 A3W_locked_vehicles_list = [];		// List of class names for vehicles that should be automatically locked upon restore
@@ -119,5 +121,5 @@ A3W_mainMissionDelay = 5*60;       // Time in seconds between Main Missions
 A3W_mainMissionTimeout = 60*60;    // Time in seconds that a Main Mission will run for, unless completed
 A3W_sideMissionDelay = 5*60;       // Time in seconds between Side Missions
 A3W_sideMissionTimeout = 60*60;    // Time in seconds that a Side Mission will run for, unless completed
-A3W_moneyMissionDelay = 10*60;      // Time in seconds between Money Missions
+A3W_moneyMissionDelay = 10*60;     // Time in seconds between Money Missions
 A3W_moneyMissionTimeout = 60*60;   // Time in seconds that a Money Mission will run for, unless completed
