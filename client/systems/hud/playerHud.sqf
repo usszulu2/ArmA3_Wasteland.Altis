@@ -7,15 +7,6 @@
 //	@file Created: 11/09/2012 04:23
 //	@file Args:
 
-// This is the blinking hud fix caused by scripts.txt
-_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;_blinkfix = true;
-
- #define hud_status_idc 3600
- #define hud_vehicle_idc 3601
- #define hud_activity_icon_idc 3602
-Please sign in to comment.
-
-
 #define hud_status_idc 3600
 #define hud_vehicle_idc 3601
 #define hud_activity_icon_idc 3602
