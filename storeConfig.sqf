@@ -522,8 +522,7 @@ vestArray = compileFinal str
 	["Tactical Vest (Camo)", "V_TacVest_camo", -1, "vest"],
 	["Tactical Vest (Khaki)", "V_TacVest_khk", -1, "vest"],
 	["Tactical Vest (Olive)", "V_TacVest_oli", -1, "vest"],
-	["Raven Night Vest", "V_TacVestIR_blk", -1, "vest"],
-	["Press Vest", "V_Press_F", -1, "vest"]
+	["Raven Night Vest", "V_TacVestIR_blk", -1, "vest"]
 ];
 
 backpackArray = compileFinal str
@@ -537,9 +536,7 @@ backpackArray = compileFinal str
 
 	["Field Pack (Black)", "B_FieldPack_blk", 200, "backpack"],
 	["Field Pack (Coyote)", "B_FieldPack_cbr", 200, "backpack"],
-	["Field Pack (Hex)", "B_FieldPack_ocamo", 200, "backpack"],
 	["Field Pack (Khaki)", "B_FieldPack_khk", 200, "backpack"],
-	["Field Pack (Olive)", "B_FieldPack_oli", 200, "backpack"],
 	["Field Pack (Urban)", "B_FieldPack_oucamo", 200, "backpack"],
 
 	["Kitbag (Coyote)", "B_Kitbag_cbr", 350, "backpack"],
@@ -552,8 +549,6 @@ backpackArray = compileFinal str
 	["Bergen (MTP)", "B_Bergen_mcamo", 350, "backpack"],
 	["Bergen (Sage)", "B_Bergen_sgg", 350, "backpack"],
 
-	["Carryall (Coyote)", "B_Carryall_cbr", 500, "backpack"],
-	["Carryall (Hex)", "B_Carryall_ocamo", 500, "backpack"],
 	["Carryall (Khaki)", "B_Carryall_khk", 500, "backpack"],
 	["Carryall (MTP)", "B_Carryall_mcamo", 500, "backpack"],
 	["Carryall (Olive)", "B_Carryall_oli", 500, "backpack"],
@@ -583,44 +578,7 @@ genItemArray = compileFinal str
 	["Chemlight (Blue)", "Chemlight_blue", 25, "mag"],
 	["Chemlight (Green)", "Chemlight_green", 25, "mag"],
 	["Chemlight (Yellow)", "Chemlight_yellow", 25, "mag"],
-	["Chemlight (Red)", "Chemlight_red", 25, "mag"],
-	["Aviator Glasses", "G_Aviator", 25, "gogg"],
-	["Diving Goggles", "G_Diving", 100, "gogg"],
-	["Balaclava (Black)", "G_Balaclava_blk", 100, "gogg"],
-	["Balaclava (Olive)", "G_Balaclava_oli", 100, "gogg"],
-	["Balaclava (Combat Goggles)", "G_Balaclava_combat", 100, "gogg"],
-	["Balaclava (Low Profile Goggles)", "G_Balaclava_lowprofile", 100, "gogg"],
-	["Bandanna (Aviator)", "G_Bandanna_aviator", 100, "gogg"],
-	["Bandanna (Beast)", "G_Bandanna_beast", 100, "gogg"],
-	["Bandanna (Black)", "G_Bandanna_blk", 100, "gogg"],
-	["Bandanna (Khaki)", "G_Bandanna_khk", 100, "gogg"],
-	["Bandanna (Olive)", "G_Bandanna_oli", 100, "gogg"],
-	["Bandanna (Shades)", "G_Bandanna_shades", 100, "gogg"],
-	["Bandanna (Sport)", "G_Bandanna_sport", 100, "gogg"],
-	["Bandanna (Tan)", "G_Bandanna_tan", 100, "gogg"],
-	["Combat Goggles", "G_Combat", 100, "gogg"],
-	["VR Goggles", "G_Goggles_VR", 100, "gogg"],
-	["Ladies Shades (ICE)", "G_Lady_Blue", 100, "gogg"],
-	["Ladies Shades (Sea)", "G_Lady_Dark", 100, "gogg"],
-	["Ladies Shades (Iridium)", "G_Lady_Mirror", 100, "gogg"],
-	["Ladies Shades (Fire)", "G_Lady_Red", 100, "gogg"],
-	["Low Profile Goggles", "G_Lowprofile", 100, "gogg"],
-	["Shades (Black)", "G_Shades_Black", 100, "gogg"],
-	["Shades (Blue)", "G_Shades_Blue", 100, "gogg"],
-	["Shades (Green)", "G_Shades_Green", 100, "gogg"],
-	["Shades (Red)", "G_Shades_Red", 100, "gogg"],
-	["Spectacle Glasses", "G_Spectacles", 100, "gogg"],
-	["Tinted Spectacles", "G_Spectacles_Tinted", 100, "gogg"],
-	["Sport Shades (Vulcan)", "G_Sport_Blackred", 100, "gogg"],
-	["Sport Shades (Shadow)", "G_Sport_BlackWhite", 100, "gogg"],
-	["Sport Shades (Poison)", "G_Sport_Blackyellow", 100, "gogg"],
-	["Sport Shades (Style)", "G_Sport_Checkered", 100, "gogg"],
-	["Sport Shades (Yetti)", "G_Sport_Greenblack", 100, "gogg"],
-	["Sport Shades (Fire)", "G_Sport_Red", 100, "gogg"],
-	["Square Spectacles", "G_Squares", 100, "gogg"],
-	["Square Shades", "G_Squares_Tinted", 100, "gogg"],
-	["Tactical Shades", "G_Tactical_Black", 100, "gogg"],
-	["Tactical Glasses", "G_Tactical_Clear", 100, "gogg"]
+	["Chemlight (Red)", "Chemlight_red", 25, "mag"]
 ];
 
 allStoreMagazines = compileFinal str (call ammoArray + call throwputArray + call genItemArray);
