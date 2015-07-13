@@ -97,4 +97,5 @@ if (hasInterface || isServer) then
   [] execVM "addons\scripts\zlt_fastrope.sqf";
   [] execVM "addons\outlw_magRepack\MagRepack_init_sv.sqf";
   [] execVM "addons\scripts\resupply_actions.sqf";
+  [] execVM "addons\lsd_nvg\init.sqf";
 };
