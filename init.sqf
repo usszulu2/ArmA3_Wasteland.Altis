@@ -91,11 +91,11 @@ if (hasInterface || isServer) then
   [] execVM "addons\R3F_ARTY_AND_LOG\init.sqf";
   [] execVM "addons\scripts\DynamicWeatherEffects.sqf";
   [] execVM "addons\JumpMF\init.sqf";
+  [] execVM "addons\outlw_magRepack\MagRepack_init.sqf";
   [] execVM "addons\Explosives-To-Vehicle\init.sqf";
   [] execVM "addons\JTS_PM\Functions.sqf";
   [] execVM "addons\scripts\servercredits.sqf";
   [] execVM "addons\scripts\zlt_fastrope.sqf";
-  [] execVM "addons\outlw_magRepack\MagRepack_init_sv.sqf";
   [] execVM "addons\scripts\resupply_actions.sqf";
   [] execVM "addons\lsd_nvg\init.sqf";
 };
