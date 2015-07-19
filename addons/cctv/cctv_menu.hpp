@@ -77,7 +77,7 @@ class cctv_menu {
 		colorBackgroundDisabled[] = DISABLED_BUTTON_BACKGROUND;
 		colorDisabled[] = DISABLED_BUTTON_TEXT;
 		font = "PuristaBold";
-    text = "";
+		text = "";
 	};
 
 
@@ -88,7 +88,7 @@ class cctv_menu {
 		colorBackgroundDisabled[] = DISABLED_BUTTON_BACKGROUND;
 		colorDisabled[] = DISABLED_BUTTON_TEXT;
 		font = "PuristaBold";
-    text = "Close";
+		text = "Close";
 		action = "closeDialog 0;";
 	};
 };
