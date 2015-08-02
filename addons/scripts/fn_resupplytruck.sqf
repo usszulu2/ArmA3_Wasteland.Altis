@@ -419,7 +419,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
     } forEach _turretMagPairs;
   } forEach _turretsArray;
 
-  if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F", "B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F", "O_Heli_Light_02_F", "I_Plane_Fighter_03_CAS_F"] > 0) then {
+  if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F", "B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F", "O_Heli_Light_02_F", "I_Plane_Fighter_03_CAS_F", "O_Heli_Attack_02_F", "O_Heli_Attack_02_black_F", "B_Heli_Attack_01_F"] > 0) then {
     [[_vehicle,1],"A3W_fnc_setVehicleAmmoDef",_vehicle,false] call BIS_fnc_MP; // Full ammo reset just to be sure
   };
   
