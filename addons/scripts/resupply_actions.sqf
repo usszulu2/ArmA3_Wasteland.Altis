@@ -102,6 +102,27 @@ A3W_fnc_addMagazineTurretLheli = {
   _Lheli addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine", [-1]];
 };
 
+A3W_fnc_addMagazineTurretBaheli = {
+  private["_Baheli"];
+  _Baheli = _this select 0;
+  _Baheli setVehicleAmmoDef 0;
+  _Baheli addMagazineTurret ["12Rnd_PG_missiles",[0]];
+  _Baheli addMagazineTurret ["4Rnd_AAA_missiles",[0]];
+  _Baheli addMagazineTurret ["1000Rnd_20mm_shells",[0]];
+  _Baheli addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+};
+
+A3W_fnc_addMagazineTurretOaheli = {
+  private["_Oaheli"];
+  _Oaheli = _this select 0;
+  _Oaheli setVehicleAmmoDef 0; 
+  _Oaheli addMagazineTurret ["6Rnd_LG_scalpel",[0]];
+  _Oaheli addMagazineTurret ["14Rnd_80mm_rockets",[0]];
+  _Oaheli addMagazineTurret ["250Rnd_30mm_HE_shells",[0]];
+  _Oaheli addMagazineTurret ["250Rnd_30mm_APDS_shells",[0]];
+  _Oaheli addMagazineTurret ["192Rnd_CMFlare_Chaff_Magazine",[-1]];
+};
+
 if (isServer) exitWith {};
 
 resupply_vehicles = [

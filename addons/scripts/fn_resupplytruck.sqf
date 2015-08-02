@@ -359,6 +359,34 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
             call _checkAbortConditions;
           };
 		  
+          if (_vehicle isKindOf "B_Heli_Attack_01_F") then {
+            private["_text"];
+            _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
+            _text call _titleText;
+
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
+
+            [[_vehicle, [_mag, _turretPath]], "A3W_fnc_addMagazineTurretBaheli", _vehicle, false] call BIS_fnc_MP;
+
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
+          };
+
+          if ({_vehicle isKindOf _x} count ["O_Heli_Attack_02_F", "O_Heli_Attack_02_black_F"] > 0) then {
+            private["_text"];
+            _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
+            _text call _titleText;
+
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
+
+            [[_vehicle, [_mag, _turretPath]], "A3W_fnc_addMagazineTurretOaheli", _vehicle, false] call BIS_fnc_MP;
+            
+            sleep (REARM_TIME_SLICE / 2);
+            call _checkAbortConditions;
+          };
+
           if ({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0) then {
             private["_text"];
             _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
@@ -373,7 +401,7 @@ _resupplyThread = [_vehicle, _is_uav, _is_static] spawn {
             call _checkAbortConditions;
           };
 		  
-          if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F", "B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F", "O_Heli_Light_02_F", "I_Plane_Fighter_03_CAS_F"] > 0) then {
+          if !({_vehicle isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F", "B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F", "O_Heli_Light_02_F", "I_Plane_Fighter_03_CAS_F", "O_Heli_Attack_02_F", "O_Heli_Attack_02_black_F", "B_Heli_Attack_01_F"] > 0) then {
             private["_text"];
             _text = format ["Reloading %1...", if (_magName != "") then { _magName } else { _vehName }];
             _text call _titleText;
