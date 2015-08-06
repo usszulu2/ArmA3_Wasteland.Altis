@@ -9,6 +9,7 @@
 
 private ["_uid","_handle"];
 _uid = getPlayerUID player;
+_uniform = uniform _unit
 
 if (!isNull (uiNamespace getVariable ["AdminMenu", displayNull]) && !(player call A3W_fnc_isUnconscious)) exitWith {};
 
@@ -28,6 +29,20 @@ switch (true) do
 	{
 		execVM "client\systems\adminPanel\loadModeratorMenu.sqf";
 		hint "Welcome Moderator";
+	};
+	case ([_uid, serverDonors] call isAdmin):
+	{
+		if (player _uniform == "U_I_Protagonist_VR") 
+			then {
+				hint "You're already wearing a donor uniform, dufus."
+			};
+		else {
+			hint "Uniform being spawned in 10 seconds. If you have gear in your uniform, move it out now.";
+			sleep 10;
+			execVM "client\systems\donors\spawnuniform.sqf";
+			hint "Uniform added. It has been superglued to your body.";
+			};
+		};
 	};
 	case (serverCommandAvailable "#kick"):
 	{
