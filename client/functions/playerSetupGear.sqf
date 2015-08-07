@@ -33,34 +33,15 @@ if (hmd _player != "") then { _player unlinkItem hmd _player };
 // Add NVG
 //_player linkItem "NVGoggles";
 
+_player addBackpack "B_AssaultPack_rgr";
 
-switch (_donatorType) do
-{
-	case 1:
-	{
-		_player addUniform "U_I_Protagonist_VR";
-	};
-	case 2:
-	{
-		_player addUniform "U_I_Protagonist_VR";
-	};
-	case 3:
-	{
-		_player addUniform "U_I_Protagonist_VR";
-	};
-	default 
-	{
-		_player addBackpack "B_AssaultPack_rgr";
-		_player addMagazine "9Rnd_45ACP_Mag";
-		_player addWeapon "hgun_ACPC2_F";
-		_player addMagazine "9Rnd_45ACP_Mag";
-		_player addMagazine "9Rnd_45ACP_Mag";
-		_player addMagazine "9Rnd_45ACP_Mag";
-		_player addItem "FirstAidKit";
-		_player selectWeapon "hgun_ACPC2_F";
-	};
-	
-};
+_player addMagazine "9Rnd_45ACP_Mag";
+_player addWeapon "hgun_ACPC2_F";
+_player addMagazine "9Rnd_45ACP_Mag";
+_player addMagazine "9Rnd_45ACP_Mag";
+_player addMagazine "9Rnd_45ACP_Mag";
+_player addItem "FirstAidKit";
+_player selectWeapon "hgun_ACPC2_F";
 
 switch (true) do
 {

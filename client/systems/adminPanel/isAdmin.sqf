@@ -40,10 +40,6 @@ _findUIDinArray =
 					if (isServer || serverCommandAvailable "#exec ban") then { _found = true }
 					else { _adminList = call serverOwners };
 				};
-				case 3:
-				{
-					_adminList = call serverDonors;
-				};
 			};
 		};
 	};
