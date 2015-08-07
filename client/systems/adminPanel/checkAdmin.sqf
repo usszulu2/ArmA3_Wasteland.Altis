@@ -34,7 +34,7 @@ switch (true) do
 	{
 		if (player _uniform == "U_I_Protagonist_VR") 
 			then {
-				hint "You're already wearing a donor uniform, dufus."
+				hint "You're already wearing a donor uniform, dufus.";
 			};
 		else {
 			hint "Uniform being spawned in 10 seconds. If you have gear in your uniform, move it out now.";
