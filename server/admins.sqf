@@ -43,6 +43,12 @@ else
 	[
 		// Put player UIDs here
 	];
+	
+	// Server Donors
+	serverDonors = compileFinal str
+	[
+		// Put player UIDs here
+	];
 
 	/********************************************************/
 };
@@ -50,7 +56,9 @@ else
 if (typeName lowAdmins == "ARRAY") then { lowAdmins = compileFinal str lowAdmins };
 if (typeName highAdmins == "ARRAY") then { highAdmins = compileFinal str highAdmins };
 if (typeName serverOwners == "ARRAY") then { serverOwners = compileFinal str serverOwners };
+if (typeName serverDonors == "ARRAY") then { serverDonors = compileFinal str serverDonors };
 
 publicVariable "lowAdmins";
 publicVariable "highAdmins";
 publicVariable "serverOwners";
+publicVariable "serverDonors";

@@ -4,6 +4,16 @@
 //	@file Name: playerSetup.sqf
 //	@file Author: AgentRev
 
-_this call playerSetupStart;
-_this call playerSetupGear;
-_this call playerSetupEnd;
+private ["_uid","_handle"];
+_uid = getPlayerUID player;
+
+if ([_uid, serverDonors] call isAdmin || isServer) then
+	{
+		_this call playerSetupStart;
+		_this call playerSetupDonorGear;
+		_this call playerSetupEnd;
+	} else {
+		_this call playerSetupStart;
+		_this call playerSetupGear;
+		_this call playerSetupEnd;
+	};
