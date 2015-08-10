@@ -1,28 +1,77 @@
 //	@file Name: functions.sqf
 //	@file Author: IvanMMM, micovery, AgentRev
 
-private ["_perm", "_uav"];
-_perm = ["A3W_uavControl", "side"] call getPublicVar;
+call compile preprocessFileLineNumbers "addons\UAV_Control\config.sqf";
 
-if (_perm == "side") exitWith {};
+uav_control_get_group_uids = {
+  private["_player"];
+  _player = _this select 0;
 
-while {true} do
-{
-	waitUntil {sleep 0.1; _uav = getConnectedUAV player; !isNull _uav};
+  private["_group_uids"];
+  _group_uids = [getPlayerUID _player];
+  {if (true) then {
+    private["_member"];
+    _member = _x;
+    if (isNil "_member" || { typeName _member != typeName objNull || {isNull _member}}) exitWith {};
 
-	// ignore quadcopters and remote designators
-	if ({_uav isKindOf _x} count ["StaticWeapon"] == 0) then
-	{
-		_ownerUID = _uav getVariable ["ownerUID", ""];
+    private["_member_uid"];
+    _member_uid = getPlayerUID _member;
+    if (isNil "_member_uid" || { typeName _member_uid != typeName "" || {_member_uid == ""}}) exitWith {};
 
-		if (_ownerUID == "") exitWith {}; // UAV not owned by anyone
-		if (getPlayerUID player == _ownerUID) exitWith {};
-		if (_perm == "group" && {{getPlayerUID _x == _ownerUID} count units player > 0}) exitWith {};
+    _group_uids pushBack _member_uid;
+  };} forEach (units (group _player));
 
-		player connectTerminalToUAV objNull;
-		playSound "FD_CP_Not_Clear_F";
-		["You are not allowed to connect to this unmanned vehicle.", 5] call mf_notify_client;
-	};
-
-	waitUntil {sleep 0.1; _uav != getConnectedUAV player};
+  (_group_uids)
 };
+
+
+uav_control_check_access = {
+  private["_player", "_uav"];
+  _player = _this select 0;
+  _uav = _this select 1;
+
+  if (_uav isKindOf "UAV_01_base_F") exitWith {}; //allow quad-rotors
+
+  private["_uid", "_owner_uid"];
+  _owner_uid = _uav getVariable ["ownerUID",""];
+  _uid = getPlayerUID _player;
+
+  if (_owner_uid == "" || {_uid == ""}) exitWith {}; //UAV not owned by anyone ...
+
+  if (uav_control_permission == "owner" && {_uid == _owner_uid}) exitWith {};
+  if (uav_control_permission == "group" && {_owner_uid in ([_player] call uav_control_get_group_uids)}) exitWith {};
+  if (uav_control_permission == "side") exitWith {}; //this is the default enforced by the game
+
+  _player connectTerminalToUAV objNull;
+  ["You can't control this UAV. It doesn't belong to you", 5] call mf_notify_client;
+};
+
+uav_control_loop = {
+  private["_uav1", "_uav2"];
+  while {true} do {
+    waitUntil { sleep 0.1; _uav1 = getConnectedUAV player; !(isNull _uav1)};
+    [player, _uav1] call uav_control_check_access;
+    waitUntil { sleep 0.1; _uav2 = getConnectedUAV player; (isNull _uav2 || {_uav1 != _uav2})};
+  };
+};
+
+
+uav_damage_check_hack = {
+  private["_uav1", "_uav2", "_pos"];
+  while {true} do {
+
+    waitUntil { sleep 0.1; _uav1 = getConnectedUAV player; (!isNull _uav1 && {local driver(_uav1)})};
+    if (isTouchingGround _uav1) then {
+      _uav1 allowDamage false; //hack to prevent UAVs from blowing up
+      _pos = getPos _uav1;
+      _pos set [2,0.3];
+      _uav1 setPos _pos;
+      _uav1 enableSimulation true;
+      _uav1 spawn { sleep 5; _this allowDamage true;};
+    };
+    waitUntil { sleep 0.1; _uav2 = getConnectedUAV player; (isNull _uav2 || {_uav1 != _uav2})};
+  };
+};
+
+[] spawn uav_damage_check_hack;
+[] spawn uav_control_loop;

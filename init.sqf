@@ -53,6 +53,7 @@ if (!isDedicated) then
 
 			waitUntil {!isNull player};
 			player setVariable ["playerSpawning", true, true];
+			playerSpawning = true;
 
 			removeAllWeapons player;
 			client_initEH = player addEventHandler ["Respawn", { removeAllWeapons (_this select 0) }];
@@ -61,17 +62,17 @@ if (!isDedicated) then
 			[player] joinSilent createGroup playerSide;
 
 			execVM "client\init.sqf";
+
+			if ((vehicleVarName player) select [0,17] == "BIS_fnc_objectVar") then { player setVehicleVarName "" }; // undo useless crap added by BIS
 		}
 		else // Headless
 		{
 			waitUntil {!isNull player};
-			if (typeOf player == "HeadlessClient_F") then
+			if (getText (configFile >> "CfgVehicles" >> typeOf player >> "simulation") == "headlessclient") then
 			{
 				execVM "client\headless\init.sqf";
 			};
 		};
-
-		player setVehicleVarName ""; // undo BIS_fnc_objectVar crap
 	};
 };
 
@@ -82,20 +83,22 @@ if (isServer) then
 	[] execVM "server\init.sqf";
 };
 
-//init 3rd Party Scripts (not supposed to run on HC)
 if (hasInterface || isServer) then
 {
-  [] execVM "addons\vactions\functions.sqf";
-  [] execVM "addons\parking\functions.sqf";
-  [] execVM "addons\storage\functions.sqf";
-  [] execVM "addons\R3F_ARTY_AND_LOG\init.sqf";
-  [] execVM "addons\scripts\DynamicWeatherEffects.sqf";
-  [] execVM "addons\JumpMF\init.sqf";
-  [] execVM "addons\outlw_magRepack\MagRepack_init.sqf";
-  [] execVM "addons\Explosives-To-Vehicle\init.sqf";
-  [] execVM "addons\JTS_PM\Functions.sqf";
-  [] execVM "addons\scripts\servercredits.sqf";
-  [] execVM "addons\scripts\zlt_fastrope.sqf";
-  [] execVM "addons\scripts\resupply_actions.sqf";
-  [] execVM "addons\lsd_nvg\init.sqf";
+	//init 3rd Party Scripts
+	[] execVM "addons\vactions\functions.sqf";
+	[] execVM "addons\parking\functions.sqf";
+	[] execVM "addons\storage\functions.sqf";
+	[] execVM "addons\R3F_ARTY_AND_LOG\init.sqf";
+	[] execVM "addons\JumpMF\init.sqf";
+	[] execVM "addons\outlw_magRepack\MagRepack_init.sqf";
+	[] execVM "addons\lsd_nvg\init.sqf";
+	if (isNil "drn_DynamicWeather_MainThread") then { drn_DynamicWeather_MainThread = [] execVM "addons\scripts\DynamicWeatherEffects.sqf" };
+	
+	[] execVM "addons\Explosives-To-Vehicle\init.sqf";
+	[] execVM "addons\JTS_PM\Functions.sqf";
+	[] execVM "addons\scripts\servercredits.sqf";
+	[] execVM "addons\scripts\zlt_fastrope.sqf";
+	[] execVM "addons\scripts\resupply_actions.sqf";
+	[] execVM "addons\lsd_nvg\init.sqf";
 };

@@ -113,8 +113,8 @@ getBallMagazine = [_serverFunc, "getBallMagazine.sqf"] call mf_compile;
 getFwdVelocity = [_serverFunc, "getFwdVelocity.sqf"] call mf_compile;
 getHitPoints = [_serverFunc, "getHitPoints.sqf"] call mf_compile;
 getMagAmmoCount = [_serverFunc, "getMagAmmoCount.sqf"] call mf_compile;
+getMagazineDetailAmmo = [_serverFunc, "getMagazineDetailAmmo.sqf"] call mf_compile;
 getMoveWeapon = [_clientFunc, "getMoveWeapon.sqf"] call mf_compile;
-//fn_getPlayerData = "persistence\client\players\getPlayerData.sqf" call mf_compile;
 getPublicVar = [_serverFunc, "getPublicVar.sqf"] call mf_compile;
 getTeamMarkerColor = "territory\client\getTeamMarkerColor.sqf" call mf_compile;
 isConfigOn = [_serverFunc, "isConfigOn.sqf"] call mf_compile;
@@ -127,6 +127,7 @@ vehicleDammagedEvent = [_serverFunc, "vehicleDammagedEvent.sqf"] call mf_compile
 vehicleEngineEvent = [_serverFunc, "vehicleEngineEvent.sqf"] call mf_compile;
 vehicleHandleDamage = [_serverFunc, "vehicleHandleDamage.sqf"] call mf_compile;
 vehicleHitTracking = [_serverFunc, "vehicleHitTracking.sqf"] call mf_compile;
+A3W_fnc_reboot = {"Reboot" call BIS_fnc_endMission} call mf_compile;
 A3W_fnc_setVectorUpAndDir = {
   private["_left", "_right"];
   _left = _this select 0;

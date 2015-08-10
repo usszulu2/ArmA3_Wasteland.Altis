@@ -25,6 +25,7 @@ A3W_mineLifetime = OR_SCALAR(A3W_mineLifetime,0);
 A3W_object_saveInterval = OR_POSITIVE(A3W_object_saveInterval,60);
 A3W_player_saveInterval = OR_POSITIVE(A3W_player_saveInterval,60);
 A3W_playersList_saveInterval = OR_POSITIVE(A3W_playersList_saveInterval,60);
+A3W_time_saveInterval = OR_POSITIVE(A3W_time_saveInterval,60);
 
 
 A3W_vehicleLifetime = OR_SCALAR(A3W_vehicleLifetime,0);
@@ -64,6 +65,8 @@ diag_log format["[INFO] config: A3W_mineLifetime = %1", A3W_mineLifetime];
 diag_log format["[INFO] config: A3W_object_saveInterval = %1", A3W_object_saveInterval];
 diag_log format["[INFO] config: A3W_player_saveInterval = %1", A3W_player_saveInterval];
 diag_log format["[INFO] config: A3W_playersList_saveInterval = %1", A3W_playersList_saveInterval];
+diag_log format["[INFO] config: A3W_time_saveInterval = %1", A3W_time_saveInterval];
+
 
 
 diag_log format["[INFO] config: A3W_vehicle_saveInterval = %1", A3W_vehicle_saveInterval];
