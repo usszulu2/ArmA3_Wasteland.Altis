@@ -1,3 +1,6 @@
+//	@file Name: functions.sqf
+//	@file Author: IvanMMM, micovery, AgentRev
+
 call compile preprocessFileLineNumbers "addons\UAV_Control\config.sqf";
 
 uav_control_get_group_uids = {
