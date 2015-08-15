@@ -209,27 +209,28 @@ p_restoreAssignedItems = {
   ARGVX3(0,_assigned_items,[]);
 
   {
-    if ([player, _x] call isAssignableBinocular) then 
-	{
-      if (_x select [0,15] == "Laserdesignator" && {{_x == "Laserbatteries"} count magazines player == 0}) then
-	  {
-        [player, "Laserbatteries"] call fn_forceAddItem;
-      };
-
-		player addWeapon _x;
-    }
-    else
-    {
-	  if (["_UavTerminal", _x] call fn_findString != -1) then 
-	  {
-        _x = switch (playerSide) do
+    if ([player, _x] call isAssignableBinocular) then
 		{
-                        case BLUFOR: { "B_UavTerminal" };
-                        case OPFOR:  { "O_UavTerminal" };
-                        default      { "I_UavTerminal" };
-		};
+			if (_x select [0,15] == "Laserdesignator" && {{_x == "Laserbatteries"} count magazines player == 0}) then
+			{
+				[player, "Laserbatteries"] call fn_forceAddItem;
+			};
 
-      player linkItem _x;
+			player addWeapon _x;
+		}
+		else
+		{
+			if (["_UavTerminal", _x] call fn_findString != -1) then
+			{
+				_x = switch (playerSide) do
+				{
+					case BLUFOR: { "B_UavTerminal" };
+					case OPFOR:  { "O_UavTerminal" };
+					default      { "I_UavTerminal" };
+				};
+			};
+
+			player linkItem _x;
 	};
   } forEach _assigned_items;
 };
