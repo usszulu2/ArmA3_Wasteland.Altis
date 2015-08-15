@@ -337,9 +337,17 @@ o_restoreObject = {
   };
   
   if (isARRAY(_cargo_backpacks)) then {
-    { 
-      if (isARRAY(_x) && {not((_x select 0) isKindOf "Weapon_Bag_Base")}) then {
-        _obj addBackpackCargoGlobal _x 
+    {
+      def(_value);
+      def(_is_weapon_bag);
+      def(_is_allowed_bag);
+      
+      _value = _x select 0;
+      _is_weapon_bag = _value isKindOf "Weapon_Bag_Base";
+      _is_allowed_bag = ({_value isKindOf _x} count ["B_UAV_01_backpack_F", "B_Static_Designator_01_weapon_F", "O_Static_Designator_02_weapon_F"] == 0);
+      
+      if (not(_is_weapon_bag) || {_is_allowed_bag}) then {
+        _obj addBackpackCargoGlobal _x
       };
     } forEach _cargo_backpacks;
   };

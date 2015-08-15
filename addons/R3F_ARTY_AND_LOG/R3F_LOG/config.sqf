@@ -23,8 +23,7 @@ R3F_LOG_CFG_remorqueursH =
 	"Truck_02_base_F",
 	"Truck_03_base_F",
 	"Wheeled_APC_F",
-	"Tank_F",
-	"Boat_Armed_01_base_F"
+	"Tank_F"
 ];
 
 /**
@@ -241,9 +240,6 @@ R3F_LOG_CFG_transporteurs =
 	["B_Heli_Transport_03_unarmed_F", 100],
 	["B_Heli_Transport_03_F", 100],
 	["Heli_Transport_04_base_F", 100],
-	["Heli_Transport_02_base_F", 30],
-	["Heli_Transport_03_base_F", 30],
-	["Heli_Transport_04_base_F", 30],
 	["Heli_Attack_01_base_F", 10],
 	["Heli_Attack_02_base_F", 20]
 ];
