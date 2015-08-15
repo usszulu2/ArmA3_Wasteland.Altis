@@ -44,12 +44,8 @@ p_restoreBackpack = {
 
   if (_value == "") exitWith {};
 
-   if (_value isKindOf "Weapon_Bag_Base" && ({_value isKindOf _x} count ["B_UAV_01_backpack_F", "B_Static_Designator_01_weapon_F", "O_Static_Designator_02_weapon_F"] == 0)) exitWith {
-	 player addBackpack "B_AssaultPack_rgr"; // NO SOUP FOR YOU
-  }
-  else
-  {
-	 player addBackpack _value;
+  if (_value isKindOf "Weapon_Bag_Base" && ({_value isKindOf _x} count ["B_UAV_01_backpack_F", "B_Static_Designator_01_weapon_F", "O_Static_Designator_02_weapon_F"] == 0)) exitWith {
+    player addBackpack "B_AssaultPack_rgr"; // NO SOUP FOR YOU
   };
 
 p_restoreBackpackWeapons = {
@@ -101,7 +97,7 @@ p_restoreUniform = {
   };
 
   if (player isUniformAllowed _value) exitWith {
-	  player addUniform _value;
+    player addUniform _value;
   };
 
   // If uniform cannot be worn by player due to different team, try to convert it, else give default instead
@@ -213,32 +209,30 @@ p_restoreAssignedItems = {
   ARGVX3(0,_assigned_items,[]);
 
   {
-    if ([player, _x] call isAssignableBinocular) then
+    if ([player, _x] call isAssignableBinocular) then 
 	{
-			if (_x select [0,15] == "Laserdesignator" && {{_x == "Laserbatteries"} count magazines player == 0}) then
-			{
-				[player, "Laserbatteries"] call fn_forceAddItem;
-			};
+      if (_x select [0,15] == "Laserdesignator" && {{_x == "Laserbatteries"} count magazines player == 0}) then
+	  {
+        [player, "Laserbatteries"] call fn_forceAddItem;
+      };
 
-				player addWeapon _x;
-	}
-	else
-	{
-				if (["_UavTerminal", _x] call fn_findString != -1) then
-				{
-						_x = switch (playerSide) do
-						{
-								case BLUFOR: { "B_UavTerminal" };
-								case OPFOR:  { "O_UavTerminal" };
-								default      { "I_UavTerminal" };
-						};
-				};
+		player addWeapon _x;
+    }
+    else
+    {
+	  if (["_UavTerminal", _x] call fn_findString != -1) then 
+	  {
+        _x = switch (playerSide) do
+		{
+                        case BLUFOR: { "B_UavTerminal" };
+                        case OPFOR:  { "O_UavTerminal" };
+                        default      { "I_UavTerminal" };
+		};
 
-				player linkItem _x;
+      player linkItem _x;
 	};
   } forEach _assigned_items;
 };
-
 
 fn_applyPlayerData = {
   ARGVX3(0,_data,[]);
@@ -484,7 +478,15 @@ p_recreateStorageBox = {
 
   if (isARRAY(_cargo_backpacks)) then {
     {
-      if (not((_x select 0) isKindOf "Weapon_Bag_Base")) then {
+      def(_value);
+      def(_is_weapon_bag);
+      def(_is_allowed_bag);
+      
+      _value = _x select 0;
+      _is_weapon_bag = _value isKindOf "Weapon_Bag_Base";
+      _is_allowed_bag = ({_value isKindOf _x} count ["B_UAV_01_backpack_F", "B_Static_Designator_01_weapon_F", "O_Static_Designator_02_weapon_F"] == 0);
+      
+      if (not(_is_weapon_bag) || {_is_allowed_bag}) then {
         _obj addBackpackCargoGlobal _x
       };
     } forEach _cargo_backpacks;
