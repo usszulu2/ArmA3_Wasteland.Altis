@@ -669,6 +669,14 @@ v_GetIn_handler = {
   [_obj] call v_trackVehicle;
 };
 
+
+"trackGetInVehicle" addPublicVariableEventHandler {
+  diag_log format["%1 call trackGetInVehicle", _this];
+  ARGVX3(1,_this,[]);
+  _this call v_GetIn_handler;
+};
+
+
 v_GetOut_handler = {
   //diag_log format["%1 call v_GetOut_handler", _this];
   ARGVX3(0,_obj,objNull);
@@ -690,6 +698,12 @@ v_GetOut_handler = {
     _obj setVariable ["vehicle_abandoned_hours", nil, true]; //start counting the hours form 0 again
 
   };
+};
+
+"trackGetOutVehicle" addPublicVariableEventHandler {
+  diag_log format["%1 call trackGetOutVehicle", _this];
+  ARGVX3(1,_this,[]);
+  _this call v_GetOut_handler;
 };
 
 v_saveAllVechiles = {
