@@ -8,8 +8,6 @@
 
 #define DEBUG false
 
-if(isServer)then{[] execVM 'run.sqf';};
-
 enableSaving [false, false];
 
 // block script injection exploit
