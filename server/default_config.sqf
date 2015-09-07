@@ -24,8 +24,8 @@ A3W_survivalSystem = 1;            // Food and water are required to stay alive 
 A3W_unlimitedStamina = 1;          // Allow unlimited sprinting, jumping, etc. (0 = no, 1 = yes) - this also removes energy drinks from the mission
 A3W_bleedingTime = 80;             // Time in seconds for which to allow revive after a critical injury (minimum 10 seconds)
 A3W_healthTime = 60*5;             //seconds till death
-A3W_hungerTime = 60*60;            //seconds till starving
-A3W_thirstTime = 60*50;            //seconds till dehydrated
+A3W_hungerTime = 80*60;            //seconds till starving
+A3W_thirstTime = 65*50;            //seconds till dehydrated
 
 // Spawn settings
 A3W_townSpawnCooldown = 5*60;      // Number of seconds to wait between each spawn on a specific town (0 = disabled)
@@ -101,16 +101,12 @@ PDB_ServerTimeFileID = "A3W_";     // ServerTime savefile prefix (change this in
 A3W_vehicle_saveInterval = 1200;     // Number of seconds between vehicle saves
 A3W_object_saveInterval = 1200;      // Number of seconds between object saves
 A3W_player_saveInterval = 1200;      // Number of seconds between player saves
-A3W_playersList_saveInterval = 1200; // Number of seconds between player list saves
-A3W_time_saveInterval = 1200;        // Number of seconds between time saves
+A3W_playersList_saveInterval = 600; // Number of seconds between player list saves
+A3W_time_saveInterval = 600;        // Number of seconds between time saves
 
 A3W_saveable_vehicles_list = ["StaticWeapon", "C_Kart_01_F", "Quadbike_01_base_F", "Hatchback_01_base_F", "SUV_01_base_F", "Offroad_01_base_F", "Van_01_base_F", "MRAP_01_base_F", "MRAP_02_base_F", "MRAP_03_base_F", "Truck_01_base_F", "Truck_02_base_F", "Truck_03_base_F", "Wheeled_APC_F", "Tank_F", "Rubber_duck_base_F", "SDV_01_base_F", "Boat_Civil_01_base_F", "Boat_Armed_01_base_F", "Helicopter_Base_F", "Plane", "UGV_01_base_F"];		// List of classes for vehicles that are saveable
 A3W_locked_vehicles_list = [];		// List of class names for vehicles that should be automatically locked upon restore
 A3W_autosave_vehicles_list = ["B_MRAP_01_hmg_F", "B_MRAP_01_gmg_F", "O_MRAP_02_hmg_F", "O_MRAP_02_gmg_F", "I_MRAP_03_hmg_F", "I_MRAP_03_gmg_F", "B_Truck_01_ammo_F", "O_Truck_03_ammo_F", "I_Truck_02_ammo_F", "Wheeled_APC_F", "Tank_F", "O_Heli_Light_02_unarmed_F", "I_Heli_light_03_unarmed_F", "B_Heli_Transport_01_F", "B_Heli_Transport_01_camo_F", "B_Heli_Light_01_armed_F", "O_Heli_Light_02_F", "O_Heli_Light_02_v2_F", "I_Heli_light_03_F", "B_Heli_Attack_01_F", "O_Heli_Attack_02_F", "O_Heli_Attack_02_black_F", "Heli_Transport_04_base_F", "B_Heli_Transport_03_unarmed_F", "B_Heli_Transport_03_F", "I_Heli_Transport_02_F", "I_Plane_Fighter_03_AA_F", "I_Plane_Fighter_03_CAS_F", "B_Plane_CAS_01_F", "O_Plane_CAS_02_F"];		// List of class names for vehicles that should be automatically locked and saved when bought
-
-                                   // List of classes for vehicles that are saveable
-                                   // You can add/remove classes from this list for fine grained control which kind of vehicles can be saved
-A3W_saveable_vehicles_list = ["Helicopter", "Plane", "Ship_F", "Car", "Motorcycle", "Tank"];
 A3W_locked_vehicles_list = [];     // List of class names for vehicles that should be automatically locked unpon restore
 
 // extDB settings
@@ -118,7 +114,7 @@ A3W_extDB_ServerID = 1;            // Server ID to use in the database for the p
 A3W_extDB_Environment = "normal";  // Value used to separate player & object data from multiple environments running on the same map (e.g. "normal", "hardcore", "dev", etc. can be whatever you want)
 A3W_extDB_GhostingTimer = 5*60;    // Number of seconds a player has to wait when switching between servers running the same map (0 = disabled)
 A3W_extDB_GhostingAdmins = 0;      // Apply ghosting restriction to server admins (0 = no, 1 = yes)
-A3W_extDB_SaveUnlockedObjects = 1; // Save and restore unlocked baseparts that were locked at least once during their lifetime (0 = no, 1 = yes)
+A3W_extDB_SaveUnlockedObjects = 0; // Save and restore unlocked baseparts that were locked at least once during their lifetime (0 = no, 1 = yes)
 A3W_extDB_ConfigName = "A3W";      // Name of the connection config from extdb-conf.ini to be used (the one within [brackets])
 A3W_extDB_IniName = "a3wasteland"; // Name of the INI file in extDB\sql_custom to be used
 A3W_extDB_Misc = 0;                // Enable extDB Misc Protocol (0 = no, 1 = yes) - no associated features implemented in vanilla A3W
@@ -168,7 +164,7 @@ A3W_payrollAmount = 400;           // Amount of money rewarded per territory on 
 A3W_serverMissions = 1;            // Enable server missions (0 = no, 1 = yes)
 A3W_missionsDifficulty = 0;        // Missions difficulty (0 = normal, 1 = hard)
 A3W_missionFarAiDrawLines = 1;     // Draw small red lines on the map from mission markers to individual units & vehicles which are further away than 75m from the objective (0 = no, 1 = yes)
-A3W_missionsQuantity = 5;          // Number of missions running at the same time (0 to 6)
+A3W_missionsQuantity = 4;          // Number of missions running at the same time (0 to 6)
 A3W_heliPatrolMissions = 1;        // Enable missions involving flying helicopters piloted by AI (0 = no, 1 = yes)
 A3W_underWaterMissions = 1;        // Enable underwater missions which require diving gear (0 = no, 1 = yes)
 A3W_mainMissionDelay = 5*60;      // Time in seconds between Main Missions
