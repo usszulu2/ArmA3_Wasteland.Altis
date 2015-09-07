@@ -48,6 +48,10 @@ p_restoreBackpack = {
     player addBackpack "B_AssaultPack_rgr"; // NO SOUP FOR YOU
   };
 
+  player addBackpack _value;
+};
+
+
 p_restoreBackpackWeapons = {
   ARGVX3(0,_value,[]);
  { (backpackContainer player) addWeaponCargoGlobal _x } forEach _value
