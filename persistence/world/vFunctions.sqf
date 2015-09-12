@@ -282,6 +282,8 @@ v_trackVehicle = {
   _index = [OR(_object,nil)] call v_getTrackedVehicleIndex;
   if (_index >= 0) exitWith {};
 
+  [_object] call v_trackVehicleHoursAlive;
+
   //forward to HC
   ["trackVehicle", _object] call sh_hc_forward;
 

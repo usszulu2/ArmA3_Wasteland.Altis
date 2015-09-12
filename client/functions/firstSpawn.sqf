@@ -108,7 +108,6 @@ player addEventHandler ["WeaponAssembled", {
   _vehicle setVariable ["ownerUID", _uid, true];
   _vehicle setVariable ["A3W_purchasedVehicle", true, true];
 	_vehicle setVariable ["ownerN", name _player, true];
-	_vehicle setVariable ["baseSaving_spawningTime", diag_tickTime, true];
 
   trackVehicle = _vehicle;
   publicVariableServer "trackVehicle";
