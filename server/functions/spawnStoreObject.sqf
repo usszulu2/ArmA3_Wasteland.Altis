@@ -184,6 +184,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object setVariable ["A3W_missionVehicle", false];
 					_object setVariable ["ownerUID", getPlayerUID _player, true];
 					_object setVariable ["ownerN", name _player, true];
+					_object setVariable ["baseSaving_spawningTime", diag_tickTime, true];
 				};
 			};
 
