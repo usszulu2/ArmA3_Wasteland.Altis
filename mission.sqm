@@ -1736,17 +1736,27 @@ class Mission
 			side="LOGIC";
 			class Vehicles
 			{
-				items=1;
+				items=2;
 				class Item0
 				{
-					position[]={14497.367,10.181035,5849.4287};
+					position[]={14496.708,10.214434,5849.4287};
 					id=144;
 					side="LOGIC";
 					vehicle="HeadlessClient_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="HeadlessClient";
+					text="A3W_HC1"; // DO NOT RENAME
+				};
+				class Item1
+				{
+					position[]={14497.947,10.023931,5849.4287};
+					id=145;
+					side="LOGIC";
+					vehicle="HeadlessClient_F";
+					player="PLAY CDG";
+					skill=0.60000002;
+					text="A3W_HC2"; // DO NOT RENAME
 				};
 			};
 		};
