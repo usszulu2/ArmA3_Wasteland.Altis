@@ -7,7 +7,7 @@
 private ["_corpse", "_money", "_items"];
 _corpse = param [0, objNull, [objNull]];
 _money = param [1, 0, [0]];
-_items = param [2, [], [[]]]
+_items = param [2, [], [[]]];
 
 if (isNull _corpse || alive _corpse || (_money < 1 && count _items == 0)) exitWith {};
 

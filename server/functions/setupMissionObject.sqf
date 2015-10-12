@@ -13,7 +13,7 @@ private ["_object", "_r3fDisabled", "_straightenUp", "_customCode", "_pos"];
 _object = param [0, objNull, [objNull]];
 _r3fDisabled = param [1, true, [true]];
 _straightenUp = param [2, false, [true]];
-_customCode = param [3, nil, [{}]]
+_customCode = param [3, nil, [{}]];
 
 if (isNull _object) exitWith {};
 
