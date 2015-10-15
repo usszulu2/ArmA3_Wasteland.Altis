@@ -150,16 +150,6 @@ v_restoreVehicle = {
   if ({_obj isKindOf _x} count ["UAV_01_base_F", "UAV_02_base_F", "UGV_01_base_F"] > 0) then {
     _obj disableTIEquipment false;
   };
-
-  if (_obj isKindOf "O_Heli_Light_02_F") then {
-    _obj removeWeaponTurret ["missiles_DAGR",[-1]];
-    _obj addWeaponTurret ["missiles_DAR",[-1]];
-  };  
-  
-  if ({_obj isKindOf _x} count ["B_Heli_Light_01_F", "B_Heli_Light_01_armed_F", "O_Heli_Light_02_unarmed_F", "C_Heli_Light_01_civil_F"] > 0) then {
-    _obj removeWeaponTurret ["CMFlareLauncher",[-1]];
-    _obj addWeaponTurret ["CMFlareLauncher",[-1]];
-  };    
   
   //override the lock-state for vehicles form this this
   if ({_obj isKindOf _x} count A3W_locked_vehicles_list > 0) then {
@@ -252,12 +242,24 @@ v_restoreVehicle = {
     _obj setRepairCargo _cargo_repair;
   };
 
+  if (_obj isKindOf "O_Heli_Light_02_F") then {
+    _obj removeWeaponTurret ["missiles_DAGR",[-1]];
+    _obj addWeaponTurret ["missiles_DAR",[-1]];
+  };
 
+  if (_obj isKindOf "Air") then {
+    _obj removeWeaponTurret ["CMFlareLauncher",[-1]];
+    _obj addWeaponTurret ["CMFlareLauncher",[-1]];
+  };
+  
+  if ({_obj isKindOf _x} count ["LandVehicle", "Ship", "Air"] > 0) then {
+    reload _obj; //Load all turret's mags.
+  };
+  
   tracked_vehicles_list pushBack _obj;
 
   _obj
 };
-
 
 tracked_vehicles_list = OR_ARRAY(tracked_vehicles_list,[]);
 
@@ -585,7 +587,7 @@ v_addSaveVehicle = {
   init(_fuelCargo,getFuelCargo _obj);
   init(_repairCargo,getRepairCargo _obj);
   init(_fuel, fuel _obj);
-
+  
   def(_objName);
   _objName = _obj getVariable ["vehicle_key", nil];
 
