@@ -254,7 +254,10 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];
 					_object addMagazineTurret ["1000Rnd_Gatling_30mm_Plane_CAS_01_F",[-1]];
 					_object addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
-					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];	
+					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+					_object removeWeaponTurret ["CMFlareLauncher", [-1]]; // Remove Flare Launcher for issue of Flare Mag not loading.
+					_object addWeaponTurret ["CMFlareLauncher", [-1]]; // Readd Flare Launcher so that mag already onboard will load. 
+					reload _object; //Load all turret's mags.
 				};
 
 				case (_object isKindOf "O_Plane_CAS_02_F"):
@@ -267,6 +270,9 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["20Rnd_Rocket_03_HE_F",[-1]];
 					_object addMagazineTurret ["2Rnd_Missile_AA_03_F",[-1]];
 					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+					_object removeWeaponTurret ["CMFlareLauncher", [-1]]; // Remove Flare Launcher for issue of Flare Mag not loading.
+					_object addWeaponTurret ["CMFlareLauncher", [-1]]; // Readd Flare Launcher so that mag already onboard will load. 
+					reload _object; //Load all turret's mags.
 				};
 				
 				case (_object isKindOf "I_Plane_Fighter_03_CAS_F"):
@@ -278,6 +284,9 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["2Rnd_AAA_missiles",[-1]];
 					_object addMagazineTurret ["2Rnd_GBU12_LGB_MI10",[-1]];
 					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+					_object removeWeaponTurret ["CMFlareLauncher", [-1]]; // Remove Flare Launcher for issue of Flare Mag not loading.
+					_object addWeaponTurret ["CMFlareLauncher", [-1]]; // Readd Flare Launcher so that mag already onboard will load. 
+					reload _object; //Load all turret's mags.
 				};
 
 				case (_object isKindOf "O_Heli_Light_02_F"):
@@ -288,6 +297,9 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["2000Rnd_65x39_Belt_Tracer_Green_Splash",[-1]];
 					_object addMagazineTurret ["12Rnd_missiles",[-1]];
 					_object addMagazineTurret ["168Rnd_CMFlare_Chaff_Magazine",[-1]];
+					_object removeWeaponTurret ["CMFlareLauncher", [-1]]; // Remove Flare Launcher for issue of Flare Mag not loading.
+					_object addWeaponTurret ["CMFlareLauncher", [-1]]; // Readd Flare Launcher so that mag already onboard will load. 
+					reload _object; //Load all turret's mags.
 				};				
 
 				case (_object isKindOf "B_Heli_Attack_01_F"):
@@ -297,6 +309,9 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["4Rnd_AAA_missiles",[0]];
 					_object addMagazineTurret ["1000Rnd_20mm_shells",[0]];
 					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+					_object removeWeaponTurret ["CMFlareLauncher", [-1]]; // Remove Flare Launcher for issue of Flare Mag not loading.
+					_object addWeaponTurret ["CMFlareLauncher", [-1]]; // Readd Flare Launcher so that mag already onboard will load. 
+					reload _object; //Load all turret's mags.
 				};				
 
 				case ({_object isKindOf _x} count ["O_Heli_Attack_02_F", "O_Heli_Attack_02_black_F"] > 0):
@@ -307,6 +322,9 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["250Rnd_30mm_HE_shells",[0]];
 					_object addMagazineTurret ["250Rnd_30mm_APDS_shells",[0]];
 					_object addMagazineTurret ["192Rnd_CMFlare_Chaff_Magazine",[-1]];
+					_object removeWeaponTurret ["CMFlareLauncher", [-1]]; // Remove Flare Launcher for issue of Flare Mag not loading.
+					_object addWeaponTurret ["CMFlareLauncher", [-1]]; // Readd Flare Launcher so that mag already onboard will load. 
+					reload _object; //Load all turret's mags.
 				};				
 
 				case (_object isKindOf "Box_NATO_Ammo_F"):
