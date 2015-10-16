@@ -13,8 +13,8 @@ if !(_uid call isAdmin) exitWith {};
 
 private ["_action", "_value", "_cfg", "_displayStr", "_message"];
 
-_action = param [0, "", [""]];
-_value = param [1, "", [0,"",[]]];
+_action = [_this, 0, "", [""]] call BIS_fnc_param;
+_value = [_this, 1, "", [0,"",[],true]] call BIS_fnc_param;
 
 switch (toLower _action) do
 {
