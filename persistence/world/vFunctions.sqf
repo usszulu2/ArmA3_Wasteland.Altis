@@ -242,6 +242,10 @@ v_restoreVehicle = {
     _obj setRepairCargo _cargo_repair;
   };
 
+  if (_obj isKindOf "MRAP_03_base_F") then {
+    _obj setVehicleAmmo 0;
+  };
+
   if (_obj isKindOf "O_Heli_Light_02_F") then {
     _obj removeWeaponTurret ["missiles_DAGR",[-1]];
     _obj addWeaponTurret ["missiles_DAR",[-1]];
@@ -255,7 +259,7 @@ v_restoreVehicle = {
   if ({_obj isKindOf _x} count ["LandVehicle", "Ship", "Air"] > 0) then {
     reload _obj; //Load all turret's mags.
   };
-  
+
   tracked_vehicles_list pushBack _obj;
 
   _obj
