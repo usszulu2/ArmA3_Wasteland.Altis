@@ -243,6 +243,9 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["Laserbatteries",[0]];     
 					_object addMagazineTurret ["2Rnd_LG_scalpel",[0]];
 					_object addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];	   
+					_object removeWeaponTurret ["CMFlareLauncher", [-1]]; // Remove Flare Launcher for issue of Flare Mag not loading.
+					_object addWeaponTurret ["CMFlareLauncher", [-1]]; // Readd Flare Launcher so that mag already onboard will load. 
+					reload _object; //Load all turret's mags.				
 				};
 				
 				case (_object isKindOf "B_Plane_CAS_01_F"):
