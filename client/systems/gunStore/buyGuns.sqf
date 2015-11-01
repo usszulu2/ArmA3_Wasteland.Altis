@@ -39,6 +39,7 @@ storePurchaseHandle = _this spawn
 	_itemText = _gunsList lbText _itemIndex;
 	_itemData = _gunsList lbData _itemIndex;
 
+
 	_showInsufficientFundsError =
 	{
 		_itemText = _this select 0;

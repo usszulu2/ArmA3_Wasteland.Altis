@@ -34,6 +34,21 @@ storePurchaseHandle = _this spawn
 	_itemText = _itemlist lbText _itemIndex;
 	_itemData = _itemlist lbData _itemIndex;
 
+	_donatorItems =
+	[
+			"Chemlight_blue",
+        	"Chemlight_green",
+        	"Chemlight_yellow",
+        	"Chemlight_red"
+	];
+	//Error for non donators selecting donator items
+	_showInsufficientDonatorError =
+	{
+		_itemText = _this select 0;
+		hint parseText format ["This item is for donators only<br/>""%1""", _itemText];
+		playSound "FD_CP_Not_Clear_F";
+        _price = -1;
+	};
 	_showInsufficientFundsError =
 	{
 		_itemText = _this select 0;
@@ -135,6 +150,23 @@ storePurchaseHandle = _this spawn
 				if (_price > _playerMoney) exitWith
 				{
 					[_itemText] call _showInsufficientFundsError;
+				};
+
+				//Check Donator Status
+				for "_i" from 0 to count _itemlist do
+				{
+					_currentItem = _itemlist select _i;
+						{
+							if (_currentItem == (_donatorItems select _x)) then
+								{
+									_isDonator = player getVariable ["isDonator"];
+
+										if (_isDonator == 0) then
+											{
+												[_itemText] call _showInsufficientDonatorError
+											};
+								};
+						}forEach _donatorItems;
 				};
 
 				switch (_x select 3) do
