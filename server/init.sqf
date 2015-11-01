@@ -44,6 +44,12 @@ addMissionEventHandler ["HandleDisconnect",
 	};
 	*/
 	
+	// Added to counter act AI ghosts
+	if (!isNull _unit) then
+	{
+		_unit addEventHandler ["Respawn", { deleteVehicle (_this select 0) }]; // goddamnit BIS, stahp it
+	};	
+	
 	if (!isNil "fn_onPlayerDisconnected") then
 	{
 		[_id, _uid, _name, _unit] call fn_onPlayerDisconnected;
