@@ -266,7 +266,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object removeWeaponTurret ["CMFlareLauncher", [-1]];
 					_object addMagazineTurret ["1000Rnd_Gatling_30mm_Plane_CAS_01_F",[-1]];
 					_object addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
-					_object addMagazineTurret ["4Rnd_Bomb_04_F",[-1]]
+					_object addMagazineTurret ["4Rnd_Bomb_04_F",[-1]];
 					_object addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
 					_object addWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
 					_object addWeaponTurret ["Missile_AA_04_Plane_CAS_01_F",[-1]];
@@ -380,7 +380,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
 					_object addWeaponTurret ["FakeWeapon",[0]]; 
 					_object addWeaponTurret ["mortar_82mm",[0]];
-				};	
+        };	
         
 				case (_object isKindOf "Box_NATO_Ammo_F"):
 				{

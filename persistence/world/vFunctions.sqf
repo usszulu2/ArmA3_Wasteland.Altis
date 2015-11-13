@@ -312,7 +312,7 @@ v_restoreVehicle = {
           _obj addMagazineTurret ["Laserbatteries",[0]];     
           _obj addMagazineTurret ["2Rnd_LG_scalpel",[0]];
           _obj addWeaponTurret ["CMFlareLauncher", [-1]];
-           _obj addWeaponTurret ["Laserdesignator_mounted", [0]];
+          _obj addWeaponTurret ["Laserdesignator_mounted", [0]];
           _obj addWeaponTurret ["missiles_SCALPEL", [0]];   	
       };
 				
@@ -329,7 +329,7 @@ v_restoreVehicle = {
           _obj removeWeaponTurret ["CMFlareLauncher", [-1]];
           _obj addMagazineTurret ["1000Rnd_Gatling_30mm_Plane_CAS_01_F",[-1]];
           _obj addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
-          _obj addMagazineTurret ["4Rnd_Bomb_04_F",[-1]]
+          _obj addMagazineTurret ["4Rnd_Bomb_04_F",[-1]];
           _obj addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
           _obj addWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
           _obj addWeaponTurret ["Missile_AA_04_Plane_CAS_01_F",[-1]];
@@ -442,6 +442,7 @@ v_restoreVehicle = {
           _obj addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[0]];
           _obj addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
           _obj addWeaponTurret ["FakeWeapon",[0]]; 
+          _obj addWeaponTurret ["mortar_82mm",[0]];
       };	
     };  
   };  

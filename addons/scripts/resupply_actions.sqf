@@ -56,7 +56,7 @@ A3W_fnc_addMagazineTurretBcas = {
   _bcas removeWeaponTurret ["CMFlareLauncher", [-1]];
   _bcas addMagazineTurret ["1000Rnd_Gatling_30mm_Plane_CAS_01_F",[-1]];
   _bcas addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
-  _bcas addMagazineTurret ["4Rnd_Bomb_04_F",[-1]]
+  _bcas addMagazineTurret ["4Rnd_Bomb_04_F",[-1]];
   _bcas addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
   _bcas addWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
   _bcas addWeaponTurret ["Missile_AA_04_Plane_CAS_01_F",[-1]];
