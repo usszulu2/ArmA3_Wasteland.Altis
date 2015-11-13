@@ -30,83 +30,120 @@ A3W_fnc_addMagazineTurret = {
 A3W_fnc_addMagazineTurretMortar = {
   private["_mortar"];
   _mortar = _this select 0;
-  _mortar setVehicleAmmoDef 0;
+  _mortar setVehicleAmmo 0;
+  _mortar setVehicleAmmoDef 0;		
+  _mortar removeWeaponTurret ["FakeWeapon",[0]]; 
+  _mortar removeWeaponTurret ["mortar_82mm",[0]];
   _mortar addMagazineTurret ["8Rnd_82mm_Mo_shells",[0]];
   _mortar addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[0]];
   _mortar addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
+  _mortar addWeaponTurret ["FakeWeapon",[0]]; 
+  _mortar addWeaponTurret ["mortar_82mm",[0]];
+  reload _mortar;
 };
 
 A3W_fnc_addMagazineTurretBcas = {
   private["_bcas"];
   _bcas = _this select 0;
-  _bcas setVehicleAmmoDef 0;
-  _bcas removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];
+  _bcas setVehicleAmmo 0;
+  _bcas setVehicleAmmoDef 0;			
+  _bcas removeWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
+  _bcas removeWeaponTurret ["Missile_AA_04_Plane_CAS_01_F",[-1]];
+  _bcas removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];					
   _bcas removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];
-  _bcas removeWeaponTurret ["Rocket_04_AP_Plane_CAS_01_F",[-1]];
-  _bcas removeWeaponTurret ["Bomb_04_Plane_CAS_01_F",[-1]];
+  _bcas removeWeaponTurret ["Rocket_04_AP_Plane_CAS_01_F", [-1]];
+  _bcas removeWeaponTurret ["Bomb_04_Plane_CAS_01_F", [-1]];
+  _bcas removeWeaponTurret ["CMFlareLauncher", [-1]];
   _bcas addMagazineTurret ["1000Rnd_Gatling_30mm_Plane_CAS_01_F",[-1]];
   _bcas addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
+  _bcas addMagazineTurret ["4Rnd_Bomb_04_F",[-1]]
   _bcas addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
-  _bcas removeWeaponTurret ["CMFlareLauncher", [-1]]; //Remove turret because loaded turret won't have the mag loaded and won't be available to load
-  _bcas addWeaponTurret ["CMFlareLauncher", [-1]]; //Readd turret which will load the available mag upon installation.
-   reload _bcas;  //Load all available mags on vehicle
+  _bcas addWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
+  _bcas addWeaponTurret ["Missile_AA_04_Plane_CAS_01_F",[-1]];
+  _bcas addWeaponTurret ["Bomb_04_Plane_CAS_01_F", [-1]];
+  _bcas addWeaponTurret ["CMFlareLauncher", [-1]];
+  reload _bcas;
 };
 
 A3W_fnc_addMagazineTurretOcas = {
   private["_ocas"];
   _ocas = _this select 0;
-  _ocas setVehicleAmmoDef 0;  
-  _ocas removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];
-  _ocas removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F",[-1]];
-  _ocas removeWeaponTurret ["Bomb_03_Plane_CAS_02_F",[-1]];
+  _ocas setVehicleAmmo 0;
+  _ocas setVehicleAmmoDef 0;			
+  _ocas removeWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
+  _ocas removeWeaponTurret ["Missile_AA_03_Plane_CAS_02_F",[-1]];
+  _ocas removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];					
+  _ocas removeWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];
+  _ocas removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F", [-1]];
+  _ocas removeWeaponTurret ["Bomb_03_Plane_CAS_02_F", [-1]];
+  _ocas removeWeaponTurret ["CMFlareLauncher", [-1]];
   _ocas addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
   _ocas addMagazineTurret ["20Rnd_Rocket_03_HE_F",[-1]];
   _ocas addMagazineTurret ["2Rnd_Missile_AA_03_F",[-1]];
+  _ocas addMagazineTurret ["2Rnd_Bomb_03_F",[-1]];
   _ocas addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
-  _ocas removeWeaponTurret ["CMFlareLauncher", [-1]]; //Remove turret because loaded turret won't have the mag loaded and won't be available to load
-  _ocas addWeaponTurret ["CMFlareLauncher", [-1]]; //Readd turret which will load the available mag upon installation.
-   reload _ocas;  //Load all available mags on vehicle
+  _ocas addWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
+  _ocas addWeaponTurret ["Missile_AA_03_Plane_CAS_02_F",[-1]];			
+  _ocas addWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];
+  _ocas addWeaponTurret ["Bomb_03_Plane_CAS_02_F", [-1]];
+  _ocas addWeaponTurret ["CMFlareLauncher", [-1]];
+  reload _ocas;
 };
 
 A3W_fnc_addMagazineTurretIcas = {
   private["_Icas"];
   _Icas = _this select 0;
-  _Icas setVehicleAmmoDef 0;  
+  _Icas setVehicleAmmo 0;
+  _Icas setVehicleAmmoDef 0;			
+  _Icas removeWeaponTurret ["Twin_Cannon_20mm",[-1]];
   _Icas removeWeaponTurret ["missiles_SCALPEL",[-1]];
+  _Icas removeWeaponTurret ["missiles_ASRAAM",[-1]];					
+  _Icas removeWeaponTurret ["GBU12BombLauncher",[-1]];
+  _Icas removeWeaponTurret ["CMFlareLauncher", [-1]];
   _Icas addMagazineTurret ["300Rnd_20mm_shells",[-1]];
   _Icas addMagazineTurret ["300Rnd_20mm_shells",[-1]];
   _Icas addMagazineTurret ["2Rnd_AAA_missiles",[-1]];
   _Icas addMagazineTurret ["2Rnd_GBU12_LGB_MI10",[-1]];
   _Icas addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
-  _Icas removeWeaponTurret ["CMFlareLauncher", [-1]]; //Remove turret because loaded turret won't have the mag loaded and won't be available to load
-  _Icas addWeaponTurret ["CMFlareLauncher", [-1]]; //Readd turret which will load the available mag upon installation.
-   reload _Icas;  //Load all available mags on vehicle
+  _Icas addWeaponTurret ["Twin_Cannon_20mm",[-1]];
+  _Icas addWeaponTurret ["missiles_ASRAAM",[-1]];					
+  _Icas addWeaponTurret ["GBU12BombLauncher",[-1]];
+  _Icas addWeaponTurret ["CMFlareLauncher", [-1]];
+  reload _Icas;
 };
 
 A3W_fnc_addMagazineTurretHorca = {
   private["_Horca"];
   _Horca = _this select 0;
-  _Horca setVehicleAmmoDef 0;  
+  _Horca setVehicleAmmo 0;
+  _Horca setVehicleAmmoDef 0;			
+  _Horca removeWeaponTurret ["LMG_Minigun_heli",[-1]];
   _Horca removeWeaponTurret ["missiles_DAGR",[-1]];
-  _Horca addWeaponTurret ["missiles_DAR",[-1]];
+  _Horca removeWeaponTurret ["CMFlareLauncher",[-1]];          
   _Horca addMagazineTurret ["2000Rnd_65x39_Belt_Tracer_Green_Splash",[-1]];
   _Horca addMagazineTurret ["12Rnd_missiles",[-1]];
   _Horca addMagazineTurret ["168Rnd_CMFlare_Chaff_Magazine",[-1]];
-  _Horca removeWeaponTurret ["CMFlareLauncher", [-1]]; //Remove turret because loaded turret won't have the mag loaded and won't be available to load
-  _Horca addWeaponTurret ["CMFlareLauncher", [-1]]; //Readd turret which will load the available mag upon installation.
-   reload _Horca;  //Load all available mags on vehicle
+  _Horca addWeaponTurret ["LMG_Minigun_heli", [-1]];
+  _Horca addWeaponTurret ["missiles_DAR",[-1]];
+  _Horca addWeaponTurret ["CMFlareLauncher", [-1]];  
+  reload _Horca;
 };
 
 A3W_fnc_addMagazineTurretUav2 = {
   private["_uav2"];
   _uav2 = _this select 0;
-  _uav2 setVehicleAmmoDef 0; 
-  _uav2 addMagazineTurret ["Laserbatteries",[0]];
-  _uav2 addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+  _uav2 setVehicleAmmo 0;
+  _uav2 setVehicleAmmoDef 0;	
+  _uav2 removeWeaponTurret ["CMFlareLauncher", [-1]];
+  _uav2 removeWeaponTurret ["Laserdesignator_mounted", [0]];
+  _uav2 removeWeaponTurret ["missiles_SCALPEL", [0]];      
   _uav2 addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
-  _uav2 removeWeaponTurret ["CMFlareLauncher", [-1]]; //Remove turret because loaded turret won't have the mag loaded and won't be available to load
-  _uav2 addWeaponTurret ["CMFlareLauncher", [-1]]; //Readd turret which will load the available mag upon installation.
-   reload _uav2;  //Load all available mags on vehicle
+  _uav2 addMagazineTurret ["Laserbatteries",[0]];     
+  _uav2 addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+  _uav2 addWeaponTurret ["CMFlareLauncher", [-1]];
+  _uav2 addWeaponTurret ["Laserdesignator_mounted", [0]];
+  _uav2 addWeaponTurret ["missiles_SCALPEL", [0]];   	
+  reload _uav2;
 };
 
 A3W_fnc_addMagazineTurretLheli = {
@@ -115,36 +152,48 @@ A3W_fnc_addMagazineTurretLheli = {
   _Lheli removeMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine", [-1]];
   _Lheli addWeaponTurret ["CMFlareLauncher", [-1]];
   _Lheli addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine", [-1]];
-  _Lheli removeWeaponTurret ["CMFlareLauncher", [-1]]; //Remove turret because loaded turret won't have the mag loaded and won't be available to load
-  _Lheli addWeaponTurret ["CMFlareLauncher", [-1]]; //Readd turret which will load the available mag upon installation.
-   reload _Lheli;  //Load all available mags on vehicle
+  reload _Lheli;
 };
 
 A3W_fnc_addMagazineTurretBaheli = {
   private["_Baheli"];
   _Baheli = _this select 0;
-  _Baheli setVehicleAmmoDef 0;
+  _Baheli setVehicleAmmo 0;
+  _Baheli setVehicleAmmoDef 0;		
+  _Baheli removeWeaponTurret ["CMFlareLauncher",[-1]]; 
+  _Baheli removeWeaponTurret ["gatling_20mm",[0]];
+  _Baheli removeWeaponTurret ["missiles_DAGR",[0]]; 
+  _Baheli removeWeaponTurret ["missiles_ASRAAM",[0]]; 
+  _Baheli addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+  _Baheli addMagazineTurret ["1000Rnd_20mm_shells",[0]];
   _Baheli addMagazineTurret ["12Rnd_PG_missiles",[0]];
   _Baheli addMagazineTurret ["4Rnd_AAA_missiles",[0]];
-  _Baheli addMagazineTurret ["1000Rnd_20mm_shells",[0]];
-  _Baheli addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
-  _Baheli removeWeaponTurret ["CMFlareLauncher", [-1]]; //Remove turret because loaded turret won't have the mag loaded and won't be available to load
-  _Baheli addWeaponTurret ["CMFlareLauncher", [-1]]; //Readd turret which will load the available mag upon installation.
-   reload _Baheli;  //Load all available mags on vehicle
+  _Baheli addWeaponTurret ["CMFlareLauncher",[-1]]; 
+  _Baheli addWeaponTurret ["gatling_20mm",[0]];
+  _Baheli addWeaponTurret ["missiles_DAGR",[0]]; 
+  _Baheli addWeaponTurret ["missiles_ASRAAM",[0]]; 
+  reload _Baheli;
 };
 
 A3W_fnc_addMagazineTurretOaheli = {
   private["_Oaheli"];
   _Oaheli = _this select 0;
-  _Oaheli setVehicleAmmoDef 0; 
-  _Oaheli addMagazineTurret ["6Rnd_LG_scalpel",[0]];
-  _Oaheli addMagazineTurret ["14Rnd_80mm_rockets",[0]];
+  _Oaheli setVehicleAmmo 0;
+  _Oaheli setVehicleAmmoDef 0;		
+  _Oaheli removeWeaponTurret ["CMFlareLauncher",[-1]]; 
+  _Oaheli removeWeaponTurret ["gatling_30mm",[0]];
+  _Oaheli removeWeaponTurret ["missiles_SCALPEL",[0]]; 
+  _Oaheli removeWeaponTurret ["rockets_Skyfire",[0]]; 
+  _Oaheli addMagazineTurret ["192Rnd_CMFlare_Chaff_Magazine",[-1]];
   _Oaheli addMagazineTurret ["250Rnd_30mm_HE_shells",[0]];
   _Oaheli addMagazineTurret ["250Rnd_30mm_APDS_shells",[0]];
-  _Oaheli addMagazineTurret ["192Rnd_CMFlare_Chaff_Magazine",[-1]];
-  _Oaheli removeWeaponTurret ["CMFlareLauncher", [-1]]; //Remove turret because loaded turret won't have the mag loaded and won't be available to load
-  _Oaheli addWeaponTurret ["CMFlareLauncher", [-1]]; //Readd turret which will load the available mag upon installation.
-   reload _Oaheli;  //Load all available mags on vehicle
+  _Oaheli addMagazineTurret ["6Rnd_LG_scalpel",[0]];
+  _Oaheli addMagazineTurret ["14Rnd_80mm_rockets",[0]];
+  _Oaheli addWeaponTurret ["CMFlareLauncher",[-1]]; 
+  _Oaheli addWeaponTurret ["gatling_30mm",[0]];
+  _Oaheli addWeaponTurret ["missiles_SCALPEL",[0]]; 
+  _Oaheli addWeaponTurret ["rockets_Skyfire",[0]]; 
+  reload _Oaheli;
 };
 
 if (isServer) exitWith {};

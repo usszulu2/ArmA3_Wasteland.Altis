@@ -201,7 +201,11 @@ v_restoreVehicle = {
     };
   };
 
-
+  if (_obj isKindOf "AllVehicles") then {
+    _obj setVehicleAmmo 0;
+    _obj setVehicleAmmoDef 0;
+  };
+  
   //restore the stuff inside the vehicle
   clearWeaponCargoGlobal _obj;
   clearMagazineCargoGlobal _obj;
@@ -230,7 +234,7 @@ v_restoreVehicle = {
     { _obj addMagazineCargoGlobal _x } forEach _cargo_magazines;
   };
 
-  if (isSCALAR(_cargo_ammo)) then {
+  /*if (isSCALAR(_cargo_ammo)) then {
     _obj setAmmoCargo _cargo_ammo;
   };
 
@@ -244,21 +248,209 @@ v_restoreVehicle = {
 
   if (_obj isKindOf "MRAP_03_base_F") then {
     _obj setVehicleAmmo 0;
+    _obj setVehicleAmmoDef 0;
   };
 
   if (_obj isKindOf "O_Heli_Light_02_F") then {
     _obj removeWeaponTurret ["missiles_DAGR",[-1]];
     _obj addWeaponTurret ["missiles_DAR",[-1]];
-  };
+  };*/
 
-  if (_obj isKindOf "Air") then {
+  if (_obj isKindOf "Air" && !UAV_01_base_F) then {
     _obj removeWeaponTurret ["CMFlareLauncher",[-1]];
+  };
+  
+  if (_obj isKindOf "AllVehicles") then {
+    _obj setVehicleAmmo 1;
+    _obj setVehicleAmmoDef 1;	
+
+    switch (true) do
+    {
+      case (_obj isKindOf "O_Heli_Transport_04_ammo_F"):
+      {
+          _obj setAmmoCargo 0;
+      };
+
+      case ({_obj isKindOf _x} count ["B_Truck_01_ammo_F", "O_Truck_02_Ammo_F", "O_Truck_03_ammo_F", "I_Truck_02_ammo_F"] > 0):
+      {
+          _obj setAmmoCargo 0;
+      };
+
+      case ({_obj isKindOf _x} count ["C_Van_01_fuel_F", "I_G_Van_01_fuel_F", "O_Heli_Transport_04_fuel_F"] > 0):
+      {
+          _obj setFuelCargo 10;
+      };
+
+      case ({_obj isKindOf _x} count ["B_Truck_01_fuel_F", "O_Truck_02_fuel_F", "O_Truck_03_fuel_F", "I_Truck_02_fuel_F"] > 0):
+      {
+          _obj setFuelCargo 25;
+      };
+
+      case (_obj isKindOf "Offroad_01_repair_base_F"):
+      {
+          _obj setRepairCargo 5;
+      };
+
+      case (_obj isKindOf "O_Heli_Transport_04_repair_F"):
+      {
+          _obj setRepairCargo 10;
+      };
+
+      case ({_obj isKindOf _x} count ["B_Truck_01_Repair_F", "O_Truck_02_box_F", "O_Truck_03_repair_F", "I_Truck_02_box_F"] > 0):
+      {
+          _obj setRepairCargo 25;
+      };
+
+      case ({_obj isKindOf _x} count ["B_UAV_02_F", "O_UAV_02_F", "I_UAV_02_F"] > 0):
+      {
+          _obj setVehicleAmmo 0;
+          _obj setVehicleAmmoDef 0;	
+          _obj removeWeaponTurret ["CMFlareLauncher", [-1]];
+          _obj removeWeaponTurret ["Laserdesignator_mounted", [0]];
+          _obj removeWeaponTurret ["missiles_SCALPEL", [0]];      
+          _obj addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+          _obj addMagazineTurret ["Laserbatteries",[0]];     
+          _obj addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+          _obj addWeaponTurret ["CMFlareLauncher", [-1]];
+           _obj addWeaponTurret ["Laserdesignator_mounted", [0]];
+          _obj addWeaponTurret ["missiles_SCALPEL", [0]];   	
+      };
+				
+      case (_obj isKindOf "B_Plane_CAS_01_F"):
+      {
+          _obj setVehicleAmmo 0;
+          _obj setVehicleAmmoDef 0;			
+          _obj removeWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
+          _obj removeWeaponTurret ["Missile_AA_04_Plane_CAS_01_F",[-1]];
+          _obj removeWeaponTurret ["Missile_AGM_02_Plane_CAS_01_F",[-1]];					
+          _obj removeWeaponTurret ["Rocket_04_HE_Plane_CAS_01_F",[-1]];
+          _obj removeWeaponTurret ["Rocket_04_AP_Plane_CAS_01_F", [-1]];
+          _obj removeWeaponTurret ["Bomb_04_Plane_CAS_01_F", [-1]];
+          _obj removeWeaponTurret ["CMFlareLauncher", [-1]];
+          _obj addMagazineTurret ["1000Rnd_Gatling_30mm_Plane_CAS_01_F",[-1]];
+          _obj addMagazineTurret ["2Rnd_Missile_AA_04_F",[-1]];
+          _obj addMagazineTurret ["4Rnd_Bomb_04_F",[-1]]
+          _obj addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+          _obj addWeaponTurret ["Gatling_30mm_Plane_CAS_01_F",[-1]];
+          _obj addWeaponTurret ["Missile_AA_04_Plane_CAS_01_F",[-1]];
+          _obj addWeaponTurret ["Bomb_04_Plane_CAS_01_F", [-1]];
+          _obj addWeaponTurret ["CMFlareLauncher", [-1]];
+      };
+
+      case (_obj isKindOf "O_Plane_CAS_02_F"):
+      {
+          _obj setVehicleAmmo 0;
+          _obj setVehicleAmmoDef 0;			
+          _obj removeWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
+          _obj removeWeaponTurret ["Missile_AA_03_Plane_CAS_02_F",[-1]];
+          _obj removeWeaponTurret ["Missile_AGM_01_Plane_CAS_02_F",[-1]];					
+          _obj removeWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];
+          _obj removeWeaponTurret ["Rocket_03_AP_Plane_CAS_02_F", [-1]];
+          _obj removeWeaponTurret ["Bomb_03_Plane_CAS_02_F", [-1]];
+          _obj removeWeaponTurret ["CMFlareLauncher", [-1]];
+          _obj addMagazineTurret ["500Rnd_Cannon_30mm_Plane_CAS_02_F",[-1]];
+          _obj addMagazineTurret ["20Rnd_Rocket_03_HE_F",[-1]];
+          _obj addMagazineTurret ["2Rnd_Missile_AA_03_F",[-1]];
+          _obj addMagazineTurret ["2Rnd_Bomb_03_F",[-1]];
+          _obj addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+          _obj addWeaponTurret ["Cannon_30mm_Plane_CAS_02_F",[-1]];
+          _obj addWeaponTurret ["Missile_AA_03_Plane_CAS_02_F",[-1]];			
+          _obj addWeaponTurret ["Rocket_03_HE_Plane_CAS_02_F",[-1]];
+          _obj addWeaponTurret ["Bomb_03_Plane_CAS_02_F", [-1]];
+          _obj addWeaponTurret ["CMFlareLauncher", [-1]];
+      };
+				
+      case (_obj isKindOf "I_Plane_Fighter_03_CAS_F"):
+      {
+          _obj setVehicleAmmo 0;
+          _obj setVehicleAmmoDef 0;			
+          _obj removeWeaponTurret ["Twin_Cannon_20mm",[-1]];
+          _obj removeWeaponTurret ["missiles_SCALPEL",[-1]];
+          _obj removeWeaponTurret ["missiles_ASRAAM",[-1]];					
+          _obj removeWeaponTurret ["GBU12BombLauncher",[-1]];
+          _obj removeWeaponTurret ["CMFlareLauncher", [-1]];
+          _obj addMagazineTurret ["300Rnd_20mm_shells",[-1]];
+          _obj addMagazineTurret ["300Rnd_20mm_shells",[-1]];
+          _obj addMagazineTurret ["2Rnd_AAA_missiles",[-1]];
+          _obj addMagazineTurret ["2Rnd_GBU12_LGB_MI10",[-1]];
+          _obj addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+          _obj addWeaponTurret ["Twin_Cannon_20mm",[-1]];
+          _obj addWeaponTurret ["missiles_ASRAAM",[-1]];					
+          _obj addWeaponTurret ["GBU12BombLauncher",[-1]];
+          _obj addWeaponTurret ["CMFlareLauncher", [-1]];
+      };
+
+      case (_obj isKindOf "O_Heli_Light_02_F"):
+      {
+          _obj setVehicleAmmo 0;
+          _obj setVehicleAmmoDef 0;			
+          _obj removeWeaponTurret ["LMG_Minigun_heli",[-1]];
+          _obj removeWeaponTurret ["missiles_DAGR",[-1]];
+          _obj removeWeaponTurret ["CMFlareLauncher",[-1]];          
+          _obj addMagazineTurret ["2000Rnd_65x39_Belt_Tracer_Green_Splash",[-1]];
+          _obj addMagazineTurret ["12Rnd_missiles",[-1]];
+          _obj addMagazineTurret ["168Rnd_CMFlare_Chaff_Magazine",[-1]];
+          _obj addWeaponTurret ["LMG_Minigun_heli", [-1]];
+          _obj addWeaponTurret ["missiles_DAR",[-1]];
+          _obj addWeaponTurret ["CMFlareLauncher", [-1]];          
+      };				
+
+      case (_obj isKindOf "B_Heli_Attack_01_F"):
+      {
+          _obj setVehicleAmmo 0;
+          _obj setVehicleAmmoDef 0;		
+          _obj removeWeaponTurret ["CMFlareLauncher",[-1]]; 
+          _obj removeWeaponTurret ["gatling_20mm",[0]];
+          _obj removeWeaponTurret ["missiles_DAGR",[0]]; 
+          _obj removeWeaponTurret ["missiles_ASRAAM",[0]]; 
+          _obj addMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+          _obj addMagazineTurret ["1000Rnd_20mm_shells",[0]];
+          _obj addMagazineTurret ["12Rnd_PG_missiles",[0]];
+          _obj addMagazineTurret ["4Rnd_AAA_missiles",[0]];
+          _obj addWeaponTurret ["CMFlareLauncher",[-1]]; 
+          _obj addWeaponTurret ["gatling_20mm",[0]];
+          _obj addWeaponTurret ["missiles_DAGR",[0]]; 
+          _obj addWeaponTurret ["missiles_ASRAAM",[0]]; 
+      };			
+
+      case ({_obj isKindOf _x} count ["O_Heli_Attack_02_F", "O_Heli_Attack_02_black_F"] > 0):
+      {
+          _obj setVehicleAmmo 0;
+          _obj setVehicleAmmoDef 0;		
+          _obj removeWeaponTurret ["CMFlareLauncher",[-1]]; 
+          _obj removeWeaponTurret ["gatling_30mm",[0]];
+          _obj removeWeaponTurret ["missiles_SCALPEL",[0]]; 
+          _obj removeWeaponTurret ["rockets_Skyfire",[0]]; 
+          _obj addMagazineTurret ["192Rnd_CMFlare_Chaff_Magazine",[-1]];
+          _obj addMagazineTurret ["250Rnd_30mm_HE_shells",[0]];
+          _obj addMagazineTurret ["250Rnd_30mm_APDS_shells",[0]];
+          _obj addMagazineTurret ["6Rnd_LG_scalpel",[0]];
+          _obj addMagazineTurret ["14Rnd_80mm_rockets",[0]];
+          _obj addWeaponTurret ["CMFlareLauncher",[-1]]; 
+          _obj addWeaponTurret ["gatling_30mm",[0]];
+          _obj addWeaponTurret ["missiles_SCALPEL",[0]]; 
+          _obj addWeaponTurret ["rockets_Skyfire",[0]]; 
+      };		
+
+      case ({_obj isKindOf _x} count ["B_Mortar_01_F", "O_Mortar_01_F", "I_Mortar_01_F"] > 0):
+      {
+          _obj setVehicleAmmo 0;
+          _obj setVehicleAmmoDef 0;		
+          _obj removeWeaponTurret ["FakeWeapon",[0]]; 
+          _obj removeWeaponTurret ["mortar_82mm",[0]];
+          _obj addMagazineTurret ["8Rnd_82mm_Mo_shells",[0]];
+          _obj addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[0]];
+          _obj addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
+          _obj addWeaponTurret ["FakeWeapon",[0]]; 
+      };	
+    };  
+  };  
+
+  if (_obj isKindOf "Air" && !UAV_01_base_F) then {
     _obj addWeaponTurret ["CMFlareLauncher",[-1]];
   };
   
-  if ({_obj isKindOf _x} count ["LandVehicle", "Ship", "Air"] > 0) then {
-    reload _obj; //Load all turret's mags.
-  };
+  if (needReload _obj == 1) then {reload _obj};
 
   tracked_vehicles_list pushBack _obj;
 
