@@ -255,10 +255,6 @@ v_restoreVehicle = {
     _obj removeWeaponTurret ["missiles_DAGR",[-1]];
     _obj addWeaponTurret ["missiles_DAR",[-1]];
   };*/
-
-  if (_obj isKindOf "Air" && !UAV_01_base_F) then {
-    _obj removeWeaponTurret ["CMFlareLauncher",[-1]];
-  };
   
   if (_obj isKindOf "AllVehicles") then {
     _obj setVehicleAmmo 1;
@@ -446,10 +442,6 @@ v_restoreVehicle = {
       };	
     };  
   };  
-
-  if (_obj isKindOf "Air" && !UAV_01_base_F) then {
-    _obj addWeaponTurret ["CMFlareLauncher",[-1]];
-  };
   
   if (needReload _obj == 1) then {reload _obj};
 

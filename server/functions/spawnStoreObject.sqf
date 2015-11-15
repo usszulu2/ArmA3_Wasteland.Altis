@@ -380,7 +380,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 					_object addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
 					_object addWeaponTurret ["FakeWeapon",[0]]; 
 					_object addWeaponTurret ["mortar_82mm",[0]];
-        };	
+				};	
         
 				case (_object isKindOf "Box_NATO_Ammo_F"):
 				{
