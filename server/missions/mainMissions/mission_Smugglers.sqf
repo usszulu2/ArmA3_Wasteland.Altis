@@ -5,15 +5,15 @@
 //	@file Author: JoSchaap, AgentRev, LouD
 
 if (!isServer) exitwith {};
-#include "sideMissionDefines.sqf";
+#include "mainMissionDefines.sqf";
 
 private ["_nbUnits", "_positions", "_smugglerVeh", "_vehicle1", "_vehicle2", "_boxes1", "_currBox1", "_randomBox", "_box1", "_boxes2", "_currBox2", "_box2", "_cashrandomizera", "_cashamountrandomizera", "_cashpilerandomizera", "_casha", "_cashamounta", "_cashpilea", "_cashrandomizerb", "_cashamountrandomizerb", "_cashpilerandomizerb", "_cashb", "_cashamountb", "_cashpileb", "_cash1", "_cash2", "_drop_item", "_drugpilerandomizer", "_drugpile"];
 
 _setupVars =
 {
 	_missionType = "Weapon Smugglers";
-
 	_locationsArray = MissionSpawnMarkers;
+	_nbUnits = AI_GROUP_LARGE;  
 };
 
 _setupObjects =
@@ -53,7 +53,7 @@ _setupObjects =
 	
 	_missionPicture = getText (configFile >> "CfgVehicles" >> _smugglerVeh >> "picture");
 	
-	_missionHintText = format ["A group of weapon smugglers have been spotted. Stop the weapon deal and take their weapons and money.", sideMissionColor];
+	_missionHintText = format ["A group of smugglers have been spotted. Stop the deal and take their weapons and drugs.", mainMissionColor];
 };
 	
 _waitUntilMarkerPos = nil;
@@ -91,41 +91,6 @@ _successExec =
 	{ _x setVariable ["R3F_LOG_disabled", false, true] } forEach [_box1, _box2];
 	{ _x setVariable ["A3W_missionVehicle", true] } forEach [_vehicle1, _vehicle2];
 	
-	//Random fake - real money
-	_cashrandomizera = ["money","cmoney","money","cmoney"];
-	_cashamountrandomizera = [1000,1500,2000,2500,3000,3500,4000,4500,5000];
-	_cashpilerandomizera = [3,5];
-		
-	_casha = _cashrandomizera call BIS_fnc_SelectRandom;
-	_cashamounta = _cashamountrandomizera call BIS_fnc_SelectRandom;
-	_cashpilea = _cashpilerandomizera call BIS_fnc_SelectRandom;
-	
-	for "_i" from 1 to _cashpilea do
-	{
-		_cash1 = createVehicle ["Land_Money_F",[(_lastPos select 0), (_lastPos select 1) - 5,0],[], 0, "NONE"];
-		_cash1 setPos ([_lastPos, [[2 + random 3,0,0], random 360] call BIS_fnc_rotateVector2D] call BIS_fnc_vectorAdd);
-		_cash1 setDir random 360;
-		_cash1 setVariable [_casha, _cashamounta, true];
-		_cash1 setVariable ["owner", "world", true];
-	};
-	
-	_cashrandomizerb = ["money","cmoney","money","cmoney"];
-	_cashamountrandomizerb = [1000,1500,2000,2500,3000,3500,4000,4500,5000];
-	_cashpilerandomizerb = [3,5];
-		
-	_cashb = _cashrandomizerb call BIS_fnc_SelectRandom;
-	_cashamountb = _cashamountrandomizerb call BIS_fnc_SelectRandom;
-	_cashpileb = _cashpilerandomizerb call BIS_fnc_SelectRandom;
-	
-	for "_i" from 1 to _cashpileb do
-	{
-		_cash2 = createVehicle ["Land_Money_F",[(_lastPos select 0), (_lastPos select 1) - 5,0],[], 0, "NONE"];
-		_cash2 setPos ([_lastPos, [[2 + random 3,0,0], random 360] call BIS_fnc_rotateVector2D] call BIS_fnc_vectorAdd);
-		_cash2 setDir random 360;
-		_cash2 setVariable [_cashb, _cashamountb, true];
-		_cash2 setVariable ["owner", "world", true];
-	};
-	
 	_drugpilerandomizer = [4,8];
 	_drugpile = _drugpilerandomizer call BIS_fnc_SelectRandom;
 	
@@ -141,7 +106,7 @@ _successExec =
 	  [_item, _lastPos] call _drop_item;
 	};
 	
-	_successHintMessage = format ["The smugglers are dead. The weapons, drugs, and money are yours!"];
+	_successHintMessage = format ["The smugglers are dead. The weapons and drugs are yours!"];
 };
 
-_this call sideMissionProcessor;
+_this call mainMissionProcessor;

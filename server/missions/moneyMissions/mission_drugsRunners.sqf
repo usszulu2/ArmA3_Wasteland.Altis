@@ -7,7 +7,7 @@
 //	@file Created: 31/08/2013 18:19
 
 if (!isServer) exitwith {};
-#include "sideMissionDefines.sqf";
+#include "moneyMissionDefines.sqf";
 
 private ["_convoyVeh", "_veh1", "_veh2", "_createVehicle", "_vehicles", "_leader", "_speedMode", "_waypoint", "_vehicleName", "_numWaypoints", "_drop_item", "_drugpilerandomizer", "_drugpile"];
 
@@ -106,7 +106,7 @@ _setupObjects =
 	_missionPicture = getText (configFile >> "CfgVehicles" >> _veh1 >> "picture");
 	_vehicleName = getText (configFile >> "CfgVehicles" >> _veh1 >> "displayName");
 
-	_missionHintText = format ["Drugrunners have been spotted driving a <t color='%2'>%1</t>. Stop them quickly and retrieve their drugs!", _vehicleName, sideMissionColor];
+	_missionHintText = format ["Drug runners have been spotted driving a <t color='%2'>%1</t>. Stop them quickly and retrieve their drugs and money!", _vehicleName, moneyMissionColor];
 
 	_numWaypoints = count waypoints _aiGroup;
 };
@@ -156,7 +156,23 @@ _successExec =
 	  [_item, _lastPos] call _drop_item;
 	};
 	
-	_successHintMessage = "You have stopped the drugrunners! The drugs are yours to take!";
+	_cashamountrandomizer = [2000,3000,5000,6500];
+	_cashpilerandomizer = [3,5];
+		
+	_cash = "cmoney";
+	_cashamount = _cashamountrandomizer call BIS_fnc_SelectRandom;
+	_cashpile = _cashpilerandomizer call BIS_fnc_SelectRandom;
+	
+	for "_i" from 1 to _cashpile do
+	{
+		_cash1 = createVehicle ["Land_Money_F",[(_lastPos select 0), (_lastPos select 1) - 5,0],[], 0, "NONE"];
+		_cash1 setPos ([_lastPos, [[2 + random 3,0,0], random 360] call BIS_fnc_rotateVector2D] call BIS_fnc_vectorAdd);
+		_cash1 setDir random 360;
+		_cash1 setVariable [_cash, _cashamount, true];
+		_cash1 setVariable ["owner", "world", true];
+	};
+
+	_successHintMessage = "You have stopped the drug runners! The drugs and money are yours to take!";
 };
 
-_this call sideMissionProcessor;
+_this call moneyMissionProcessor;
