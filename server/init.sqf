@@ -401,4 +401,5 @@ if (["A3W_serverMissions"] call isConfigOn) then
 // Start clean-up loop
 [] execVM "server\WastelandServClean.sqf";
 
-
+// Extra clean-up test
+[] execVM "addons\module_cleanup\init.sqf";
