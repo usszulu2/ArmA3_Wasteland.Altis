@@ -39,7 +39,7 @@ _setupObjects =
 	_aiGroup = createGroup CIVILIAN;
 	[_aiGroup,_missionPos,8,12] spawn createCustomGroup3;
 	
-	_missionHintText = format ["Armed bandits have set up a <t color='%1'>roadblock</t> and are stopping all vehicles! Stop them and retrieve any drugs or money!", moneyMissionColor]
+	_missionHintText = format ["Armed bandits have set up a <t color='%1'>Roadblock</t> and are stopping all vehicles! Stop them and retrieve any drugs or money!", moneyMissionColor]
 };
 
 _waitUntilMarkerPos = nil;
