@@ -306,7 +306,7 @@ v_restoreVehicle = {
           _obj removeWeaponTurret ["missiles_SCALPEL", [0]];      
           _obj addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
           _obj addMagazineTurret ["Laserbatteries",[0]];     
-          _obj addMagazineTurret ["2Rnd_LG_scalpel",[0]];
+          //_obj addMagazineTurret ["2Rnd_LG_scalpel",[0]];
           _obj addWeaponTurret ["CMFlareLauncher", [-1]];
           _obj addWeaponTurret ["Laserdesignator_mounted", [0]];
           _obj addWeaponTurret ["missiles_SCALPEL", [0]];   	
@@ -434,9 +434,9 @@ v_restoreVehicle = {
           _obj setVehicleAmmoDef 0;		
           _obj removeWeaponTurret ["FakeWeapon",[0]]; 
           _obj removeWeaponTurret ["mortar_82mm",[0]];
-          _obj addMagazineTurret ["8Rnd_82mm_Mo_shells",[0]];
+          //_obj addMagazineTurret ["8Rnd_82mm_Mo_shells",[0]];
           _obj addMagazineTurret ["8Rnd_82mm_Mo_Flare_white",[0]];
-          _obj addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
+          //_obj addMagazineTurret ["8Rnd_82mm_Mo_LG",[0]];
           _obj addWeaponTurret ["FakeWeapon",[0]]; 
           _obj addWeaponTurret ["mortar_82mm",[0]];
       };	
