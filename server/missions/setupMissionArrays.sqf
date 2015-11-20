@@ -39,7 +39,7 @@ MoneyMissions =
 	["mission_MoneyShipment", 1],
 	["mission_SunkenTreasure", 1],
 	["mission_drugsRunners", 0.1],
-	["mission_Roadblock", 0.5]
+	["mission_Roadblock", 0.4]
 ];
 
 MainMissions = [MainMissions, [["A3W_heliPatrolMissions", ["mission_Coastal_Convoy", "mission_HostileHeliFormation"]], ["A3W_underWaterMissions", ["mission_ArmedDiversquad"]]]] call removeDisabledMissions;
