@@ -169,7 +169,7 @@ class RespawnSelectionDialog
 			y = RspnRandomButton_Y;
 		};
 
-		class RspnPreloadChk: w_RscCheckBox
+		/*class RspnPreloadChk: w_RscCheckBox
 		{
 			idc = respawn_Preload_Checkbox;
 
@@ -201,7 +201,7 @@ class RespawnSelectionDialog
 			y = RspnPreloadChkText_Y;
 			w = RspnPreloadChkText_W;
 			h = RspnPreloadChkText_H;
-		};
+		};*/
 
 
 		#define RspnLocType_X RspnLine_X
