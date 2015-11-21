@@ -90,6 +90,11 @@ v_restoreVehicle = {
   diag_log format["%1(%2) is being restored.", _vehicle_key, _class];
 
 
+  //removes UAVs and UGVs older then 12 hours
+  if ({_class isKindOf _x} count ["UAV_01_base_F", "UAV_02_base_F", "UGV_01_base_F"] > 0 && {_hours_alive > 12}) exitWith {
+    diag_log format["vehicle %1(%2) has been alive for %3 (max=%4), skipping it", _vehicle_key, _class, _hours_alive, 12];
+  };
+
   if (not(_ignore_expiration) && {isSCALAR(_hours_alive) && {A3W_vehicleLifetime > 0 && {_hours_alive > A3W_vehicleLifetime}}}) exitWith {
     diag_log format["vehicle %1(%2) has been alive for %3 (max=%4), skipping it", _vehicle_key, _class, _hours_alive, A3W_vehicleLifetime];
   };
