@@ -20,13 +20,13 @@ _checks = {
     switch (true) do {
         case (!alive player): {}; // player is dead, no need for a notification
         case (vehicle player != player): {_text = "Save Failed! You can't do that in a vehicle."};
-		case (((player distance _vehicle) - ((sizeOf typeOf _vehicle / 3) max 4)) > 2): {_text = "Save Failed! You are too far away from the vehicle."};
-		case (!isNull (_vehicle getVariable ["R3F_LOG_est_deplace_par", objNull])): { _text = "Save Failed! Somebody moved the vehicle."};
-		case (!isNull (_vehicle getVariable ["R3F_LOG_est_transporte_par", objNull])): { _text = "Save Failed! Somebody loaded or towed the vehicle."};
-        case (!alive _vehicle): {_error = "The vehicle is too damaged to save."};
-        case (doCancelAction): {_text = "Save Cancelled!"; doCancelAction = false;};
+        case (((player distance _vehicle) - ((sizeOf typeOf _vehicle / 3) max 4)) > 2): {_text = "Save Failed! You are too far away from the weapon."};
+        case (!isNull (_vehicle getVariable ["R3F_LOG_est_deplace_par", objNull])): { _text = "Save Failed! Somebody moved the weapon."};
+        case (!isNull (_vehicle getVariable ["R3F_LOG_est_transporte_par", objNull])): { _text = "Save Failed! Somebody loaded the weapon."};
+        case (!alive _vehicle): {_text = "The weapon is too damaged to save."};
+        case (doCancelAction): {_text = "Saving Cancelled!"; doCancelAction = false;};
         default {
-            _text = format["Vehicle Save %1%2 Complete", round(100 * _progress), "%"];
+            _text = format["Weapon Save %1%2 Complete", round(100 * _progress), "%"];
             _failed = false;
         };
     };
@@ -36,7 +36,7 @@ _checks = {
 _success = [DURATION, ANIMATION, _checks, [_vehicle]] call a3w_actions_start;
 
 if (isNil "_vehicle" || {typeName _vehicle != typeName objNull || {isNull _vehicle}}) exitWith {
-  diag_log "No vehicle near to save.";
+  diag_log "No weapon near to save.";
   false
 };
 
@@ -48,6 +48,6 @@ if (_success) then {
 	_vehicle setVariable ["ownerN", name player, true];
 	_vehicle setVariable ["baseSaving_spawningTime", nil, true];
 	_vehicle setVariable ["baseSaving_hoursAlive", nil, true];
-	titleText ["Vehicle Save Complete!","PLAIN DOWN"]; titleFadeOut 5;
+	titleText ["Weapon Save Complete!","PLAIN DOWN"]; titleFadeOut 5;
 };
 _success;
