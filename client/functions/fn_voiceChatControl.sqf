@@ -4,31 +4,56 @@
 //	@file Name: fn_voiceChatControl.sqf
 //	@file Author: AgentRev
 
-#define SWITCH_DIRECT if (currentChannel == 0 && !((getPlayerUID player) call isAdmin)) then { setCurrentChannel 5 }
-#define SWITCH_SIDE_DIRECT if (currentChannel == 1 && !(playerSide in [BLUFOR,OPFOR]) && !((getPlayerUID player) call isAdmin)) then { setCurrentChannel 5 }
-#define SWITCH_ALLSIDE_DIRECT if (currentChannel == 1 && !((getPlayerUID player) call isAdmin)) then { setCurrentChannel 5 }
+#define SWITCH_DIRECT if (currentChannel == 0) then { setCurrentChannel 5 }
+#define SWITCH_ADMIN_DIRECT if (currentChannel == 0 && !((getPlayerUID player) call isAdmin)) then { setCurrentChannel 5 }
+#define SWITCH_SIDE_DIRECT if (currentChannel == 1 && !(playerSide in [BLUFOR,OPFOR])) then { setCurrentChannel 5 }
+#define SWITCH_ALLSIDE_DIRECT if (currentChannel == 1) then { setCurrentChannel 5 }
 
 private "_waitSpeak";
 _waitSpeak = _this select 0;
 
-if (["A3W_disableGlobalVoice"] call isConfigOn) then
+switch (["A3W_disableGlobalVoice", 1] call getPublicVar) do
 {
-	if (_waitSpeak) then
+	case 1:
 	{
-		["A3W_voiceChatControl", "onEachFrame",
+		if (_waitSpeak) then
+		{
+			["A3W_voiceChatControl", "onEachFrame",
+			{
+				if (!isNull findDisplay 55) then
+				{
+					SWITCH_DIRECT;
+					["A3W_voiceChatControl", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+				};
+			}] call BIS_fnc_addStackedEventHandler;
+		}
+		else
 		{
 			if (!isNull findDisplay 55) then
 			{
 				SWITCH_DIRECT;
-				["A3W_voiceChatControl", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 			};
-		}] call BIS_fnc_addStackedEventHandler;
-	}
-	else
+		};
+	};
+	case 2:
 	{
-		if (!isNull findDisplay 55) then
+		if (_waitSpeak) then
 		{
-			SWITCH_DIRECT;
+			["A3W_voiceChatControl", "onEachFrame",
+			{
+				if (!isNull findDisplay 55) then
+				{
+					SWITCH_ADMIN_DIRECT;
+					["A3W_voiceChatControl", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+				};
+			}] call BIS_fnc_addStackedEventHandler;
+		}
+		else
+		{
+			if (!isNull findDisplay 55) then
+			{
+				SWITCH_ADMIN_DIRECT;
+			};
 		};
 	};
 };
