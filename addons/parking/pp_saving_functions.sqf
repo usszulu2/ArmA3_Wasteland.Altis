@@ -35,7 +35,7 @@ if (not(isClient)) then {
     def(_size);
     _size = sizeof _class;
 
-    ((_position distance _player) < 30 && {
+    ((_position distance _player) < 50 && {
      (count(nearestObjects [_position, _classes , _size]) == 0)})
   };
 
@@ -68,6 +68,7 @@ if (not(isClient)) then {
     deleteVehicle _vehicle;
 
     _player setVariable ["parked_vehicles", _parked_vehicles, true];
+    [_player] call fn_savePlayerData;
     [_player, format["%1, your %2 has been parked.", (name _player), _display_name]] call pp_notify;
   };
 
@@ -102,7 +103,7 @@ if (not(isClient)) then {
     def(_create_array);
     if (not([_player,_class,_position] call pp_is_safe_position)) then {
       //we don't have an exact safe position, let the game figure one out
-      _create_array = [_class, getPos _player, [], 30, "NONE"];
+      _create_array = [_class, getPos _player, [], 50, "NONE"];
     };
 
     def(_vehicle);
@@ -119,6 +120,7 @@ if (not(isClient)) then {
     def(_display_name);
     _display_name = [typeOf _vehicle] call generic_display_name;
     [_player, format["%1, your %2 has been retrieved (marked on map)", (name _player), _display_name]] call pp_notify;
+    [_player] call fn_savePlayerData;
     [_player, _vehicle] call pp_mark_vehicle;
   };
 
