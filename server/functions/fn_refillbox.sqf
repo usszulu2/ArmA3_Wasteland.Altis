@@ -86,10 +86,11 @@ switch (_boxType) do
 		_boxItems =
 		[
 			// Item type, Item class(es), # of items, # of magazines per weapon
-			["itm", ["V_RebreatherB", "V_PlateCarrierIAGL_dgtl", "V_TacVest_camo", "V_PlateCarrierGL_rgr"], RANDOM_BETWEEN(1,8)],
+			["itm", ["V_RebreatherIA", "V_RebreatherIR", "V_RebreatherB"], RANDOM_BETWEEN(1,4)],
 			["itm", ["B_Carryall_mcamo", "B_Kitbag_mcamo"], RANDOM_BETWEEN(1,5)],
-			["itm", ["U_B_HeliPilotCoveralls","U_B_Wetsuit","U_B_CombatUniform_mcam_vest"], RANDOM_BETWEEN(1,4)],
-			["itm", ["H_HelmetCrew_B","H_CrewHelmetHeli_B","H_HelmetB_plain_blk","H_HelmetSpecB"], RANDOM_BETWEEN(1,5)]
+			["itm", ["H_HelmetSpecB_paint2","H_HelmetO_oucamo","H_HelmetLeaderO_oucamo","H_HelmetSpecO_blk"], RANDOM_BETWEEN(1,5)],
+			["itm", "Medikit", RANDOM_BETWEEN(1,3)],
+			["itm", "Toolkit", RANDOM_BETWEEN(0,1)]
 		];
 	};
 	case "mission_DLCRifles":
