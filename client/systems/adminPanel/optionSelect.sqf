@@ -72,6 +72,10 @@ if (_uid call isAdmin) then
 				{
 					execVM "client\systems\adminPanel\toggleGodMode2.sqf";
 				};
+				case 8: //TOPArmaInfo News Select
+				{
+					[] call loadTOParmaInfo;
+				};
 			};
 		};
 		case (!isNull _displayDebug): //Debug panel
