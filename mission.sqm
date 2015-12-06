@@ -1842,7 +1842,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={4565.4165,299.69217,21384.393};
+					position[]={4564.2896,299.49716,21378.879};
 					azimut=350;
 					id=149;
 					side="LOGIC";
@@ -1946,7 +1946,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={26712.592,20.398693,24601.9};
+					position[]={26714.498,20.504765,24600.342};
 					azimut=75;
 					id=154;
 					side="LOGIC";
@@ -2051,7 +2051,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5862.0181,225.68094,20106.371};
+					position[]={5857.9956,226.15068,20099.123};
 					azimut=282;
 					id=159;
 					side="LOGIC";
