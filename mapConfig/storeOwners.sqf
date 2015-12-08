@@ -27,7 +27,7 @@ storeOwnerConfig = compileFinal str
 	["VehStore2", 6, 45, ["Boats"]],
 	["VehStore3", -1, 329, ["Boats"]],
 	["VehStore4", -1, 225, ["Boats"]],
-	["VehStore5", 1, 69, ["Planes"]],
+	["VehStore5", -1, 69, ["Planes"]],
 	["VehStore6", -1, 282, ["Boats", "Planes"]]  //Dump
 ];
 
