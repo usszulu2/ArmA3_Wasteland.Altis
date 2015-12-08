@@ -26,14 +26,11 @@ _generalInfoString = "Website: <t color='#0091CD'><a href='http://www.a3armory.c
 _generalInfoText ctrlSetStructuredText parseText _generalInfoString;
 
 
-//_rulesOnline = "http://atlas.gamersinc.net:9090/rules.php";
-_rulesOnline = "http://www.a3armory.com/";
+_rulesOnline = "http://www.a3armory.com";
 _rulesOffline = "addons\TOParmaInfo\rules.html";
-//_newsOnline = "http://atlas.gamersinc.net:9090/news.php";
-_newsOnline = "http://www.a3armory.com/";
+_newsOnline = "http://www.a3armory.com";
 _newsOffline = "addons\TOParmaInfo\news.html";
-//_statsOnline = "http://atlas.gamersinc.net:9090/stats.php";
-_statsOnline = "http://www.a3armory.com/";
+_statsOnline = "http://www.a3armory.com";
 _statsOffline = "addons\TOParmaInfo\stats.html";
 
 
