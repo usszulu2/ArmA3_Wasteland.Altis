@@ -53,7 +53,7 @@
 						if(D41_WMod == 9)	then {D41_Nebel = 0.1;	D41_Wellen = 1;		D41_Vorschau = 0.5; D41_Wind = [2, 1, true];	D41_Regen = 0.1; D41_Blitze = 0;};
 					};
 
-				if(D41_ChanceN >=8 && D41_ChanceN <= 23 && D41_RegenCounter == 1) then {D41_ChanceN = 12};
+				if(D41_ChanceN >=8 && D41_ChanceN <= 23 && D41_RegenCounter == 1) then {D41_ChanceN = 24};
 
 				if(D41_ChanceN >=24 && D41_ChanceN <= 74) then
 				{
