@@ -6,16 +6,16 @@
 //	@file Author: AgentRev
 //	@file Created: 08/10/2013 13:58
 
-private ["_item", "_type", "_text", "_containerClass", "_currentCapacity", "_newCapacity", "_currentArmor", "_newArmor", "_diffCapacity", "_diffArmor"];
+private ["_item", "_type", "_text", "_containerClass", "_currentCapacity", "_newCapacity", "_currentArmor", "_newArmor", "_diffCapacity", "_diffArmor", "_armorLevel"];
 
 _item = _this select 0;
 _type = toLower (_this select 1);
 
 _text = "";
 _currentCapacity = 0;
-_currentArmor = 0;
+//_currentArmor = 0;
 _newCapacity = 0;
-_newArmor = 0;
+//_newArmor = 0;
 
 switch (_type) do
 {
@@ -36,12 +36,13 @@ switch (_type) do
 		{
 			_containerClass = getText (configFile >> "CfgWeapons" >> vest player >> "ItemInfo" >> "containerClass");
 			_currentCapacity = getNumber (configFile >> "CfgVehicles" >> _containerClass >> "maximumLoad");
-			_currentArmor = getNumber (configFile >> "CfgWeapons" >> vest player >> "ItemInfo" >> "armor");
+			//_currentArmor = getNumber (configFile >> "CfgWeapons" >> vest player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Body" >> "armor");
 		};
 
 		_containerClass = getText (configFile >> "CfgWeapons" >> _item >> "ItemInfo" >> "containerClass");
 		_newCapacity = getNumber (configFile >> "CfgVehicles" >> _containerClass >> "maximumLoad");
-		_newArmor = getNumber (configFile >> "CfgWeapons" >> _item >> "ItemInfo" >> "armor");
+		//_newArmor = getNumber (configFile >> "CfgWeapons" >> _item >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Body" >> "armor");
+		_armorLevel = getText (configfile >> "CfgWeapons" >> _item >> "descriptionShort");
 	};
 	case "backpack":
 	{
@@ -54,12 +55,13 @@ switch (_type) do
 	};
 	case "headgear":
 	{
-		if (headgear player != "") then
+		/*if (headgear player != "") then
 		{
-			_currentArmor = getNumber (configFile >> "CfgWeapons" >> headgear player >> "ItemInfo" >> "armor");
+			_currentArmor = getNumber (configFile >> "CfgWeapons" >> headgear player >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor");
 		};
 
-		_newArmor = getNumber (configFile >> "CfgWeapons" >> _item >> "ItemInfo" >> "armor");
+		_newArmor = getNumber (configFile >> "CfgWeapons" >> _item >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor");*/
+		_armorLevel = getText (configfile >> "CfgWeapons" >> _item >> "descriptionShort");
 	};
 };
 
@@ -83,18 +85,22 @@ if (_type in ["uniform","vest","backpack"]) then
 
 if (_type in ["vest","headgear"]) then
 {
-	if (isNil "_currentArmor") then { _currentArmor = 0 };
+	/*if (isNil "_currentArmor") then { _currentArmor = 0 };
 	if (isNil "_newArmor") then { _newArmor = 0 };
 
 	_diffArmor = _newArmor - _currentArmor;
-	_text = _text + "Armor: ";
+	_text = _text + "Armor: ";*/
+	_text = _text + _armorLevel;
 
-	switch (true) do
+	/*switch (true) do
 	{
 		case (_diffArmor > 0): { _text = _text + (str _newArmor) + " (<t color='#00ff00'>+" + (str abs _diffArmor) + "</t>)" };
 		case (_diffArmor < 0): { _text = _text + (str _newArmor) + " (<t color='#ff0000'>-" + (str abs _diffArmor) + "</t>)" };
 		default                { _text = _text + (str _newArmor) + " (<t color='#a0a0a0'>+0</t>)" };
 	};
+		
+	_text = _text + "<br/>";
+		
+	*/
 };
-
 _text

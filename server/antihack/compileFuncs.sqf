@@ -12,7 +12,7 @@ _assignCompileKey = [_this, 0, "", [""]] call BIS_fnc_param;
 _assignChecksum = [_this, 1, "", [""]] call BIS_fnc_param;
 _assignPacketKey = [_this, 2, "", [""]] call BIS_fnc_param;
 _rscParams = [_this, 3, [], [[]]] call BIS_fnc_param;
-_payload = [_this, 4, 0, [{}]] call BIS_fnc_param;
+_payload = [_this, 4, 0] call BIS_fnc_param;
 
 _compileKey = call compile (_assignCompileKey + "_compileKey");
 _checksum = call compile (_assignChecksum + "_flagChecksum");

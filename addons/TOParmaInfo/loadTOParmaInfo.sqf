@@ -22,18 +22,15 @@ _serverInfoString = format ["<t color='#A0FFFF'>A3Armory A3Wasteland Altis</t>"]
 _serverInfoText ctrlSetStructuredText parseText _serverInfoString;
 
 _generalInfoText = _display displayCtrl TOParmaInfo_General_Info_BG;
-_generalInfoString = "Website: <t color='#0091CD'><a href='http://www.a3armory.com/'>A3Armory</a></t> Forums: <t color='#0091CD'><a href='http://www.a3armory.com/forum/index.php'>A3Armory Forum</a></t> TeamSpeak: ts.a3armory.com";
+_generalInfoString = "Website: <t color='#0091CD'><a href='http://www.a3armory.com/'>A3Armory</a></t> Forums: <t color='#0091CD'><a href='http://a3armory.com/forum/'>A3Armory Forum</a></t> TeamSpeak: ts.a3armory.com";
 _generalInfoText ctrlSetStructuredText parseText _generalInfoString;
 
 
-//_rulesOnline = "http://atlas.gamersinc.net:9090/rules.php";
-_rulesOnline = "http://www.a3armory.com/";
+_rulesOnline = "http://www.a3armory.com";
 _rulesOffline = "addons\TOParmaInfo\rules.html";
-//_newsOnline = "http://atlas.gamersinc.net:9090/news.php";
-_newsOnline = "http://www.a3armory.com/";
+_newsOnline = "http://www.a3armory.com";
 _newsOffline = "addons\TOParmaInfo\news.html";
-//_statsOnline = "http://atlas.gamersinc.net:9090/stats.php";
-_statsOnline = "http://www.a3armory.com/";
+_statsOnline = "http://www.a3armory.com";
 _statsOffline = "addons\TOParmaInfo\stats.html";
 
 

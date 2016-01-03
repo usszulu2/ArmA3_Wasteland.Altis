@@ -20,7 +20,7 @@ A3W_antiHackMinRecoil = 1.0;       // Mininum recoil coefficient enforced by the
 A3W_townSpawnCooldown = 5*60;      // Number of seconds to wait between each use of a spawn on friends in towns (0 = disabled)
 A3W_spawnBeaconCooldown = 15*60;   // Number of seconds to wait between each use of an individual spawn beacon (0 = disabled)
 A3W_spawnBeaconSpawnHeight = 1500; // Altitude in meters at which players will spawn when using spawn beacons (0 = ground/sea)
-A3W_maxSpawnBeacons = 5;		   // Maxmimum number of spawn beacons (0 = disabled)
+A3W_maxSpawnBeacons = 2;		   // Maxmimum number of spawn beacons (0 = disabled)
 A3W_uavControl = "group";          // Restrict connection to UAVs based on ownership ("owner", "group", "side")
 
 // Store settings
