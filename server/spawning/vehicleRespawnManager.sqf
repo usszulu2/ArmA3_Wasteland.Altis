@@ -209,7 +209,12 @@ while {true} do
 					};
 
 					sleep 0.1;
+					
+					if (fuel _veh < .5) then {
+					
 					deleteVehicle _veh;
+					
+					};
 
 					if (_vehClass isKindOf "Ship_F") then
 					{
